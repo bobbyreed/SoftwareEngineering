@@ -261,7 +261,7 @@ class AchievementChecker {
 class SimpleGistAuth {
     constructor() {
         // Master gist ID - this is PUBLIC so it's safe to have here
-        this.MASTER_GIST_ID = '0d1ed1373d1b88183b2e94542bbbad1f';
+        this.MASTER_GIST_ID = '2c65f8c00a2e4d5083932c13b3a6386b';
         
         // GitHub API base (for PUBLIC reads only)
         this.API_BASE = 'https://api.github.com/gists';

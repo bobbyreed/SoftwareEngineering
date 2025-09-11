@@ -46,7 +46,7 @@ exports.handler = async (event, context) => {
     }
     
     const API_BASE = 'https://api.github.com/gists';
-    const MASTER_GIST_ID = '0d1ed1373d1b88183b2e94542bbbad1f';
+    const MASTER_GIST_ID = '2c65f8c00a2e4d5083932c13b3a6386b';
     
     try {
         // Step 1: Fetch master config with authentication
