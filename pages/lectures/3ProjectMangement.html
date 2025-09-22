@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Management - CSCI 5403</title>
+    <title>Agile Product Management - CSCI 5403</title>
     
     <!-- OCU Branded Presentation Styles with Theme Support -->
     <link rel="stylesheet" href="../../styles/presentation.css">
@@ -11,6 +11,78 @@
     
     <!-- Lecture-Specific Styles -->
     <style>
+        .persona-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .persona-card h3 {
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        
+        .persona-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .persona-detail {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .scenario-box {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .user-story {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        
+        .user-story strong {
+            color: #856404;
+        }
+        
+        .feature-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .flow-item {
+            background: #007bff;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        
+        .flow-arrow {
+            font-size: 2em;
+            color: #666;
+            margin: 0 10px;
+        }
+        
         .kanban-board {
             display: flex;
             gap: 20px;
@@ -47,27 +119,6 @@
             padding: 15px;
             margin: 20px 0;
         }
-        
-        .architecture-diagram {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 30px 0;
-        }
-        
-        .service-node {
-            background: #007bff;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            min-width: 120px;
-        }
-        
-        .arrow {
-            font-size: 2em;
-            color: #666;
-        }
     </style>
 </head>
 <body>
@@ -76,28 +127,29 @@
     <div class="presentation-container">
         <!-- Timer display for activities -->
         <div class="timer-display" id="timer-display">
-            <span id="timer-text">Lecture 3: Project Management
+            <span id="timer-text">Lecture 3: Agile Product Management
                 <button class="home"><a href="../../index.html">Home</a></button>
             </span>
         </div>
 
         <!-- Slide 1: Title -->
         <div class="slide active">
-            <h1>Project Management</h1>
-            <h2>Building Software in Teams <span class="emoji">🏗️</span></h2>
+            <h1>Agile Product Management</h1>
+            <h2>Features, Scenarios & Stories <span class="emoji">📋</span></h2>
             <p style="font-size: 1.5em; margin-top: 40px;">CSCI 5403 - Software Engineering</p>
             <p style="font-size: 1.3em;">Week 2, Class 3</p>
-            <p style="margin-top: auto; font-style: italic;">From chaos to collaboration!</p>
+            <p style="margin-top: auto; font-style: italic;">From user needs to product features!</p>
         </div>
 
         <!-- Slide 2: Learning Objectives -->
         <div class="slide">
             <h1>Today's Learning Objectives</h1>
             <ul style="font-size: 1.4em; line-height: 2;">
-                <li>🎯 Understand modern project management methodologies</li>
-                <li>🎯 Learn about cloud-based software development</li>
-                <li>🎯 Explore microservices architecture patterns</li>
-                <li>🎯 Practice with real project management tools</li>
+                <li>🎯 Create and use personas to understand users</li>
+                <li>🎯 Write scenarios and user stories</li>
+                <li>🎯 Identify features from user narratives</li>
+                <li>🎯 Use agile project management tools</li>
+                <li>🎯 Understand cloud-based software architecture</li>
             </ul>
         </div>
 
@@ -117,292 +169,363 @@
                 </ol>
             </div>
             <div class="tip-box">
-                <strong>Pro Tip:</strong> Take notes during the video - it will help with the quiz!
+                <strong>Pro Tip:</strong> Take notes on how features are identified from user needs!
             </div>
         </div>
 
-        <!-- Slide 4: What is Project Management? -->
+        <!-- Slide 4: From Personas to Features -->
         <div class="slide">
-            <h1>What is Project Management?</h1>
-            <p style="font-size: 1.3em;">The art and science of organizing work to achieve specific goals within constraints.</p>
+            <h1>The Agile Development Flow</h1>
+            <div class="feature-flow">
+                <div class="flow-item">Personas</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">Scenarios</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">Stories</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">Features</div>
+            </div>
+            
+            <div class="demo-box" style="margin-top: 30px;">
+                <ul style="font-size: 1.1em; line-height: 1.8;">
+                    <li><strong>Personas:</strong> Imagined users representing user types</li>
+                    <li><strong>Scenarios:</strong> Narratives of users interacting with the product</li>
+                    <li><strong>Stories:</strong> Structured descriptions of user needs</li>
+                    <li><strong>Features:</strong> Fragments of product functionality</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: What Are Personas? -->
+        <div class="slide">
+            <h1>Personas: Understanding Your Users</h1>
+            <p style="font-size: 1.2em;">Personas are 'imagined users' - character portraits of user types who might use your product.</p>
+            
+            <div class="demo-box" style="margin-top: 20px;">
+                <h3>Why Use Personas?</h3>
+                <ul style="font-size: 1.1em; line-height: 1.8;">
+                    <li>Help developers <strong>empathize</strong> with users</li>
+                    <li>Allow team to "step into the user's shoes"</li>
+                    <li>Prevent adding unnecessary features</li>
+                    <li>Avoid assumptions based on developer knowledge</li>
+                    <li>Create shared understanding within the team</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Key Point:</strong> Personas should be based on real user research, not just assumptions!
+            </div>
+        </div>
+
+        <!-- Slide 6: Example Persona -->
+        <div class="slide">
+            <h1>Example Persona</h1>
+            <div class="persona-card">
+                <h3>Sarah Chen - Busy Professional</h3>
+                <p style="font-style: italic;">Age: 32 | Location: Oklahoma City | Role: Marketing Manager</p>
+                <div class="persona-details">
+                    <div class="persona-detail">
+                        <strong>Background:</strong><br>
+                        MBA from OCU, 8 years experience
+                    </div>
+                    <div class="persona-detail">
+                        <strong>Tech Skills:</strong><br>
+                        Intermediate, uses many SaaS tools
+                    </div>
+                    <div class="persona-detail">
+                        <strong>Goals:</strong><br>
+                        Streamline team collaboration
+                    </div>
+                    <div class="persona-detail">
+                        <strong>Pain Points:</strong><br>
+                        Too many disconnected tools
+                    </div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Quote:</strong> "I need one place to manage all our projects without switching between five different apps."</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Creating Personas -->
+        <div class="slide">
+            <h1>Creating Effective Personas</h1>
+            
+            <div class="demo-box">
+                <h3>Full Personas (Based on User Research)</h3>
+                <ul>
+                    <li>Study and survey potential users</li>
+                    <li>Understand their jobs, background, aspirations</li>
+                    <li>Abstract essential information about user types</li>
+                    <li>Create detailed character portraits</li>
+                </ul>
+            </div>
+            
+            <div class="demo-box">
+                <h3>Proto-Personas (Limited Information)</h3>
+                <ul>
+                    <li>Created as team exercise</li>
+                    <li>Based on available information</li>
+                    <li>Better than no personas at all</li>
+                    <li>Should be refined with real data later</li>
+                </ul>
+            </div>
+            
+            <p style="text-align: center; margin-top: 20px; font-style: italic;">
+                For a dentist appointment system, you might create: Dentist persona, Receptionist persona, Patient persona
+            </p>
+        </div>
+
+        <!-- Slide 8: Scenarios -->
+        <div class="slide">
+            <h1>Scenarios: Stories of System Use</h1>
+            <p style="font-size: 1.2em;">A scenario is a narrative describing how users interact with your product to achieve their goals.</p>
+            
+            <div class="scenario-box">
+                <h3>Example Scenario: Sarah's Team Meeting</h3>
+                <p>Sarah needs to schedule a team meeting for next week. She opens the app on her phone during her commute and checks team availability. She sees that Tuesday afternoon works for everyone. She creates the meeting, adds the agenda items from last week's action points, and assigns pre-meeting tasks to team members. Each person receives a notification with their specific preparation requirements. The system automatically adds the meeting to everyone's calendar and sends a reminder the day before.</p>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Remember:</strong> Scenarios are NOT specifications - they're communication tools!
+            </div>
+        </div>
+
+        <!-- Slide 9: Writing Good Scenarios -->
+        <div class="slide">
+            <h1>Writing Effective Scenarios</h1>
             
             <div class="comparison-table">
                 <div class="comparison-card good">
-                    <h3>✅ Good PM Practices</h3>
+                    <h3>✅ Good Practices</h3>
                     <ul>
-                        <li>Clear communication</li>
-                        <li>Regular check-ins</li>
-                        <li>Defined roles</li>
-                        <li>Measurable goals</li>
+                        <li>Write from user's perspective</li>
+                        <li>Based on personas</li>
+                        <li>Focus on user goals</li>
+                        <li>Keep general, avoid implementation details</li>
+                        <li>2-3 paragraphs to 1 page</li>
                     </ul>
                 </div>
                 <div class="comparison-card bad">
-                    <h3>❌ Common Pitfalls</h3>
+                    <h3>❌ Common Mistakes</h3>
                     <ul>
-                        <li>Scope creep</li>
-                        <li>Poor documentation</li>
-                        <li>Unclear requirements</li>
-                        <li>No version control</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Agile Methodologies -->
-        <div class="slide">
-            <h1>Agile Methodologies <span class="emoji">🔄</span></h1>
-            <h2>Two Popular Approaches</h2>
-            
-            <div class="demo-box" style="margin: 20px 0;">
-                <h3>Scrum</h3>
-                <ul>
-                    <li>Fixed-length sprints (1-4 weeks)</li>
-                    <li>Daily standups</li>
-                    <li>Sprint planning & retrospectives</li>
-                    <li>Product Owner, Scrum Master, Team</li>
-                </ul>
-            </div>
-            
-            <div class="demo-box" style="margin: 20px 0;">
-                <h3>Kanban</h3>
-                <ul>
-                    <li>Continuous flow</li>
-                    <li>Visual board with columns</li>
-                    <li>Work-in-progress limits</li>
-                    <li>Pull-based system</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 6: Kanban Board Example -->
-        <div class="slide">
-            <h1>Kanban Board Visualization</h1>
-            <div class="kanban-board">
-                <div class="kanban-column">
-                    <h3>To Do</h3>
-                    <div class="kanban-card">Setup database</div>
-                    <div class="kanban-card">Design UI mockups</div>
-                    <div class="kanban-card">Write unit tests</div>
-                </div>
-                <div class="kanban-column">
-                    <h3>In Progress</h3>
-                    <div class="kanban-card">Implement login</div>
-                    <div class="kanban-card">Create API endpoints</div>
-                </div>
-                <div class="kanban-column">
-                    <h3>Review</h3>
-                    <div class="kanban-card">Homepage layout</div>
-                </div>
-                <div class="kanban-column">
-                    <h3>Done</h3>
-                    <div class="kanban-card">Project setup</div>
-                    <div class="kanban-card">Git repository</div>
-                </div>
-            </div>
-            <p style="text-align: center; font-style: italic;">Visual management helps teams see workflow bottlenecks</p>
-        </div>
-
-        <!-- Slide 7: Version Control with Git -->
-        <div class="slide">
-            <h1>Version Control with Git & GitHub</h1>
-            <div class="code-example">
-                <span class="comment"># Initialize a new repository</span><br>
-                <span class="keyword">git</span> init<br><br>
-                
-                <span class="comment"># Add files to staging</span><br>
-                <span class="keyword">git</span> add .<br><br>
-                
-                <span class="comment"># Commit with message</span><br>
-                <span class="keyword">git</span> commit -m <span class="string">"Initial project setup"</span><br><br>
-                
-                <span class="comment"># Create and switch to feature branch</span><br>
-                <span class="keyword">git</span> checkout -b feature/login-system<br><br>
-                
-                <span class="comment"># Push to GitHub</span><br>
-                <span class="keyword">git</span> push origin feature/login-system
-            </div>
-            <div class="tip-box">
-                <strong>Remember:</strong> Commit early, commit often, and write meaningful commit messages!
-            </div>
-        </div>
-
-        <!-- Slide 8: Cloud-Based Software -->
-        <div class="slide">
-            <h1>Cloud-Based Software <span class="emoji">☁️</span></h1>
-            <h2>The Modern Development Paradigm</h2>
-            
-            <p style="font-size: 1.2em;">Software deployed and accessed over the internet, running on remote servers.</p>
-            
-            <div class="demo-box" style="margin-top: 30px;">
-                <h3>Key Benefits:</h3>
-                <ul style="font-size: 1.1em; line-height: 1.8;">
-                    <li><strong>Scalability:</strong> Easily scale resources up or down</li>
-                    <li><strong>Accessibility:</strong> Access from anywhere with internet</li>
-                    <li><strong>Cost-Effective:</strong> Pay only for what you use</li>
-                    <li><strong>Reliability:</strong> Built-in redundancy and backups</li>
-                    <li><strong>Updates:</strong> Seamless updates without user intervention</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 9: Cloud Service Models -->
-        <div class="slide">
-            <h1>Cloud Service Models</h1>
-            
-            <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                <div style="flex: 1; margin: 0 10px;">
-                    <div class="microservice-box">
-                        <h3>IaaS</h3>
-                        <p><strong>Infrastructure as a Service</strong></p>
-                        <p>Virtual machines, storage, networks</p>
-                        <p style="font-size: 0.9em; color: #666;">Examples: AWS EC2, Google Compute</p>
-                    </div>
-                </div>
-                
-                <div style="flex: 1; margin: 0 10px;">
-                    <div class="microservice-box">
-                        <h3>PaaS</h3>
-                        <p><strong>Platform as a Service</strong></p>
-                        <p>Runtime, middleware, OS</p>
-                        <p style="font-size: 0.9em; color: #666;">Examples: Heroku, Google App Engine</p>
-                    </div>
-                </div>
-                
-                <div style="flex: 1; margin: 0 10px;">
-                    <div class="microservice-box">
-                        <h3>SaaS</h3>
-                        <p><strong>Software as a Service</strong></p>
-                        <p>Complete applications</p>
-                        <p style="font-size: 0.9em; color: #666;">Examples: Gmail, Slack, Trello</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 10: Microservices Architecture -->
-        <div class="slide">
-            <h1>Microservices Architecture <span class="emoji">🔧</span></h1>
-            <p style="font-size: 1.2em;">Breaking down applications into small, independent services</p>
-            
-            <div class="architecture-diagram">
-                <div class="service-node">
-                    <strong>User Service</strong><br>
-                    <small>Authentication</small>
-                </div>
-                <span class="arrow">↔</span>
-                <div class="service-node">
-                    <strong>Order Service</strong><br>
-                    <small>Processing</small>
-                </div>
-                <span class="arrow">↔</span>
-                <div class="service-node">
-                    <strong>Payment Service</strong><br>
-                    <small>Transactions</small>
-                </div>
-            </div>
-            
-            <div class="tip-box">
-                <strong>Key Principle:</strong> Each service is independently deployable and owns its data
-            </div>
-        </div>
-
-        <!-- Slide 11: Monolith vs Microservices -->
-        <div class="slide">
-            <h1>Monolith vs Microservices</h1>
-            
-            <div class="comparison-table">
-                <div class="comparison-card" style="background: #f0f8ff;">
-                    <h3>🏢 Monolithic Architecture</h3>
-                    <ul>
-                        <li>Single codebase</li>
-                        <li>Shared database</li>
-                        <li>Simple deployment</li>
-                        <li>Easier to test locally</li>
-                        <li>Good for small teams</li>
-                    </ul>
-                </div>
-                <div class="comparison-card" style="background: #f0fff0;">
-                    <h3>🔲 Microservices Architecture</h3>
-                    <ul>
-                        <li>Multiple codebases</li>
-                        <li>Service-specific databases</li>
-                        <li>Complex orchestration</li>
-                        <li>Independent scaling</li>
-                        <li>Technology diversity</li>
+                        <li>Too technical</li>
+                        <li>System-centric view</li>
+                        <li>Too detailed</li>
+                        <li>Including database schemas</li>
+                        <li>Focusing on UI specifics</li>
                     </ul>
                 </div>
             </div>
             
             <p style="text-align: center; margin-top: 20px; font-style: italic;">
-                Choose based on your team size, project complexity, and scaling needs
+                Create several scenarios for each persona to ensure coverage of all user roles
             </p>
         </div>
 
-        <!-- Slide 12: Benefits of Microservices -->
+        <!-- Slide 10: User Stories -->
         <div class="slide">
-            <h1>Benefits of Microservices</h1>
+            <h1>User Stories: Structured Needs</h1>
+            <p style="font-size: 1.2em;">User stories are fine-grain narratives that describe specific things users want from the system.</p>
             
             <div class="demo-box">
-                <h3>1. Independent Deployment 🚀</h3>
-                <p>Deploy services independently without affecting the entire system</p>
+                <h3>Standard Format:</h3>
+                <p style="font-size: 1.3em; text-align: center;">
+                    <strong>As a</strong> &lt;role&gt;, <strong>I want</strong> &lt;feature&gt; <strong>so that</strong> &lt;benefit&gt;
+                </p>
             </div>
             
-            <div class="demo-box">
-                <h3>2. Technology Flexibility 🛠️</h3>
-                <p>Use different languages and databases for different services</p>
+            <div class="user-story">
+                <strong>As a</strong> teacher, <strong>I want</strong> to notify all students when new materials are available <strong>so that</strong> everyone stays updated on course content.
             </div>
             
-            <div class="demo-box">
-                <h3>3. Fault Isolation 🛡️</h3>
-                <p>If one service fails, others continue to operate</p>
+            <div class="user-story">
+                <strong>As a</strong> receptionist, <strong>I need</strong> to view all appointments for the day <strong>so that</strong> I can prepare patient files in advance.
             </div>
             
-            <div class="demo-box">
-                <h3>4. Team Independence 👥</h3>
-                <p>Different teams can work on different services simultaneously</p>
+            <div class="user-story">
+                <strong>As an</strong> author, <strong>I want</strong> to organize my book into chapters and sections <strong>so that</strong> readers can navigate easily.
             </div>
         </div>
 
-        <!-- Slide 13: Challenges of Microservices -->
+        <!-- Slide 11: From Stories to Features -->
         <div class="slide">
-            <h1>Challenges of Microservices</h1>
+            <h1>Identifying Features</h1>
+            <h2>From User Actions to System Features</h2>
             
-            <div class="activity-box" style="background: #fff0f0;">
-                <h3>⚠️ Things to Consider</h3>
-                <ul style="font-size: 1.1em; line-height: 1.8;">
-                    <li><strong>Network Complexity:</strong> Services communicate over network</li>
-                    <li><strong>Data Consistency:</strong> Managing transactions across services</li>
-                    <li><strong>Testing Difficulty:</strong> Integration testing becomes complex</li>
-                    <li><strong>Operational Overhead:</strong> More services to monitor and maintain</li>
-                    <li><strong>Service Discovery:</strong> Services need to find each other</li>
+            <div class="demo-box">
+                <h3>Process:</h3>
+                <ol style="font-size: 1.1em; line-height: 1.8;">
+                    <li><strong>Highlight user actions</strong> in scenarios and stories</li>
+                    <li><strong>Identify required functionality</strong> to support actions</li>
+                    <li><strong>Group related functions</strong> into features</li>
+                    <li><strong>Define feature boundaries</strong> and interactions</li>
+                </ol>
+            </div>
+            
+            <div class="scenario-box" style="background: #e8f4f8;">
+                <p><strong>Scenario Action:</strong> "She checks team availability"</p>
+                <p><strong>Required Feature:</strong> Availability Calendar with team view</p>
+                <p><strong>Related Functions:</strong> View schedules, block time, set recurring availability</p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Feature Definition -->
+        <div class="slide">
+            <h1>What Makes a Good Feature?</h1>
+            
+            <div class="demo-box">
+                <h3>A software product feature is:</h3>
+                <p style="font-size: 1.2em; text-align: center; padding: 20px;">
+                    "A fragment of functionality that implements something a user may need or want"
+                </p>
+            </div>
+            
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>✅ Well-Defined Features</h3>
+                    <ul>
+                        <li>User-focused purpose</li>
+                        <li>Clear boundaries</li>
+                        <li>Testable outcomes</li>
+                        <li>Independent value</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ Poor Features</h3>
+                    <ul>
+                        <li>Technical implementation</li>
+                        <li>Overlapping functionality</li>
+                        <li>No clear user benefit</li>
+                        <li>Too broad or too narrow</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Agile Project Management -->
+        <div class="slide">
+            <h1>Managing Agile Development</h1>
+            <h2>Tools and Methodologies</h2>
+            
+            <div class="demo-box" style="margin: 20px 0;">
+                <h3>Scrum Framework</h3>
+                <ul>
+                    <li><strong>Product Backlog:</strong> Prioritized list of user stories</li>
+                    <li><strong>Sprint Planning:</strong> Select stories for sprint</li>
+                    <li><strong>Daily Standups:</strong> Team synchronization</li>
+                    <li><strong>Sprint Review:</strong> Demo completed features</li>
+                    <li><strong>Retrospective:</strong> Team improvement</li>
                 </ul>
             </div>
             
-            <div class="tip-box">
-                <strong>Rule of Thumb:</strong> Start with a monolith, evolve to microservices when needed
+            <div class="demo-box" style="margin: 20px 0;">
+                <h3>Kanban Method</h3>
+                <ul>
+                    <li><strong>Visual Board:</strong> See work status at a glance</li>
+                    <li><strong>WIP Limits:</strong> Prevent overload</li>
+                    <li><strong>Continuous Flow:</strong> No fixed iterations</li>
+                </ul>
             </div>
         </div>
 
-        <!-- Slide 14: Practice Exercise -->
+        <!-- Slide 14: Kanban Board Example -->
+        <div class="slide">
+            <h1>Kanban Board for Story Management</h1>
+            <div class="kanban-board">
+                <div class="kanban-column">
+                    <h3>Backlog</h3>
+                    <div class="kanban-card">As a user, I want password recovery</div>
+                    <div class="kanban-card">As an admin, I need usage reports</div>
+                </div>
+                <div class="kanban-column">
+                    <h3>In Progress</h3>
+                    <div class="kanban-card">As a user, I want to login with Google</div>
+                </div>
+                <div class="kanban-column">
+                    <h3>Testing</h3>
+                    <div class="kanban-card">As a user, I want to save preferences</div>
+                </div>
+                <div class="kanban-column">
+                    <h3>Done</h3>
+                    <div class="kanban-card">As a user, I want to create an account</div>
+                </div>
+            </div>
+            <p style="text-align: center; font-style: italic;">Each card represents a user story moving through the development process</p>
+        </div>
+
+        <!-- Slide 15: Cloud-Based Development -->
+        <div class="slide">
+            <h1>Cloud-Based Software <span class="emoji">☁️</span></h1>
+            <h2>Modern Deployment for Agile Teams</h2>
+            
+            <p style="font-size: 1.2em;">Cloud platforms enable rapid deployment and scaling of features.</p>
+            
+            <div class="demo-box" style="margin-top: 30px;">
+                <h3>Benefits for Agile Development:</h3>
+                <ul style="font-size: 1.1em; line-height: 1.8;">
+                    <li><strong>Continuous Deployment:</strong> Ship features as they're ready</li>
+                    <li><strong>A/B Testing:</strong> Test features with user segments</li>
+                    <li><strong>Feature Flags:</strong> Enable/disable features remotely</li>
+                    <li><strong>Auto-scaling:</strong> Handle varying user loads</li>
+                    <li><strong>Global Reach:</strong> Deploy close to users</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 16: Microservices for Features -->
+        <div class="slide">
+            <h1>Microservices Architecture</h1>
+            <h2>Aligning Services with Features</h2>
+            
+            <p style="font-size: 1.1em;">Each major feature can be implemented as an independent microservice.</p>
+            
+            <div style="display: flex; justify-content: space-around; margin: 30px 0;">
+                <div style="text-align: center;">
+                    <div class="flow-item">User Auth Service</div>
+                    <p>Login, Registration, Password</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="flow-item">Calendar Service</div>
+                    <p>Scheduling, Availability</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="flow-item">Notification Service</div>
+                    <p>Email, SMS, Push</p>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Benefit:</strong> Teams can develop and deploy features independently!
+            </div>
+        </div>
+
+        <!-- Slide 17: Practice Exercise -->
         <div class="slide">
             <h1>Practice Exercise <span class="emoji">💻</span></h1>
             <div class="activity-box">
-                <h3>Project Management Tools Setup</h3>
-                <p>Create the following for a fictional e-commerce project:</p>
+                <h3>Create Your Agile Artifacts</h3>
+                <p>For a fictional project management app:</p>
                 <ol style="font-size: 1.2em; line-height: 2;">
-                    <li><strong>Trello Board:</strong>
+                    <li><strong>Create a Persona:</strong>
                         <ul>
-                            <li>Set up in Kanban or Scrum style</li>
-                            <li>Create columns: Backlog, To Do, In Progress, Review, Done</li>
-                            <li>Add at least 5 task cards</li>
+                            <li>Name, role, background</li>
+                            <li>Goals and pain points</li>
                         </ul>
                     </li>
-                    <li><strong>GitHub Repository:</strong>
+                    <li><strong>Write a Scenario:</strong>
                         <ul>
-                            <li>Initialize with README.md</li>
-                            <li>Create a .gitignore file</li>
-                            <li>Add a LICENSE file</li>
-                            <li>Create develop and feature branches</li>
+                            <li>Based on your persona</li>
+                            <li>2-3 paragraphs</li>
+                        </ul>
+                    </li>
+                    <li><strong>Extract 3 User Stories:</strong>
+                        <ul>
+                            <li>Use the standard format</li>
+                            <li>Focus on different features</li>
+                        </ul>
+                    </li>
+                    <li><strong>Setup Trello Board:</strong>
+                        <ul>
+                            <li>Add your user stories as cards</li>
                         </ul>
                     </li>
                 </ol>
@@ -410,117 +533,118 @@
             <button data-timer="20">Start 20-Minute Timer</button>
         </div>
 
-        <!-- Slide 15: Trello Setup Guide -->
+        <!-- Slide 18: GitHub for Agile Teams -->
         <div class="slide">
-            <h1>Setting Up Trello</h1>
-            <div class="demo-box">
-                <h3>Step-by-Step Guide:</h3>
-                <ol style="font-size: 1.1em; line-height: 2;">
-                    <li>Go to <a href="https://trello.com" target="_blank">trello.com</a> and sign up</li>
-                    <li>Click "Create new board"</li>
-                    <li>Name it: "E-Commerce Project"</li>
-                    <li>Add lists for your workflow stages</li>
-                    <li>Create cards for tasks like:
-                        <ul>
-                            <li>"Setup database schema"</li>
-                            <li>"Design product page"</li>
-                            <li>"Implement shopping cart"</li>
-                            <li>"Add payment processing"</li>
-                            <li>"Write API documentation"</li>
-                        </ul>
-                    </li>
-                    <li>Assign due dates and labels</li>
-                </ol>
-            </div>
-        </div>
-
-        <!-- Slide 16: GitHub Repository Setup -->
-        <div class="slide">
-            <h1>GitHub Repository Best Practices</h1>
+            <h1>GitHub for Agile Development</h1>
             <div class="code-example">
-                <span class="comment"># README.md content</span><br>
-                # E-Commerce Project<br><br>
+                <span class="comment"># Feature Branch Workflow</span><br>
+                <span class="keyword">git</span> checkout -b feature/user-story-15<br><br>
                 
-                ## Description<br>
-                A modern e-commerce platform built with microservices<br><br>
+                <span class="comment"># Make changes for the user story</span><br>
+                <span class="keyword">git</span> add .<br>
+                <span class="keyword">git</span> commit -m <span class="string">"feat: add password recovery (US-15)"</span><br><br>
                 
-                ## Technologies<br>
-                - Frontend: React<br>
-                - Backend: Node.js<br>
-                - Database: MongoDB<br>
-                - Cloud: AWS<br><br>
+                <span class="comment"># Push and create pull request</span><br>
+                <span class="keyword">git</span> push origin feature/user-story-15<br><br>
                 
-                ## Getting Started<br>
-                1. Clone the repository<br>
-                2. Install dependencies: `npm install`<br>
-                3. Run development server: `npm run dev`<br><br>
-                
-                ## Team Members<br>
-                - Your Name - Full Stack Developer
+                <span class="comment"># Link to issue/story</span><br>
+                <span class="comment"># Closes #15</span>
             </div>
+            
             <div class="tip-box">
-                <strong>Pro Tip:</strong> A good README is your project's first impression!
+                <strong>Best Practice:</strong> One branch per user story, linked to project board!
             </div>
         </div>
 
-        <!-- Slide 17: Real-World Example -->
+        <!-- Slide 19: Product Management Cycle -->
         <div class="slide">
-            <h1>Real-World Example: Netflix</h1>
-            <h2>Microservices at Scale</h2>
+            <h1>The Product Management Cycle</h1>
+            
+            <div class="feature-flow">
+                <div class="flow-item">Research</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">Design</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">Develop</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">Test</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">Deploy</div>
+            </div>
+            
+            <div class="demo-box" style="margin-top: 30px;">
+                <h3>Key Responsibilities:</h3>
+                <ul>
+                    <li><strong>Vision:</strong> Define product roadmap</li>
+                    <li><strong>Stories:</strong> Create and prioritize user stories</li>
+                    <li><strong>Backlog:</strong> Manage product backlog</li>
+                    <li><strong>Testing:</strong> Conduct acceptance testing</li>
+                    <li><strong>Interface:</strong> Facilitate between business, development, and users</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 20: Real-World Example -->
+        <div class="slide">
+            <h1>Case Study: Spotify's Agile Model</h1>
             
             <div class="demo-box">
-                <p style="font-size: 1.1em;">Netflix uses <strong>500+ microservices</strong> to handle:</p>
+                <h3>Spotify's Approach:</h3>
                 <ul style="font-size: 1.1em; line-height: 1.8;">
-                    <li>👤 User authentication and profiles</li>
-                    <li>🎬 Video streaming and encoding</li>
-                    <li>📊 Recommendations engine</li>
-                    <li>💳 Billing and subscriptions</li>
-                    <li>📱 Device management</li>
-                    <li>🌍 Content delivery network (CDN)</li>
+                    <li><strong>Squads:</strong> Small, cross-functional teams (like mini-startups)</li>
+                    <li><strong>Tribes:</strong> Collections of squads working on related features</li>
+                    <li><strong>Chapters:</strong> People with similar skills across squads</li>
+                    <li><strong>Guilds:</strong> Communities of interest</li>
                 </ul>
             </div>
             
+            <div class="scenario-box">
+                <h3>Example Squad: "Radio Experience"</h3>
+                <p>Owns all features related to radio functionality. Creates personas for different music listeners, writes scenarios about discovering new music, and develops features like personalized stations and skip limits.</p>
+            </div>
+            
             <div class="tip-box">
-                <strong>Key Takeaway:</strong> Each service can scale independently based on demand
+                <strong>Key Insight:</strong> Each squad owns their features from concept to deployment!
             </div>
         </div>
 
-        <!-- Slide 18: Summary -->
+        <!-- Slide 21: Summary -->
         <div class="slide">
             <h1>Today's Takeaways <span class="emoji">🎓</span></h1>
             <h2>You Can Now:</h2>
             <ul style="font-size: 1.3em; line-height: 2;">
-                <li>✅ Explain agile project management methodologies</li>
-                <li>✅ Set up Kanban and Scrum boards</li>
-                <li>✅ Understand cloud service models (IaaS, PaaS, SaaS)</li>
-                <li>✅ Compare monolithic vs microservices architectures</li>
-                <li>✅ Create project repositories with best practices</li>
+                <li>✅ Create personas to represent user types</li>
+                <li>✅ Write scenarios describing user interactions</li>
+                <li>✅ Craft user stories in standard format</li>
+                <li>✅ Extract features from user narratives</li>
+                <li>✅ Use Kanban boards for story management</li>
+                <li>✅ Apply agile principles to development</li>
             </ul>
             
             <div class="demo-box" style="margin-top: 30px;">
-                <p><strong>Next Class:</strong> Deep dive into Agile Development and Sprint Planning</p>
+                <p><strong>Next Class:</strong> Deep dive into Sprint Planning and Estimation</p>
             </div>
         </div>
 
-        <!-- Slide 19: Resources -->
+        <!-- Slide 22: Resources -->
         <div class="slide">
             <h1>Additional Resources <span class="emoji">📖</span></h1>
             
             <div class="demo-box">
-                <h3>Recommended Reading:</h3>
+                <h3>Essential Reading:</h3>
                 <ul style="font-size: 1.1em; line-height: 1.8;">
-                    <li>📘 "The Phoenix Project" - Gene Kim</li>
-                    <li>📗 "Building Microservices" - Sam Newman</li>
-                    <li>📙 "Clean Architecture" - Robert C. Martin</li>
+                    <li>📘 "User Story Mapping" - Jeff Patton</li>
+                    <li>📗 "About Face: The Essentials of Interaction Design" - Alan Cooper</li>
+                    <li>📙 "Lean UX" - Jeff Gothelf</li>
                 </ul>
             </div>
             
             <div class="demo-box">
                 <h3>Online Resources:</h3>
                 <ul style="font-size: 1.1em; line-height: 1.8;">
-                    <li>🔗 <a href="https://www.atlassian.com/agile" target="_blank">Atlassian Agile Guide</a></li>
-                    <li>🔗 <a href="https://martinfowler.com/microservices/" target="_blank">Martin Fowler on Microservices</a></li>
-                    <li>🔗 <a href="https://12factor.net/" target="_blank">The Twelve-Factor App</a></li>
+                    <li>🔗 <a href="https://www.atlassian.com/agile/project-management/user-stories" target="_blank">Atlassian: User Stories</a></li>
+                    <li>🔗 <a href="https://www.romanpichler.com/blog/" target="_blank">Roman Pichler's Product Management Blog</a></li>
+                    <li>🔗 <a href="https://www.mindtheproduct.com/" target="_blank">Mind the Product</a></li>
                 </ul>
             </div>
         </div>
@@ -529,7 +653,7 @@
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">19</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">22</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
@@ -542,7 +666,7 @@
     <script>
         // Add keyboard shortcuts reminder
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Lecture 3: Project Management loaded');
+            console.log('Lecture 3: Agile Product Management loaded');
             console.log('Use arrow keys or buttons to navigate slides');
             console.log('Press "F" for fullscreen mode');
         });
@@ -552,17 +676,31 @@
             // Log current slide for debugging
             console.log(`Slide ${e.detail.currentSlide + 1} of ${e.detail.totalSlides}`);
             
-            // You could add slide-specific animations or actions here
-            if (e.detail.currentSlide === 5) { // Kanban board slide
-                // Could trigger animations for the kanban cards
-                const cards = document.querySelectorAll('.kanban-card');
-                cards.forEach((card, index) => {
+            // Animate persona card when shown
+            if (e.detail.currentSlide === 5) { // Persona slide
+                const personaCard = document.querySelector('.persona-card');
+                if (personaCard) {
+                    personaCard.style.transform = 'scale(0.9)';
                     setTimeout(() => {
-                        card.style.transform = 'scale(1.05)';
+                        personaCard.style.transform = 'scale(1)';
+                        personaCard.style.transition = 'transform 0.5s ease';
+                    }, 100);
+                }
+            }
+            
+            // Animate flow diagram
+            if (e.detail.currentSlide === 3) { // Flow slide
+                const flowItems = document.querySelectorAll('.flow-item');
+                flowItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
                         setTimeout(() => {
-                            card.style.transform = 'scale(1)';
-                        }, 200);
-                    }, index * 100);
+                            item.style.transition = 'all 0.5s ease';
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 50);
+                    }, index * 200);
                 });
             }
         });

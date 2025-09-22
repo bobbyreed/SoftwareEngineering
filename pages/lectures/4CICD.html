@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Pipelines - CSCI 5403</title>
+    
+    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <link rel="stylesheet" href="../../styles/presentation.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    
+    <!-- Lecture-Specific Styles -->
+    <style>
+        .pipeline-diagram {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2em;
+            border-radius: 15px;
+            margin: 2em 0;
+            color: white;
+        }
+        .metric-box {
+            background: var(--code-bg);
+            padding: 1.5em;
+            border-radius: 10px;
+            margin: 1em 0;
+            border-left: 4px solid var(--ocu-gold);
+        }
+        .case-study {
+            background: linear-gradient(to right, #f093fb 0%, #f5576c 100%);
+            padding: 1.5em;
+            border-radius: 10px;
+            color: white;
+            margin: 1em 0;
+        }
+        .security-alert {
+            background: #ff4444;
+            color: white;
+            padding: 1.5em;
+            border-radius: 10px;
+            margin: 1em 0;
+        }
+        .success-metric {
+            background: linear-gradient(to right, #11998e, #38ef7d);
+            color: white;
+            padding: 1em;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Timer display -->
+        <div class="timer-display" id="timer-display">
+            <span id="timer-text">CI/CD Pipelines
+                 <button class="home"><a href="../index.html">Home</a></button>
+            </span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>CI/CD Pipelines</h1>
+            <h2>From Theory to Practice <span class="emoji">🚀</span></h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">CSCI 5403 - Software Engineering</p>
+            <p style="font-size: 1.3em;">Week 11, Class 5</p>
+            <p style="margin-top: auto; font-style: italic;">Transform your software delivery from manual chaos to automated excellence!</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h1>Today's Learning Objectives</h1>
+            <ul style="font-size: 1.4em; line-height: 2;">
+                <li>🎯 Understand CI/CD theoretical foundations and core concepts</li>
+                <li>🎯 Learn from elite performers and their implementations</li>
+                <li>🎯 Master security integration and DevSecOps practices</li>
+                <li>🎯 Apply metrics-driven optimization strategies</li>
+                <li>🎯 Design scalable CI/CD architectures</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: The Reality Gap -->
+        <div class="slide">
+            <h1>The Harsh Reality <span class="emoji">😰</span></h1>
+            <div class="metric-box">
+                <h2>Industry Survey Results (39,000+ professionals)</h2>
+                <p style="font-size: 1.3em;">• <strong>70%</strong> of organizations claim to have CI/CD</p>
+                <p style="font-size: 1.3em;">• Only <strong>24%</strong> can actually deploy on-demand</p>
+                <p style="font-size: 1.5em; color: var(--ocu-gold); margin-top: 20px;">
+                    💸 Result: Billions in lost productivity
+                </p>
+            </div>
+            <div class="tip-box">
+                <strong>Key Insight:</strong> CI/CD is not just about tools - it's a fundamental paradigm shift
+            </div>
+        </div>
+
+        <!-- Slide 4: Historical Context -->
+        <div class="slide">
+            <h1>The Evolution of CI/CD</h1>
+            <div class="timeline" style="font-size: 1.2em;">
+                <p><strong>1991:</strong> Grady Booch introduces continuous integration concepts</p>
+                <p><strong>1994:</strong> Term "Continuous Integration" formally coined</p>
+                <p><strong>1999:</strong> Extreme Programming systematizes CI practices</p>
+                <p><strong>2010:</strong> Continuous Delivery emerges as extension of CI</p>
+                <p><strong>2015:</strong> DevOps movement accelerates adoption</p>
+                <p><strong>Today:</strong> CI/CD is essential for competitive advantage</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Core Definitions -->
+        <div class="slide">
+            <h1>Understanding the Terminology</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>🔄 Continuous Integration (CI)</h3>
+                    <p>Automatically build and test code changes in a shared repository multiple times per day</p>
+                </div>
+                <div class="comparison-card" style="background: #4CAF50;">
+                    <h3>📦 Continuous Delivery (CD)</h3>
+                    <p>Maintain production-ready code with manual deployment approval</p>
+                </div>
+                <div class="comparison-card" style="background: #2196F3;">
+                    <h3>🚀 Continuous Deployment</h3>
+                    <p>Automatically push all successful changes to production</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Six Theoretical Categories -->
+        <div class="slide">
+            <h1>Six Theoretical Categories</h1>
+            <div class="grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
+                <div class="metric-box">
+                    <h3>⚡ Build Optimization</h3>
+                    <p>Accelerate compilation and packaging</p>
+                </div>
+                <div class="metric-box">
+                    <h3>👁️ Visibility Enhancement</h3>
+                    <p>Monitor pipeline health and metrics</p>
+                </div>
+                <div class="metric-box">
+                    <h3>🧪 Automated Testing</h3>
+                    <p>Comprehensive quality gates</p>
+                </div>
+                <div class="metric-box">
+                    <h3>🚨 Violation Detection</h3>
+                    <p>Identify issues early and automatically</p>
+                </div>
+                <div class="metric-box">
+                    <h3>🔒 Security Scaling</h3>
+                    <p>Integrate security throughout pipelines</p>
+                </div>
+                <div class="metric-box">
+                    <h3>💪 Reliability Assurance</h3>
+                    <p>Ensure consistent, repeatable deployments</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: DevOps Automation Aspects -->
+        <div class="slide">
+            <h1>DevOps Automation Components</h1>
+            <div class="pipeline-diagram">
+                <h2>Infrastructure as Code</h2>
+                <p>Machine-readable models define entire infrastructure</p>
+                <div class="code-example" style="background: rgba(255,255,255,0.1); padding: 1em;">
+                    <p>• Networks, servers, routers</p>
+                    <p>• Compilers, libraries, DBMS</p>
+                    <p>• Configuration management tools</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: CI Process -->
+        <div class="slide">
+            <h1>Continuous Integration Process</h1>
+            <div class="activity-box">
+                <h3>Developer commits code → Automatic pipeline triggers</h3>
+                <ol style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Code checkout from repository</li>
+                    <li>Dependencies installation</li>
+                    <li>Code compilation/build</li>
+                    <li>Unit tests execution</li>
+                    <li>Integration tests</li>
+                    <li>Code quality analysis</li>
+                    <li>Build artifacts creation</li>
+                    <li>Success/failure notification</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 9: CD Process -->
+        <div class="slide">
+            <h1>Continuous Delivery Process</h1>
+            <div class="pipeline-diagram">
+                <h3>From CI to Production-Ready</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 1em; margin-top: 1em;">
+                    <p>✅ Deploy to staging environment</p>
+                    <p>✅ Run acceptance tests</p>
+                    <p>✅ Performance testing</p>
+                    <p>✅ Security scanning</p>
+                    <p>✅ Manual approval gate</p>
+                    <p>✅ Production deployment ready</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Netflix Case Study Title -->
+        <div class="slide">
+            <h1>Elite Performer: Netflix <span class="emoji">🎬</span></h1>
+            <div class="case-study">
+                <h2>From Catastrophe to Excellence</h2>
+                <p style="font-size: 1.3em;">Journey from database failures to thousands of daily deployments</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Netflix Metrics -->
+        <div class="slide">
+            <h1>Netflix: The Numbers</h1>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div class="success-metric">
+                    <h3>1000+ deploys/day</h3>
+                </div>
+                <div class="success-metric">
+                    <h3>8x subscriber growth</h3>
+                </div>
+                <div class="success-metric">
+                    <h3>1000x streaming hours</h3>
+                </div>
+                <div class="success-metric">
+                    <h3>Zero downtime</h3>
+                </div>
+            </div>
+            <div class="tip-box" style="margin-top: 2em;">
+                <strong>Key Tools:</strong> Spinnaker for deployments, Chaos Monkey for resilience testing
+            </div>
+        </div>
+
+        <!-- Slide 12: Meta Case Study -->
+        <div class="slide">
+            <h1>Elite Performer: Meta <span class="emoji">👥</span></h1>
+            <div class="case-study">
+                <h2>Conveyor System at Scale</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>30,000+ deployment pipelines</li>
+                    <li>97% fully automated deployments</li>
+                    <li>1,000+ code changes daily</li>
+                    <li>50,000-60,000 daily Android builds</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 13: Meta's Approach -->
+        <div class="slide">
+            <h1>Meta's Quasi-Continuous Deployment</h1>
+            <div class="pipeline-diagram">
+                <h3>Tiered Rollout Strategy</h3>
+                <ol style="font-size: 1.3em; line-height: 2;">
+                    <li>Internal employees (dogfooding)</li>
+                    <li>2% production canaries</li>
+                    <li>Gradual rollout to regions</li>
+                    <li>Full production deployment</li>
+                </ol>
+                <p style="margin-top: 1em;">Batches hundreds of commits every few hours</p>
+            </div>
+        </div>
+
+        <!-- Slide 14: Spotify Case Study -->
+        <div class="slide">
+            <h1>Elite Performer: Spotify <span class="emoji">🎵</span></h1>
+            <div class="metric-box">
+                <h2>Squad-Based Model Success</h2>
+                <p><strong>Before:</strong> 14 days for project setup</p>
+                <p><strong>After:</strong> 5 minutes for project setup</p>
+                <p style="margin-top: 1em;"><strong>iOS Build Times:</strong></p>
+                <p>80 minutes → Under 10 minutes (Bazel migration)</p>
+            </div>
+            <div class="tip-box">
+                <strong>"Ops in Squad" Philosophy:</strong> Teams own their operational responsibility
+            </div>
+        </div>
+
+        <!-- Slide 15: Common Patterns -->
+        <div class="slide">
+            <h1>Elite Performer Patterns</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>✅ Common Success Factors</h3>
+                    <p>• Microservices architecture</p>
+                    <p>• Infrastructure as code</p>
+                    <p>• Comprehensive observability</p>
+                    <p>• Autonomous teams</p>
+                    <p>• End-to-end ownership</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: DORA Metrics -->
+        <div class="slide">
+            <h1>DORA Metrics Framework</h1>
+            <div class="metric-box">
+                <h2>Four Key Metrics (39,000+ professionals surveyed)</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li><strong>Deployment Frequency:</strong> How often code goes to production</li>
+                    <li><strong>Lead Time:</strong> Time from commit to production</li>
+                    <li><strong>MTTR:</strong> Mean Time To Recovery from failures</li>
+                    <li><strong>Change Failure Rate:</strong> % of deployments causing failures</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 17: Performance Comparison -->
+        <div class="slide">
+            <h1>Elite vs Low Performers</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>🏆 Elite Performers</h3>
+                    <p>• Deploy 200x more frequently</p>
+                    <p>• 24x faster recovery</p>
+                    <p>• 440x faster lead times</p>
+                    <p>• &lt;1 hour to production</p>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>🐢 Low Performers</h3>
+                    <p>• Monthly deployments</p>
+                    <p>• Week+ recovery times</p>
+                    <p>• Months to production</p>
+                    <p>• High failure rates</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Security Incidents Title -->
+        <div class="slide">
+            <h1>Security: The Dark Side <span class="emoji">🔓</span></h1>
+            <div class="security-alert">
+                <h2>⚠️ Critical Vulnerabilities in CI/CD</h2>
+                <p style="font-size: 1.2em;">Major incidents reveal systemic weaknesses</p>
+            </div>
+        </div>
+
+        <!-- Slide 19: SolarWinds Attack -->
+        <div class="slide">
+            <h1>SolarWinds Attack</h1>
+            <div class="security-alert">
+                <h2>The Breach That Shook the Industry</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>CI/CD pipeline compromised</li>
+                    <li>Malicious code in updates</li>
+                    <li>18,000+ customers affected</li>
+                    <li>Fortune 500 & government entities</li>
+                </ul>
+                <p style="margin-top: 1em;"><strong>Root Causes:</strong> Poor pipeline controls, insufficient monitoring, weak identity management</p>
+            </div>
+        </div>
+
+        <!-- Slide 20: GitHub Actions Attack -->
+        <div class="slide">
+            <h1>GitHub Actions Supply Chain Attack</h1>
+            <div class="security-alert">
+                <h2>tj-actions/changed-files Compromise</h2>
+                <p><strong>23,000+ repositories affected</strong></p>
+                <p style="margin-top: 1em;">Attack vectors:</p>
+                <ul>
+                    <li>Retroactive tag redirection</li>
+                    <li>CI/CD secrets dumped to logs</li>
+                    <li>Mutable tags exploitation</li>
+                    <li>Absence of runtime monitoring</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 21: Security Statistics -->
+        <div class="slide">
+            <h1>Alarming Security Statistics</h1>
+            <div class="metric-box">
+                <h2 style="color: #ff4444;">GitGuardian 2023 Report</h2>
+                <p style="font-size: 1.5em; text-align: center; margin: 1em 0;">
+                    <strong>10,000+</strong> secrets leaked daily in public repositories
+                </p>
+            </div>
+            <div class="tip-box">
+                <strong>Common Anti-patterns:</strong> Hardcoded secrets, unprotected tokens, insufficient monitoring
+            </div>
+        </div>
+
+        <!-- Slide 22: DevSecOps Evolution -->
+        <div class="slide">
+            <h1>DevSecOps: Security Integration</h1>
+            <div class="pipeline-diagram">
+                <h2>Security at Every Stage</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin-top: 1em;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1em;">
+                        <h3>Build Phase</h3>
+                        <p>• SAST scanning</p>
+                        <p>• Dependency checks</p>
+                        <p>• License compliance</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1em;">
+                        <h3>Deploy Phase</h3>
+                        <p>• Container scanning</p>
+                        <p>• DAST testing</p>
+                        <p>• Runtime monitoring</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: NIST Framework -->
+        <div class="slide">
+            <h1>NIST Security Framework</h1>
+            <div class="metric-box">
+                <h2>SP 800-204D Guidelines</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🔒 Secure build processes with attestation</li>
+                    <li>🔑 Multi-factor authentication for operations</li>
+                    <li>📋 Software Bill of Materials (SBOM)</li>
+                    <li>✅ SLSA framework compliance</li>
+                    <li>🔍 Continuous compliance monitoring</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 24: Architecture Patterns -->
+        <div class="slide">
+            <h1>Architecture Decisions</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>📚 Monorepo</h3>
+                    <p>• Enhanced discoverability (67%)</p>
+                    <p>• Unified tooling</p>
+                    <p>• Atomic changes</p>
+                    <p>• Used by: Google, Meta</p>
+                </div>
+                <div class="comparison-card" style="background: #2196F3;">
+                    <h3>🎯 Polyrepo</h3>
+                    <p>• Team autonomy</p>
+                    <p>• Independent deployments</p>
+                    <p>• Technology diversity</p>
+                    <p>• Used by: Netflix</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Centralized vs Decentralized -->
+        <div class="slide">
+            <h1>CI/CD Organizational Patterns</h1>
+            <div class="pipeline-diagram">
+                <h2>Hybrid Approach: Best of Both Worlds</h2>
+                <p style="font-size: 1.3em; text-align: center; margin: 1em 0;">
+                    "Centralized platforms with decentralized teams"
+                </p>
+                <ul style="font-size: 1.2em;">
+                    <li>Shared infrastructure and security standards</li>
+                    <li>Team autonomy in implementation</li>
+                    <li>Balance governance with velocity</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 26: Container Orchestration -->
+        <div class="slide">
+            <h1>Container Orchestration Evolution</h1>
+            <div class="metric-box">
+                <h2>Modern CI/CD Architecture</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🐋 Kubernetes-native pipelines</li>
+                    <li>⚡ Serverless containers for optimization</li>
+                    <li>🔄 GitOps for declarative configuration</li>
+                    <li>☁️ Multi-cloud strategies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 27: MLOps -->
+        <div class="slide">
+            <h1>Specialized: MLOps</h1>
+            <div class="pipeline-diagram">
+                <h2>Machine Learning Operations</h2>
+                <p>Unique requirements beyond traditional CI/CD:</p>
+                <ul style="font-size: 1.2em; line-height: 1.8; margin-top: 1em;">
+                    <li>📊 Data validation pipelines</li>
+                    <li>🤖 Model validation & versioning</li>
+                    <li>🔄 Continuous training loops</li>
+                    <li>🧪 A/B testing integration</li>
+                    <li>📈 Model performance monitoring</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 28: Microservices Challenges -->
+        <div class="slide">
+            <h1>Microservices CI/CD</h1>
+            <div class="metric-box">
+                <h2>Coordination Complexity</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Individual service pipelines</li>
+                    <li>Service mesh integration</li>
+                    <li>Distributed tracing requirements</li>
+                    <li>API versioning strategies</li>
+                    <li>Preventing breaking changes</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 29: Regulatory Compliance -->
+        <div class="slide">
+            <h1>Regulatory Compliance</h1>
+            <div class="comparison-table">
+                <div class="comparison-card" style="background: #9C27B0;">
+                    <h3>🏥 Healthcare (HIPAA)</h3>
+                    <p>• Audit trails</p>
+                    <p>• Data encryption</p>
+                    <p>• Access controls</p>
+                </div>
+                <div class="comparison-card" style="background: #FF9800;">
+                    <h3>💳 Finance (PCI-DSS)</h3>
+                    <p>• Change management</p>
+                    <p>• Security scanning</p>
+                    <p>• Compliance monitoring</p>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>Solution:</strong> Compliance-as-Code with automated policy enforcement
+            </div>
+        </div>
+
+        <!-- Slide 30: AI Integration -->
+        <div class="slide">
+            <h1>AI-Driven Pipeline Optimization</h1>
+            <div class="pipeline-diagram">
+                <h2>The Future is Intelligent</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🧠 Intelligent test selection based on code changes</li>
+                    <li>🔮 Predictive failure analysis</li>
+                    <li>📊 Automated performance recommendations</li>
+                    <li>🎯 Smart resource allocation</li>
+                </ul>
+                <p style="margin-top: 1em;"><strong>Results:</strong> 7.5% documentation improvement, 3.4% code quality gains</p>
+            </div>
+        </div>
+
+        <!-- Slide 31: Platform Engineering -->
+        <div class="slide">
+            <h1>Platform Engineering</h1>
+            <div class="case-study">
+                <h2>Internal Developer Platforms</h2>
+                <p><strong>Example: Spotify's Backstage</strong></p>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Service catalog & documentation</li>
+                    <li>Self-service infrastructure</li>
+                    <li>Built-in governance</li>
+                    <li>Developer experience optimization</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 32: Common Anti-patterns -->
+        <div class="slide">
+            <h1>Anti-patterns to Avoid</h1>
+            <div class="comparison-card bad">
+                <h3>❌ Common Mistakes</h3>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Monolithic pipelines causing cascading failures</li>
+                    <li>Hardcoded secrets everywhere</li>
+                    <li>Insufficient feedback loops</li>
+                    <li>Over-reliance on end-to-end testing</li>
+                    <li>Separate "DevOps teams" creating silos</li>
+                    <li>Treating CI/CD as just tools</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 33: Success Factors -->
+        <div class="slide">
+            <h1>Critical Success Factors</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>👥 People & Culture</h3>
+                    <p>• Leadership support</p>
+                    <p>• Experimentation culture</p>
+                    <p>• Continuous learning</p>
+                    <p>• Autonomous teams</p>
+                </div>
+                <div class="comparison-card" style="background: #4CAF50;">
+                    <h3>⚙️ Technology</h3>
+                    <p>• Automation-first</p>
+                    <p>• Quality gates</p>
+                    <p>• Observability</p>
+                    <p>• Security integration</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 34: Implementation Strategy -->
+        <div class="slide">
+            <h1>Progressive Implementation</h1>
+            <div class="activity-box">
+                <h3>Start Your CI/CD Journey</h3>
+                <ol style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Start with easy but important applications</li>
+                    <li>Establish dedicated multi-disciplinary team</li>
+                    <li>Implement visual pipeline representations</li>
+                    <li>Focus on automation-first principles</li>
+                    <li>Build observability into every stage</li>
+                    <li>Treat CI/CD as evolving product</li>
+                    <li>Measure and iterate continuously</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 35: Activity -->
+        <div class="slide">
+            <h1>Practice Activity <span class="emoji">💻</span></h1>
+            <div class="activity-box">
+                <h3>Design Your CI/CD Pipeline</h3>
+                <p>Create a basic CI/CD pipeline for a web application:</p>
+                <ol>
+                    <li>Choose your architecture (monorepo vs polyrepo)</li>
+                    <li>Define your stages (build, test, deploy)</li>
+                    <li>Add security checkpoints</li>
+                    <li>Include quality gates</li>
+                    <li>Plan your rollback strategy</li>
+                </ol>
+            </div>
+            <button data-timer="15">Start 15-Minute Timer</button>
+        </div>
+
+        <!-- Slide 36: Future Directions -->
+        <div class="slide">
+            <h1>Future of CI/CD</h1>
+            <div class="pipeline-diagram">
+                <h2>Next Decade Trends</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🤖 AI-driven automation</li>
+                    <li>🌐 Edge computing integration</li>
+                    <li>🔐 Quantum-ready security</li>
+                    <li>🏗️ Platform engineering maturity</li>
+                    <li>🔄 Self-healing pipelines</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 37: Key Takeaways -->
+        <div class="slide">
+            <h1>Key Takeaways</h1>
+            <div class="metric-box">
+                <h2>Remember These Points</h2>
+                <ul style="font-size: 1.3em; line-height: 2;">
+                    <li>✅ CI/CD success requires cultural transformation</li>
+                    <li>✅ Elite performers deploy 200x more frequently</li>
+                    <li>✅ Security must be integrated, not added</li>
+                    <li>✅ Metrics drive continuous improvement</li>
+                    <li>✅ Platform engineering is competitive advantage</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 38: Academic Research -->
+        <div class="slide">
+            <h1>Research Foundation</h1>
+            <div class="metric-box">
+                <h2>Evidence-Based Practices</h2>
+                <p><strong>69 peer-reviewed papers analyzed</strong></p>
+                <p><strong>39,000+ professionals surveyed (DORA)</strong></p>
+                <p><strong>40 distinct problems identified</strong></p>
+                <p><strong>28 causal relationships mapped</strong></p>
+                <p style="margin-top: 1em;">71% failure rate when treating CI/CD as just tools</p>
+            </div>
+        </div>
+
+        <!-- Slide 39: Failure Statistics -->
+        <div class="slide">
+            <h1>Why Organizations Fail</h1>
+            <div class="comparison-card bad">
+                <h3>Common Failure Points</h3>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>71% fail by treating as technology-only</li>
+                    <li>Testing challenges most critical</li>
+                    <li>System design issues compound problems</li>
+                    <li>Cultural resistance underestimated</li>
+                    <li>Security treated as afterthought</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 40: Call to Action -->
+        <div class="slide">
+            <h1>Your CI/CD Journey</h1>
+            <div class="pipeline-diagram">
+                <h2>Start Today!</h2>
+                <p style="font-size: 1.3em; text-align: center; margin: 1em 0;">
+                    "The best time to implement CI/CD was yesterday.<br>
+                    The second best time is now."
+                </p>
+                <div style="text-align: center; margin-top: 2em;">
+                    <div class="success-metric">
+                        <h3>Transform Your Delivery</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 41: References -->
+        <div class="slide">
+            <h1>References & Further Reading</h1>
+            <div style="font-size: 0.9em; line-height: 1.6;">
+                <p><strong>Academic Papers:</strong></p>
+                <ul>
+                    <li>Booch, G. (1991). Object Oriented Design with Applications</li>
+                    <li>DORA State of DevOps Report (2024)</li>
+                    <li>NIST SP 800-204D: Software Supply Chain Security</li>
+                </ul>
+                <p style="margin-top: 1em;"><strong>Industry Reports:</strong></p>
+                <ul>
+                    <li>GitGuardian State of Secrets Sprawl (2023)</li>
+                    <li>Accelerate: Building High-Performing Technology Organizations</li>
+                </ul>
+                <p style="margin-top: 1em;"><strong>Case Studies:</strong></p>
+                <ul>
+                    <li>Netflix Engineering Blog: Spinnaker and Continuous Delivery</li>
+                    <li>Meta Engineering: Scaling CI/CD to Billions of Users</li>
+                    <li>Spotify Engineering: Backstage and Developer Productivity</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 42: Additional Resources -->
+        <div class="slide">
+            <h1>Tools & Frameworks</h1>
+            <div class="metric-box">
+                <h2>Popular CI/CD Tools</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
+                    <div>
+                        <h3>CI/CD Platforms</h3>
+                        <ul>
+                            <li>Jenkins</li>
+                            <li>GitHub Actions</li>
+                            <li>GitLab CI</li>
+                            <li>CircleCI</li>
+                            <li>Travis CI</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Specialized Tools</h3>
+                        <ul>
+                            <li>Spinnaker (deployments)</li>
+                            <li>Argo CD (GitOps)</li>
+                            <li>Tekton (cloud-native)</li>
+                            <li>Backstage (platform)</li>
+                            <li>Bazel (builds)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 43: Summary -->
+        <div class="slide">
+            <h1>Today's Learning Complete! <span class="emoji">🎓</span></h1>
+            <h2>You Can Now:</h2>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>✅ Explain CI/CD concepts and benefits</li>
+                <li>✅ Design secure, scalable pipelines</li>
+                <li>✅ Apply DORA metrics for optimization</li>
+                <li>✅ Avoid common anti-patterns</li>
+                <li>✅ Implement progressive CI/CD strategies</li>
+            </ul>
+            <div class="demo-box">
+                <p><strong>Next Class:</strong> Security and Privacy in Software Engineering</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <button id="prevBtn">Previous</button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">43</span>
+            </span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- Shared Presentation JavaScript -->
+    <script src="../../js/presentation.js"></script>
+
+    <!-- Lecture-Specific JavaScript -->
+    <script>
+        // Listen for slide changes
+        document.addEventListener('slidechange', (e) => {
+            console.log(`Slide ${e.detail.currentSlide + 1} of ${e.detail.totalSlides}`);
+        });
+    </script>
+</body>
+</html>
