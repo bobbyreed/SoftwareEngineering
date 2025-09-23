@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Architecture - CSCI 5403</title>
+    
+    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <link rel="stylesheet" href="../../styles/presentation.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    
+    <!-- Lecture-Specific Styles -->
+    <style>
+        .architecture-diagram {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .component-box {
+            background: #007acc;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 10px;
+            font-weight: bold;
+        }
+        
+        .layer-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        
+        .architecture-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .arch-type {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .arch-type.client-server {
+            background: rgba(0, 122, 204, 0.1);
+            border: 2px solid #007acc;
+        }
+        
+        .arch-type.service-oriented {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="timer-display" id="timer-display">
+            <span id="timer-text">Software Architecture
+                <button class="home"><a href="../index.html">Home</a></button>
+            </span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Software Architecture</h1>
+            <h2>Building Robust Software Systems <span class="emoji">🏗️</span></h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">CSCI 5403 - Software Engineering</p>
+            <p style="font-size: 1.3em;">Lecture 5</p>
+            <p style="margin-top: auto; font-style: italic;">The blueprint of your software success!</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h1>Today's Learning Objectives</h1>
+            <ul style="font-size: 1.4em; line-height: 2;">
+                <li>🎯 Understand what software architecture is and why it matters</li>
+                <li>🎯 Learn key architectural patterns and their applications</li>
+                <li>🎯 Master system decomposition techniques</li>
+                <li>🎯 Explore distribution architectures for modern applications</li>
+                <li>🎯 Make informed technology decisions for your projects</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: What is Software Architecture? -->
+        <div class="slide">
+            <h1>What is Software Architecture?</h1>
+            <div class="demo-box">
+                <p style="font-size: 1.3em; font-style: italic;">"The fundamental organization of a software system embodied in its components, their relationships to each other and to the environment, and the principles guiding its design and evolution."</p>
+                <p style="text-align: right; margin-top: 20px;">- IEEE Definition</p>
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px;">Think of it as the <strong>blueprint</strong> for your software system!</p>
+        </div>
+
+        <!-- Slide 4: Project vs Product Architecture -->
+        <div class="slide">
+            <h1>Project vs Product Software</h1>
+            <div class="architecture-comparison">
+                <div class="arch-type client-server">
+                    <h3>Project-Based</h3>
+                    <p>Customer → Problem → Requirements → Software</p>
+                    <ul style="text-align: left;">
+                        <li>Custom built for specific client</li>
+                        <li>Client controls features</li>
+                        <li>Higher cost per customer</li>
+                    </ul>
+                </div>
+                <div class="arch-type service-oriented">
+                    <h3>Product-Based</h3>
+                    <p>Developer → Opportunity → Features → Software</p>
+                    <ul style="text-align: left;">
+                        <li>Built for market opportunity</li>
+                        <li>Developer controls features</li>
+                        <li>Lower cost per customer</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Why Architecture Matters -->
+        <div class="slide">
+            <h1>Why Does Architecture Matter? <span class="emoji">🎯</span></h1>
+            <div class="tip-box">
+                <strong>Architecture affects EVERYTHING:</strong>
+            </div>
+            <ul style="font-size: 1.3em; line-height: 2; margin-top: 20px;">
+                <li>⚡ <strong>Performance</strong> - How fast your system responds</li>
+                <li>🔒 <strong>Security</strong> - How well protected your data is</li>
+                <li>📈 <strong>Scalability</strong> - How easily you can handle growth</li>
+                <li>🛠️ <strong>Maintainability</strong> - How easy it is to update and fix</li>
+                <li>💰 <strong>Cost</strong> - Development and operational expenses</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Real World Impact -->
+        <div class="slide">
+            <h1>Real-World Architecture Failures</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Healthcare.gov (2013)</h3>
+                    <p>Poor architecture led to:</p>
+                    <ul>
+                        <li>System crashes with 50,000 users</li>
+                        <li>$1.7 billion to fix</li>
+                        <li>6-month delay</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✅ Netflix Architecture</h3>
+                    <p>Good architecture enables:</p>
+                    <ul>
+                        <li>220+ million users worldwide</li>
+                        <li>99.99% uptime</li>
+                        <li>Seamless scaling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Three Key Questions -->
+        <div class="slide">
+            <h1>Three Fundamental Questions</h1>
+            <div class="activity-box">
+                <h3>Every architect must answer:</h3>
+                <ol style="font-size: 1.3em; line-height: 2;">
+                    <li>🏗️ How should the system be <strong>organized</strong> as components?</li>
+                    <li>🌐 How should components be <strong>distributed</strong> and communicate?</li>
+                    <li>🛠️ What <strong>technologies</strong> should we use?</li>
+                </ol>
+            </div>
+            <p style="margin-top: 30px; font-style: italic;">These decisions shape your entire project!</p>
+        </div>
+
+        <!-- Slide 8: System Organization -->
+        <div class="slide">
+            <h1>System Organization</h1>
+            <p style="font-size: 1.2em;">Breaking down complexity into manageable pieces</p>
+            <div class="architecture-diagram">
+                <div class="component-box">User Interface</div>
+                <p>↓</p>
+                <div class="component-box">Business Logic</div>
+                <p>↓</p>
+                <div class="component-box">Data Storage</div>
+            </div>
+            <div class="tip-box">
+                <strong>Key Principle:</strong> Separation of Concerns - Each component has one job!
+            </div>
+        </div>
+
+        <!-- Slide 9: Activity - Design Your Architecture -->
+        <div class="slide">
+            <h1>Practice Activity <span class="emoji">💻</span></h1>
+            <div class="activity-box">
+                <h3>5-Minute Challenge: Design a Food Delivery App</h3>
+                <p>Identify the main components needed:</p>
+                <ol>
+                    <li>What handles user orders?</li>
+                    <li>What manages restaurant menus?</li>
+                    <li>What tracks delivery drivers?</li>
+                    <li>What processes payments?</li>
+                </ol>
+            </div>
+            <button data-timer="5">Start 5-Minute Timer</button>
+        </div>
+
+        <!-- Slide 10: Shared Database Architecture -->
+        <div class="slide">
+            <h1>Pattern 1: Shared Database Architecture</h1>
+            <div class="architecture-diagram">
+                <h3>Simple but Limited</h3>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <div class="component-box">Component 1</div>
+                    <div class="component-box">Component 2</div>
+                </div>
+                <p>↓ Both Access ↓</p>
+                <div class="component-box" style="background: #28a745;">Shared Database</div>
+            </div>
+            <p><strong>✅ Pros:</strong> Simple, consistent data</p>
+            <p><strong>❌ Cons:</strong> Bottleneck, tight coupling</p>
+        </div>
+
+        <!-- Slide 11: Multiple Database Architecture -->
+        <div class="slide">
+            <h1>Pattern 2: Multiple Database Architecture</h1>
+            <div class="architecture-diagram">
+                <h3>More Complex but Scalable</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <div class="component-box">Component 1</div>
+                        <p>↓</p>
+                        <div class="component-box" style="background: #28a745;">DB 1</div>
+                    </div>
+                    <div>
+                        <div class="component-box">Component 2</div>
+                        <p>↓</p>
+                        <div class="component-box" style="background: #28a745;">DB 2</div>
+                    </div>
+                </div>
+                <p style="margin-top: 20px;">⚙️ Database Reconciliation Service</p>
+            </div>
+        </div>
+
+        <!-- Slide 12: When to Use Each Pattern -->
+        <div class="slide">
+            <h1>Choosing Database Patterns</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>Use Shared Database When:</h3>
+                    <ul>
+                        <li>Small team/application</li>
+                        <li>Strong data consistency needed</li>
+                        <li>Simple transactions</li>
+                        <li>Limited scale requirements</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>Use Multiple Databases When:</h3>
+                    <ul>
+                        <li>Large, distributed teams</li>
+                        <li>Microservices architecture</li>
+                        <li>Need to scale independently</li>
+                        <li>Different data requirements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Layered Architecture -->
+        <div class="slide">
+            <h1>Layered Architecture Pattern</h1>
+            <p style="font-size: 1.2em;">The most common architecture for web applications</p>
+            <div class="layer-box">👤 User Interface Layer</div>
+            <div class="layer-box">🔐 Authentication & Security Layer</div>
+            <div class="layer-box">💼 Business Logic Layer</div>
+            <div class="layer-box">💾 Data Access Layer</div>
+            <div class="layer-box">🗄️ Database Layer</div>
+        </div>
+
+        <!-- Slide 14: Layered Architecture Benefits -->
+        <div class="slide">
+            <h1>Why Use Layers? <span class="emoji">📚</span></h1>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>🔄 <strong>Replaceability</strong> - Swap out layers independently</li>
+                <li>🧩 <strong>Modularity</strong> - Teams can work on different layers</li>
+                <li>🔒 <strong>Security</strong> - Add security at each layer</li>
+                <li>🧪 <strong>Testability</strong> - Test each layer in isolation</li>
+                <li>📖 <strong>Understandability</strong> - Clear structure and flow</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Remember:</strong> Each layer only talks to adjacent layers!
+            </div>
+        </div>
+
+        <!-- Slide 15: Real-World Layered Example -->
+        <div class="slide">
+            <h1>Example: E-Commerce Application</h1>
+            <div class="architecture-diagram">
+                <div class="layer-box">🖥️ <strong>Presentation:</strong> React/Angular frontend</div>
+                <div class="layer-box">🔐 <strong>Security:</strong> JWT authentication</div>
+                <div class="layer-box">💼 <strong>Business:</strong> Order processing, inventory</div>
+                <div class="layer-box">💾 <strong>Data:</strong> ORM/Database queries</div>
+                <div class="layer-box">🗄️ <strong>Storage:</strong> PostgreSQL/MongoDB</div>
+            </div>
+        </div>
+
+        <!-- Slide 16: System Decomposition -->
+        <div class="slide">
+            <h1>System Decomposition</h1>
+            <p style="font-size: 1.2em;">Breaking down complex systems into manageable components</p>
+            <div class="demo-box">
+                <h3>Key Principles:</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>🎯 <strong>Single Responsibility</strong> - One component, one job</li>
+                    <li>🔗 <strong>Loose Coupling</strong> - Minimize dependencies</li>
+                    <li>🤝 <strong>High Cohesion</strong> - Related functions together</li>
+                    <li>📋 <strong>Clear Interfaces</strong> - Well-defined contracts</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 17: Decomposition Example -->
+        <div class="slide">
+            <h1>Decomposition in Action</h1>
+            <p>Let's decompose a Banking System:</p>
+            <div class="architecture-diagram">
+                <h3>Level 1: System</h3>
+                <div class="component-box">Banking System</div>
+                <p>↓ Decompose ↓</p>
+                <h3>Level 2: Major Components</h3>
+                <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                    <div class="component-box">Account Management</div>
+                    <div class="component-box">Transaction Processing</div>
+                    <div class="component-box">Security</div>
+                    <div class="component-box">Reporting</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Further Decomposition -->
+        <div class="slide">
+            <h1>Deeper Decomposition</h1>
+            <div class="architecture-diagram">
+                <h3>Account Management Component</h3>
+                <div class="component-box">Account Management</div>
+                <p>↓ Further Decompose ↓</p>
+                <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                    <div class="component-box" style="background: #28a745;">Create Account</div>
+                    <div class="component-box" style="background: #28a745;">Update Details</div>
+                    <div class="component-box" style="background: #28a745;">Close Account</div>
+                    <div class="component-box" style="background: #28a745;">View Balance</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px;">Each sub-component is focused and testable!</p>
+        </div>
+
+        <!-- Slide 19: Activity - Decomposition Practice -->
+        <div class="slide">
+            <h1>Practice: Decompose a System <span class="emoji">🔨</span></h1>
+            <div class="activity-box">
+                <h3>10-Minute Challenge: Social Media Platform</h3>
+                <p>Decompose a social media app into:</p>
+                <ol>
+                    <li>Major components (Level 1)</li>
+                    <li>Sub-components for each (Level 2)</li>
+                    <li>Identify key interfaces between them</li>
+                </ol>
+                <p style="margin-top: 20px;"><em>Think about: posts, users, messaging, notifications...</em></p>
+            </div>
+            <button data-timer="10">Start 10-Minute Timer</button>
+        </div>
+
+        <!-- Slide 20: Distribution Architecture -->
+        <div class="slide">
+            <h1>Distribution Architecture</h1>
+            <p style="font-size: 1.3em;">How components are spread across servers</p>
+            <div class="tip-box">
+                <strong>Key Question:</strong> Where does each component live and how do they communicate?
+            </div>
+            <div style="margin-top: 30px;">
+                <h3>Common Patterns:</h3>
+                <ul style="font-size: 1.2em; line-height: 2;">
+                    <li>🖥️ Client-Server</li>
+                    <li>🏢 Multi-Tier</li>
+                    <li>🔄 Service-Oriented</li>
+                    <li>☁️ Cloud-Native</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 21: Client-Server Architecture -->
+        <div class="slide">
+            <h1>Client-Server Architecture</h1>
+            <div class="architecture-diagram">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                    <div>
+                        <h3>Clients</h3>
+                        <div class="component-box">Client 1</div>
+                        <div class="component-box">Client 2</div>
+                        <div class="component-box">Client 3</div>
+                    </div>
+                    <div>
+                        <h3>Server</h3>
+                        <div class="component-box" style="background: #007acc; padding: 40px;">
+                            SERVER
+                            <br>
+                            <small>(Database + Logic)</small>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 20px;">← Requests | Responses →</p>
+            </div>
+        </div>
+
+        <!-- Slide 22: Client-Server Characteristics -->
+        <div class="slide">
+            <h1>Client-Server Characteristics</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>✅ Advantages</h3>
+                    <ul>
+                        <li>Centralized data management</li>
+                        <li>Easy backup and security</li>
+                        <li>Shared resources</li>
+                        <li>Consistent updates</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ Disadvantages</h3>
+                    <ul>
+                        <li>Single point of failure</li>
+                        <li>Server can be bottleneck</li>
+                        <li>Network dependency</li>
+                        <li>Scaling challenges</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Multi-Tier Architecture -->
+        <div class="slide">
+            <h1>Multi-Tier Architecture</h1>
+            <div class="architecture-diagram">
+                <h3>Separation of Concerns Across Servers</h3>
+                <div class="layer-box">👤 <strong>Clients</strong> (Browsers/Apps)</div>
+                <p>↕</p>
+                <div class="layer-box" style="background: #007acc;">🌐 <strong>Web Server</strong> (Static content)</div>
+                <p>↕</p>
+                <div class="layer-box" style="background: #28a745;">💼 <strong>Application Server</strong> (Business logic)</div>
+                <p>↕</p>
+                <div class="layer-box" style="background: #dc3545;">🗄️ <strong>Database Server</strong> (Data storage)</div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Multi-Tier Benefits -->
+        <div class="slide">
+            <h1>Why Multi-Tier? <span class="emoji">🚀</span></h1>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>📈 <strong>Scalability</strong> - Scale each tier independently</li>
+                <li>🔒 <strong>Security</strong> - Add firewalls between tiers</li>
+                <li>⚡ <strong>Performance</strong> - Optimize each tier differently</li>
+                <li>🛠️ <strong>Maintenance</strong> - Update tiers separately</li>
+                <li>💪 <strong>Reliability</strong> - Redundancy at each level</li>
+            </ul>
+            <div class="demo-box">
+                <strong>Real Example:</strong> Amazon.com uses multi-tier with hundreds of services!
+            </div>
+        </div>
+
+        <!-- Slide 25: Service-Oriented Architecture -->
+        <div class="slide">
+            <h1>Service-Oriented Architecture (SOA)</h1>
+            <div class="architecture-diagram">
+                <h3>Everything is a Service!</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <div class="component-box" style="background: #28a745;">User Service</div>
+                    <div class="component-box" style="background: #dc3545;">Order Service</div>
+                    <div class="component-box" style="background: #ffc107;">Payment Service</div>
+                    <div class="component-box" style="background: #17a2b8;">Inventory Service</div>
+                    <div class="component-box" style="background: #6f42c1;">Shipping Service</div>
+                    <div class="component-box" style="background: #e83e8c;">Email Service</div>
+                </div>
+                <p style="margin-top: 20px;">Services communicate via APIs</p>
+            </div>
+        </div>
+
+        <!-- Slide 26: SOA Principles -->
+        <div class="slide">
+            <h1>SOA Core Principles</h1>
+            <div class="tip-box">
+                <strong>Services are:</strong>
+            </div>
+            <ul style="font-size: 1.3em; line-height: 2; margin-top: 20px;">
+                <li>🔄 <strong>Stateless</strong> - No memory between calls</li>
+                <li>🔌 <strong>Loosely Coupled</strong> - Minimal dependencies</li>
+                <li>📋 <strong>Contract-Based</strong> - Clear API definitions</li>
+                <li>🔁 <strong>Reusable</strong> - Used by multiple clients</li>
+                <li>🎯 <strong>Autonomous</strong> - Self-contained functionality</li>
+            </ul>
+        </div>
+
+        <!-- Slide 27: Microservices -->
+        <div class="slide">
+            <h1>Microservices: SOA Evolution</h1>
+            <div class="comparison-table">
+                <div class="comparison-card">
+                    <h3>Traditional SOA</h3>
+                    <ul>
+                        <li>Larger services</li>
+                        <li>Shared databases</li>
+                        <li>Enterprise service bus</li>
+                        <li>SOAP/XML protocols</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h3>Microservices</h3>
+                    <ul>
+                        <li>Smaller, focused services</li>
+                        <li>Own database per service</li>
+                        <li>Direct communication</li>
+                        <li>REST/JSON protocols</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-style: italic;">Netflix has 700+ microservices!</p>
+        </div>
+
+        <!-- Slide 28: Load Balancing -->
+        <div class="slide">
+            <h1>Load Balancing</h1>
+            <p style="font-size: 1.2em;">Distributing work across multiple servers</p>
+            <div class="architecture-diagram">
+                <div class="component-box" style="background: #ffc107;">Load Balancer</div>
+                <p>↓ Distributes Requests ↓</p>
+                <div style="display: flex; justify-content: center; gap: 20px;">
+                    <div class="component-box">Server 1</div>
+                    <div class="component-box">Server 2</div>
+                    <div class="component-box">Server 3</div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>Benefits:</strong> High availability, fault tolerance, better performance
+            </div>
+        </div>
+
+        <!-- Slide 29: Technology Decisions -->
+        <div class="slide">
+            <h1>Technology Stack Decisions</h1>
+            <p style="font-size: 1.3em;">Choosing the right tools for the job</p>
+            <div class="activity-box">
+                <h3>Key Considerations:</h3>
+                <ul style="font-size: 1.1em;">
+                    <li>🎯 <strong>Requirements</strong> - What does the system need to do?</li>
+                    <li>👥 <strong>Team Skills</strong> - What does your team know?</li>
+                    <li>💰 <strong>Cost</strong> - License fees, hosting, maintenance</li>
+                    <li>📈 <strong>Scalability</strong> - Will it grow with you?</li>
+                    <li>🏢 <strong>Support</strong> - Community, documentation, vendor</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 30: Frontend Technologies -->
+        <div class="slide">
+            <h1>Frontend Technology Choices</h1>
+            <div class="comparison-table">
+                <div class="comparison-card">
+                    <h3>React</h3>
+                    <p>✅ Large ecosystem</p>
+                    <p>✅ Flexible</p>
+                    <p>❌ Learning curve</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>Angular</h3>
+                    <p>✅ Full framework</p>
+                    <p>✅ TypeScript</p>
+                    <p>❌ Complex</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>Vue</h3>
+                    <p>✅ Easy to learn</p>
+                    <p>✅ Great docs</p>
+                    <p>❌ Smaller community</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 31: Backend Technologies -->
+        <div class="slide">
+            <h1>Backend Technology Choices</h1>
+            <div class="architecture-diagram">
+                <h3>Popular Stacks:</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="layer-box">
+                        <strong>MEAN Stack</strong><br>
+                        MongoDB, Express, Angular, Node.js
+                    </div>
+                    <div class="layer-box">
+                        <strong>LAMP Stack</strong><br>
+                        Linux, Apache, MySQL, PHP
+                    </div>
+                    <div class="layer-box">
+                        <strong>Django Stack</strong><br>
+                        Python, Django, PostgreSQL
+                    </div>
+                    <div class="layer-box">
+                        <strong>.NET Stack</strong><br>
+                        C#, ASP.NET, SQL Server
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 32: Database Decisions -->
+        <div class="slide">
+            <h1>Database Technology Choices</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>SQL Databases</h3>
+                    <p><strong>Examples:</strong> PostgreSQL, MySQL</p>
+                    <ul>
+                        <li>Structured data</li>
+                        <li>ACID compliance</li>
+                        <li>Complex queries</li>
+                        <li>Transactions</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>NoSQL Databases</h3>
+                    <p><strong>Examples:</strong> MongoDB, Redis</p>
+                    <ul>
+                        <li>Flexible schema</li>
+                        <li>Horizontal scaling</li>
+                        <li>Big data</li>
+                        <li>Real-time apps</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 33: Cloud Platforms -->
+        <div class="slide">
+            <h1>Cloud Platform Decisions</h1>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                <div class="architecture-diagram">
+                    <h3>AWS</h3>
+                    <p>✅ Market leader</p>
+                    <p>✅ Most services</p>
+                    <p>❌ Complex pricing</p>
+                </div>
+                <div class="architecture-diagram">
+                    <h3>Azure</h3>
+                    <p>✅ Microsoft integration</p>
+                    <p>✅ Enterprise focus</p>
+                    <p>❌ Learning curve</p>
+                </div>
+                <div class="architecture-diagram">
+                    <h3>Google Cloud</h3>
+                    <p>✅ ML/AI tools</p>
+                    <p>✅ Kubernetes</p>
+                    <p>❌ Smaller market share</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 34: Architecture Best Practices -->
+        <div class="slide">
+            <h1>Architecture Best Practices <span class="emoji">⭐</span></h1>
+            <div class="demo-box">
+                <ul style="font-size: 1.2em; line-height: 2;">
+                    <li>🎯 <strong>Keep It Simple</strong> - Don't over-engineer</li>
+                    <li>📝 <strong>Document Everything</strong> - Future you will thank you</li>
+                    <li>🔍 <strong>Consider Non-Functionals</strong> - Security, performance, etc.</li>
+                    <li>🔄 <strong>Plan for Change</strong> - Requirements will evolve</li>
+                    <li>📊 <strong>Measure and Monitor</strong> - Know how your system performs</li>
+                    <li>🧪 <strong>Test at Every Level</strong> - Unit, integration, system</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 35: Common Architecture Mistakes -->
+        <div class="slide">
+            <h1>Common Pitfalls to Avoid <span class="emoji">⚠️</span></h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Mistakes</h3>
+                    <ul>
+                        <li>Over-engineering simple problems</li>
+                        <li>Ignoring non-functional requirements</li>
+                        <li>Tight coupling everywhere</li>
+                        <li>No documentation</li>
+                        <li>Technology-driven decisions</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✅ Solutions</h3>
+                    <ul>
+                        <li>Start simple, evolve as needed</li>
+                        <li>Define performance/security early</li>
+                        <li>Use interfaces and abstractions</li>
+                        <li>Document decisions and reasons</li>
+                        <li>Requirements-driven choices</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 36: Case Study -->
+        <div class="slide">
+            <h1>Case Study: E-Commerce Platform</h1>
+            <div class="demo-box">
+                <h3>Requirements:</h3>
+                <ul>
+                    <li>10,000 concurrent users</li>
+                    <li>99.9% uptime</li>
+                    <li>Global customers</li>
+                    <li>Multiple payment methods</li>
+                </ul>
+            </div>
+            <div class="architecture-diagram" style="margin-top: 20px;">
+                <h3>Solution:</h3>
+                <p>Multi-tier, Service-oriented, Cloud-hosted</p>
+                <p>Frontend: React | Backend: Node.js | Database: MongoDB + Redis</p>
+                <p>Deployment: AWS with auto-scaling</p>
+            </div>
+        </div>
+
+        <!-- Slide 37: Activity - Architecture Review -->
+        <div class="slide">
+            <h1>Group Activity: Architecture Review <span class="emoji">👥</span></h1>
+            <div class="activity-box">
+                <h3>15-Minute Challenge</h3>
+                <p>You're building a video streaming platform (like YouTube):</p>
+                <ol>
+                    <li>Identify key components needed</li>
+                    <li>Choose an architecture pattern</li>
+                    <li>Select appropriate technologies</li>
+                    <li>Consider scalability requirements</li>
+                    <li>Present your architecture</li>
+                </ol>
+            </div>
+            <button data-timer="15">Start 15-Minute Timer</button>
+        </div>
+
+        <!-- Slide 38: Evolution and Refactoring -->
+        <div class="slide">
+            <h1>Architecture Evolution</h1>
+            <p style="font-size: 1.3em;">Your architecture will change over time!</p>
+            <div class="architecture-diagram">
+                <h3>Typical Evolution Path:</h3>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+                    <div class="component-box">Monolith</div>
+                    <span>→</span>
+                    <div class="component-box">Modular</div>
+                    <span>→</span>
+                    <div class="component-box">Services</div>
+                    <span>→</span>
+                    <div class="component-box">Microservices</div>
+                </div>
+            </div>
+            <div class="tip-box" style="margin-top: 30px;">
+                <strong>Key:</strong> Don't start with microservices for a simple app!
+            </div>
+        </div>
+
+        <!-- Slide 39: Security Considerations -->
+        <div class="slide">
+            <h1>Security in Architecture <span class="emoji">🔒</span></h1>
+            <div class="demo-box">
+                <h3>Defense in Depth</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>🛡️ <strong>Network Security</strong> - Firewalls, VPNs</li>
+                    <li>🔐 <strong>Application Security</strong> - Input validation, authentication</li>
+                    <li>💾 <strong>Data Security</strong> - Encryption at rest and in transit</li>
+                    <li>👤 <strong>Access Control</strong> - Role-based permissions</li>
+                    <li>📝 <strong>Audit Logging</strong> - Track all activities</li>
+                </ul>
+            </div>
+            <p style="margin-top: 20px; font-style: italic;">Security is not a feature, it's a requirement!</p>
+        </div>
+
+        <!-- Slide 40: Performance Architecture -->
+        <div class="slide">
+            <h1>Performance Optimization</h1>
+            <div class="activity-box">
+                <h3>Key Strategies:</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>⚡ <strong>Caching</strong> - Redis, CDNs</li>
+                    <li>🔄 <strong>Load Balancing</strong> - Distribute traffic</li>
+                    <li>📊 <strong>Database Optimization</strong> - Indexes, queries</li>
+                    <li>🗜️ <strong>Compression</strong> - Reduce data transfer</li>
+                    <li>⏱️ <strong>Async Processing</strong> - Don't block users</li>
+                </ul>
+            </div>
+            <div class="tip-box">
+                <strong>Remember:</strong> Measure first, optimize second!
+            </div>
+        </div>
+
+        <!-- Slide 41: Documentation -->
+        <div class="slide">
+            <h1>Documenting Your Architecture</h1>
+            <div class="demo-box">
+                <h3>Essential Documentation:</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>📊 <strong>Architecture Diagrams</strong> - Visual overview</li>
+                    <li>📝 <strong>Decision Records</strong> - Why you chose X over Y</li>
+                    <li>🔌 <strong>API Documentation</strong> - How to use services</li>
+                    <li>🚀 <strong>Deployment Guide</strong> - How to deploy</li>
+                    <li>🔧 <strong>Operations Manual</strong> - How to maintain</li>
+                </ul>
+            </div>
+            <p style="margin-top: 30px; font-style: italic;">"Code tells you how, comments tell you why, documentation tells you what"</p>
+        </div>
+
+        <!-- Slide 42: Real-World Examples -->
+        <div class="slide">
+            <h1>Learn from the Giants</h1>
+            <div class="architecture-diagram">
+                <h3>How Big Companies Architect:</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;">
+                    <div>
+                        <strong>Netflix:</strong> Microservices, AWS, Chaos Engineering
+                    </div>
+                    <div>
+                        <strong>Uber:</strong> Service Mesh, Real-time processing
+                    </div>
+                    <div>
+                        <strong>Spotify:</strong> Squad model, Autonomous teams
+                    </div>
+                    <div>
+                        <strong>Amazon:</strong> Service-oriented, Two-pizza teams
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box" style="margin-top: 30px;">
+                <strong>Lesson:</strong> Their architecture matches their business needs!
+            </div>
+        </div>
+
+        <!-- Slide 43: Future Trends -->
+        <div class="slide">
+            <h1>Future of Software Architecture</h1>
+            <div class="demo-box">
+                <h3>Emerging Trends:</h3>
+                <ul style="font-size: 1.2em; line-height: 2;">
+                    <li>🤖 <strong>AI-Driven Architecture</strong> - Self-optimizing systems</li>
+                    <li>⚡ <strong>Serverless</strong> - No infrastructure management</li>
+                    <li>🌐 <strong>Edge Computing</strong> - Processing closer to users</li>
+                    <li>📦 <strong>Container Orchestration</strong> - Kubernetes everywhere</li>
+                    <li>🔗 <strong>Event-Driven</strong> - Reactive architectures</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 44: Key Takeaways -->
+        <div class="slide">
+            <h1>Key Takeaways <span class="emoji">🎯</span></h1>
+            <div class="demo-box">
+                <ul style="font-size: 1.3em; line-height: 2;">
+                    <li>Architecture is the foundation of your system</li>
+                    <li>It affects performance, security, and maintainability</li>
+                    <li>Choose patterns that fit your needs</li>
+                    <li>Plan for change and growth</li>
+                    <li>Document your decisions</li>
+                    <li>Keep it as simple as possible</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 45: Summary -->
+        <div class="slide">
+            <h1>Today's Achievements <span class="emoji">🎓</span></h1>
+            <h2>You Can Now:</h2>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>✅ Define software architecture and explain its importance</li>
+                <li>✅ Apply common architectural patterns</li>
+                <li>✅ Decompose systems into manageable components</li>
+                <li>✅ Choose appropriate distribution strategies</li>
+                <li>✅ Make informed technology decisions</li>
+                <li>✅ Avoid common architectural pitfalls</li>
+            </ul>
+            <div class="demo-box" style="margin-top: 30px;">
+                <p><strong>Next Class:</strong> Deep dive into Cloud Architecture and DevOps!</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <button id="prevBtn">Previous</button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">45</span>
+            </span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- Shared Presentation JavaScript -->
+    <script src="../../js/presentation.js"></script>
+
+    <!-- Lecture-Specific JavaScript -->
+    <script>
+        // Track slide changes for any interactive elements
+        document.addEventListener('slidechange', (e) => {
+            console.log(`Slide ${e.detail.currentSlide + 1} of ${e.detail.totalSlides}`);
+        });
+
+        // Add any additional lecture-specific interactivity here
+        // For example, animation triggers on certain slides
+    </script>
+</body>
+</html>
