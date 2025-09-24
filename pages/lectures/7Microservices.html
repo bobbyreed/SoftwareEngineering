@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices Architecture - CSCI 5403</title>
+    
+    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <link rel="stylesheet" href="../../styles/presentation.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    
+    <!-- Lecture-Specific Styles -->
+    <style>
+        .architecture-diagram {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .microservice-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 10px;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .pattern-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .pattern-card h3 {
+            color: var(--ocu-dark-blue);
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Timer display for activities -->
+        <div class="timer-display" id="timer-display">
+            <span id="timer-text">Microservices Architecture
+                <button class="home"><a href="../index.html">Home</a></button>
+            </span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Microservices Architecture</h1>
+            <h2>Building Scalable Cloud-Native Systems <span class="emoji">☁️</span></h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">CSCI 5403 - Software Engineering</p>
+            <p style="font-size: 1.3em;">Week 3, Class 7</p>
+            <p style="margin-top: auto; font-style: italic;">From Monoliths to Microservices: The Evolution of Software Architecture</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h1>Today's Learning Objectives</h1>
+            <ul style="font-size: 1.4em; line-height: 2;">
+                <li>🎯 Understand microservices architecture principles and patterns</li>
+                <li>🎯 Compare microservices with monolithic architectures</li>
+                <li>🎯 Design microservices communication and coordination</li>
+                <li>🎯 Implement deployment strategies with containers</li>
+                <li>🎯 Handle data consistency and failure management</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Agenda -->
+        <div class="slide">
+            <h1>Lecture Agenda</h1>
+            <ol style="font-size: 1.3em; line-height: 2;">
+                <li>What are Microservices?</li>
+                <li>Microservices vs Monolithic Architecture</li>
+                <li>Key Design Decisions</li>
+                <li>Communication Patterns</li>
+                <li>Service Coordination</li>
+                <li>Data Management</li>
+                <li>Deployment and DevOps</li>
+                <li>Real-World Case Studies</li>
+            </ol>
+        </div>
+
+        <!-- Slide 4: What are Microservices? -->
+        <div class="slide">
+            <h1>What are Microservices?</h1>
+            <div class="tip-box">
+                <strong>Definition:</strong> A microservice is an independent and self-contained software component that runs in its own process and communicates with other microservices using lightweight protocols.
+            </div>
+            <ul style="font-size: 1.2em; margin-top: 20px;">
+                <li>Small-scale, stateless services with single responsibility</li>
+                <li>Completely independent with own database and UI code</li>
+                <li>Can use different programming languages and databases</li>
+                <li>Combined to create applications</li>
+            </ul>
+        </div>
+
+        <!-- Slide 5: Microservices Characteristics -->
+        <div class="slide">
+            <h1>Key Characteristics <span class="emoji">🔑</span></h1>
+            <div class="comparison-grid">
+                <div class="pattern-card">
+                    <h3>Independence</h3>
+                    <p>Each service is self-contained and manages its own data</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>Single Responsibility</h3>
+                    <p>One service, one business capability</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>Decentralized</h3>
+                    <p>No central database or shared state</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>Failure Isolation</h3>
+                    <p>Service failures don't cascade</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Example Microservice -->
+        <div class="slide">
+            <h1>Example: Authentication Microservice</h1>
+            <div class="architecture-diagram">
+                <h2 style="text-align: center;">Authentication Service Components</h2>
+                <div style="text-align: center;">
+                    <div class="microservice-box">UID Management</div>
+                    <div class="microservice-box">Password Management</div>
+                    <div class="microservice-box">User Info Management</div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <span style="background: #e2e8f0; padding: 10px; border-radius: 5px; margin: 5px;">UID Data</span>
+                    <span style="background: #e2e8f0; padding: 10px; border-radius: 5px; margin: 5px;">Password Data</span>
+                    <span style="background: #e2e8f0; padding: 10px; border-radius: 5px; margin: 5px;">User Data</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Monolithic vs Microservices -->
+        <div class="slide">
+            <h1>Monolithic vs Microservices Architecture</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>⚡ Microservices</h3>
+                    <ul>
+                        <li>Independent deployment</li>
+                        <li>Technology diversity</li>
+                        <li>Horizontal scaling</li>
+                        <li>Fault isolation</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>🗿 Monolithic</h3>
+                    <ul>
+                        <li>Single deployment unit</li>
+                        <li>Uniform technology</li>
+                        <li>Vertical scaling only</li>
+                        <li>Single point of failure</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Problems with Monolithic -->
+        <div class="slide">
+            <h1>Problems with Monolithic Applications</h1>
+            <div class="demo-box">
+                <p><strong>Challenge 1:</strong> The whole system must be rebuilt, re-tested and re-deployed when any change is made</p>
+                <p style="margin-top: 15px;"><strong>Challenge 2:</strong> As demand increases, the whole system must be scaled, even if demand is localized to specific components</p>
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px;">Microservices architecture addresses both of these fundamental problems!</p>
+        </div>
+
+        <!-- Slide 9: Benefits of Microservices -->
+        <div class="slide">
+            <h1>Benefits of Microservices Architecture</h1>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>✅ <strong>Independent Deployment:</strong> Services can be stopped and restarted without affecting others</li>
+                <li>✅ <strong>Scalability:</strong> Service replicas can be quickly created and deployed</li>
+                <li>✅ <strong>Cost-Effective:</strong> 'Scaling-out' is cheaper than 'scaling up'</li>
+                <li>✅ <strong>Technology Flexibility:</strong> Different languages and databases per service</li>
+                <li>✅ <strong>Team Autonomy:</strong> Teams own their services end-to-end</li>
+            </ul>
+        </div>
+
+        <!-- Slide 10: Key Design Questions -->
+        <div class="slide">
+            <h1>Key Design Questions</h1>
+            <div class="architecture-diagram">
+                <h2 style="text-align: center;">Microservices Architecture Design</h2>
+                <ol style="font-size: 1.2em; line-height: 2;">
+                    <li>What are the microservices that make up the system?</li>
+                    <li>How should microservices communicate with each other?</li>
+                    <li>How should the microservices be coordinated?</li>
+                    <li>How should service failure be detected and managed?</li>
+                    <li>How should data be distributed and shared?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 11: Photo Printing System Example -->
+        <div class="slide">
+            <h1>Example: Photo Printing System</h1>
+            <div class="architecture-diagram">
+                <h2 style="text-align: center;">Microservices Architecture</h2>
+                <div style="text-align: center;">
+                    <div style="background: #4CAF50; color: white; padding: 15px; border-radius: 8px; margin: 10px; display: inline-block;">Mobile App</div>
+                    <div style="background: #2196F3; color: white; padding: 15px; border-radius: 8px; margin: 10px; display: inline-block;">API Gateway</div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <div class="microservice-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">Authentication</div>
+                    <div class="microservice-box" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">Registration</div>
+                    <div class="microservice-box" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">Upload</div>
+                    <div class="microservice-box" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">Payment</div>
+                    <div class="microservice-box" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">Printing</div>
+                    <div class="microservice-box" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">Dispatch</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Service Communication -->
+        <div class="slide">
+            <h1>Service Communication</h1>
+            <p style="font-size: 1.2em;">Microservices communicate by exchanging messages</p>
+            <div class="code-example">
+                <pre>{
+  "originator": "authentication-service",
+  "request": "validate-user",
+  "data": {
+    "username": "john.doe",
+    "token": "eyJhbGciOiJIUzI1NiIs..."
+  },
+  "timestamp": "2025-01-15T10:30:00Z"
+}</pre>
+            </div>
+            <p style="margin-top: 20px;">Services return responses to service request messages</p>
+        </div>
+
+        <!-- Slide 13: Communication Decisions -->
+        <div class="slide">
+            <h1>Communication Decisions</h1>
+            <div class="comparison-grid">
+                <div class="pattern-card">
+                    <h3>Synchronous vs Asynchronous</h3>
+                    <p>Should services wait for responses or continue processing?</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>Direct vs Indirect</h3>
+                    <p>Should services know each other's addresses or use a broker?</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>Protocol Selection</h3>
+                    <p>REST, GraphQL, gRPC, or message queues?</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>Data Format</h3>
+                    <p>JSON, XML, Protocol Buffers, or custom?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Direct vs Indirect Communication -->
+        <div class="slide">
+            <h1>Direct vs Indirect Communication</h1>
+            <div class="demo-box">
+                <h3>Direct Communication</h3>
+                <p>Services know each other's addresses and send requests directly</p>
+                <p style="margin-top: 10px;">Service A → Service B</p>
+            </div>
+            <div class="demo-box" style="margin-top: 20px;">
+                <h3>Indirect Communication</h3>
+                <p>Services send requests to a message broker that routes them</p>
+                <p style="margin-top: 10px;">Service A → Message Broker → Service B</p>
+            </div>
+        </div>
+
+        <!-- Slide 15: RESTful Architecture -->
+        <div class="slide">
+            <h1>RESTful Architecture Style</h1>
+            <p style="font-size: 1.3em;">Most widely used in microservice-based systems</p>
+            <div class="code-example">
+                <pre>// HTTP Verbs mapped to operations
+GET    /api/users/{id}     // Retrieve user
+POST   /api/users          // Create user  
+PUT    /api/users/{id}     // Update user
+DELETE /api/users/{id}     // Delete user</pre>
+            </div>
+            <div class="tip-box">
+                <strong>Resource Representation:</strong> JSON (most common) or XML
+            </div>
+        </div>
+
+        <!-- Slide 16: Activity - Design Communication -->
+        <div class="slide">
+            <h1>Practice Activity <span class="emoji">💻</span></h1>
+            <div class="activity-box">
+                <h3>15-Minute Challenge: Design Service Communication</h3>
+                <p>Design the communication flow for an e-commerce system with:</p>
+                <ol>
+                    <li>Product Service</li>
+                    <li>Cart Service</li>
+                    <li>Payment Service</li>
+                    <li>Inventory Service</li>
+                    <li>Notification Service</li>
+                </ol>
+                <p style="margin-top: 15px;"><strong>Consider:</strong> Which services need synchronous vs asynchronous communication?</p>
+            </div>
+            <button data-timer="15">Start 15-Minute Timer</button>
+        </div>
+
+        <!-- Slide 17: Service Coordination -->
+        <div class="slide">
+            <h1>Service Coordination</h1>
+            <p style="font-size: 1.3em;">Managing workflows across multiple services</p>
+            <div class="demo-box">
+                <strong>Workflow Example:</strong> User Authentication
+                <ol style="margin-top: 10px;">
+                    <li>User submits credentials</li>
+                    <li>Validate username exists</li>
+                    <li>Check password</li>
+                    <li>Generate session token</li>
+                    <li>Log authentication event</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 18: Orchestration vs Choreography -->
+        <div class="slide">
+            <h1>Orchestration vs Choreography</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>🎼 Orchestration</h3>
+                    <p>Central controller manages workflow</p>
+                    <ul style="margin-top: 10px;">
+                        <li>Explicit flow control</li>
+                        <li>Easier to understand</li>
+                        <li>Single point of failure</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>💃 Choreography</h3>
+                    <p>Services react to events</p>
+                    <ul style="margin-top: 10px;">
+                        <li>Decentralized control</li>
+                        <li>More resilient</li>
+                        <li>Harder to track flow</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Data Management Challenges -->
+        <div class="slide">
+            <h1>Data Management Challenges</h1>
+            <div class="tip-box">
+                <strong>ACID transactions are impractical in microservices architecture</strong>
+            </div>
+            <h2 style="margin-top: 30px;">Two Types of Inconsistency:</h2>
+            <ol style="font-size: 1.2em; line-height: 2;">
+                <li><strong>Dependent Data Inconsistency:</strong> Actions of one service cause another's data to become inconsistent</li>
+                <li><strong>Replica Inconsistency:</strong> Multiple replicas have different versions of the same data</li>
+            </ol>
+        </div>
+
+        <!-- Slide 20: Eventual Consistency -->
+        <div class="slide">
+            <h1>Eventual Consistency</h1>
+            <p style="font-size: 1.3em;">Databases need not be completely consistent all the time</p>
+            <div class="demo-box">
+                <h3>Strategy: Eventually Consistent Systems</h3>
+                <ul style="margin-top: 15px;">
+                    <li>Accept temporary inconsistency</li>
+                    <li>Implement reconciliation mechanisms</li>
+                    <li>Use event sourcing for audit trail</li>
+                    <li>Apply compensating transactions when needed</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 21: Failure Types -->
+        <div class="slide">
+            <h1>Failure Types in Microservices</h1>
+            <div class="comparison-grid">
+                <div class="pattern-card">
+                    <h3>Internal Service Failure</h3>
+                    <p>Detected by service, reported in error message (e.g., invalid URL)</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>External Service Failure</h3>
+                    <p>External cause affects availability, service becomes unresponsive</p>
+                </div>
+                <div class="pattern-card" style="grid-column: span 2;">
+                    <h3>Service Performance Failure</h3>
+                    <p>Performance degrades to unacceptable level due to load or internal issues</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Failure Management Strategies -->
+        <div class="slide">
+            <h1>Failure Management Strategies</h1>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>🔄 <strong>Retry Logic:</strong> Automatic retry with exponential backoff</li>
+                <li>⚡ <strong>Circuit Breaker:</strong> Stop calling failing services</li>
+                <li>🔀 <strong>Fallback:</strong> Provide degraded functionality</li>
+                <li>⏱️ <strong>Timeouts:</strong> Don't wait indefinitely</li>
+                <li>💓 <strong>Health Checks:</strong> Monitor service status</li>
+            </ul>
+        </div>
+
+        <!-- Slide 23: Containers Introduction -->
+        <div class="slide">
+            <h1>Containers and Microservices</h1>
+            <div class="tip-box">
+                <strong>Key Insight:</strong> Each microservice can be deployed in its own container
+            </div>
+            <p style="font-size: 1.2em; margin-top: 20px;">Benefits of containerization:</p>
+            <ul style="font-size: 1.1em;">
+                <li>Consistent execution environment</li>
+                <li>Rapid deployment and scaling</li>
+                <li>Resource isolation</li>
+                <li>Portability across platforms</li>
+            </ul>
+        </div>
+
+        <!-- Slide 24: Docker Overview -->
+        <div class="slide">
+            <h1>Docker for Microservices</h1>
+            <div class="code-example">
+                <pre># Dockerfile for a microservice
+FROM node:14-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]</pre>
+            </div>
+            <p style="margin-top: 20px;">Docker provides standard container management for easy deployment</p>
+        </div>
+
+        <!-- Slide 25: Container Benefits -->
+        <div class="slide">
+            <h1>Container Benefits for Microservices</h1>
+            <ol style="font-size: 1.2em; line-height: 2;">
+                <li>✅ <strong>Solve dependency problems:</strong> Same libraries everywhere</li>
+                <li>✅ <strong>Portability:</strong> Run on any Docker-enabled platform</li>
+                <li>✅ <strong>Efficient services:</strong> Lightweight and fast to start</li>
+                <li>✅ <strong>DevOps enablement:</strong> Same team develops and operates</li>
+                <li>✅ <strong>Easy rollback:</strong> Previous versions readily available</li>
+            </ol>
+        </div>
+
+        <!-- Slide 26: Continuous Deployment -->
+        <div class="slide">
+            <h1>Continuous Deployment</h1>
+            <div class="demo-box">
+                <strong>Definition:</strong> As soon as a change to a service has been made and validated, the modified service is redeployed
+            </div>
+            <p style="font-size: 1.2em; margin-top: 20px;">Process is completely automated:</p>
+            <ul>
+                <li>Automated testing checks production quality</li>
+                <li>Multiple versions may be maintained</li>
+                <li>Quick rollback if problems discovered</li>
+            </ul>
+        </div>
+
+        <!-- Slide 27: DevOps and Microservices -->
+        <div class="slide">
+            <h1>DevOps and Microservices</h1>
+            <div class="architecture-diagram">
+                <h2 style="text-align: center;">Multi-skilled DevOps Team</h2>
+                <div style="text-align: center;">
+                    <div style="display: inline-block; width: 150px; height: 150px; border-radius: 50%; background: #e3f2fd; line-height: 150px; margin: 10px;">Development</div>
+                    <div style="display: inline-block; width: 150px; height: 150px; border-radius: 50%; background: #f3e5f5; line-height: 150px; margin: 10px;">Deployment</div>
+                    <div style="display: inline-block; width: 150px; height: 150px; border-radius: 50%; background: #e8f5e9; line-height: 150px; margin: 10px;">Support</div>
+                </div>
+                <p style="text-align: center; margin-top: 20px;">Teams own services end-to-end</p>
+            </div>
+        </div>
+
+        <!-- Slide 28: Service Versioning -->
+        <div class="slide">
+            <h1>Service Versioning</h1>
+            <div class="code-example">
+                <pre>// API Gateway routes to versioned services
+GET /api/v1/users  → users-service-v1
+GET /api/v2/users  → users-service-v2
+
+// Gradual migration strategy
+1. Deploy new version alongside old
+2. Route percentage of traffic to new
+3. Monitor for issues
+4. Increase traffic gradually
+5. Deprecate old version</pre>
+            </div>
+        </div>
+
+        <!-- Slide 29: Real-World Example - Netflix -->
+        <div class="slide">
+            <h1>Case Study: Netflix</h1>
+            <div class="demo-box">
+                <h3>Netflix Microservices Architecture</h3>
+                <ul style="margin-top: 15px;">
+                    <li>500+ microservices in production</li>
+                    <li>100+ deployments per day</li>
+                    <li>Handles 2+ billion API requests daily</li>
+                    <li>Polyglot: Java, Node.js, Python, and more</li>
+                    <li>Uses Chaos Engineering for resilience</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 30: Real-World Example - Spotify -->
+        <div class="slide">
+            <h1>Case Study: Spotify</h1>
+            <div class="demo-box">
+                <h3>Spotify's Squad Model</h3>
+                <ul style="margin-top: 15px;">
+                    <li>Autonomous squads own microservices</li>
+                    <li>90+ development teams</li>
+                    <li>Build time reduced from 80 to 10 minutes</li>
+                    <li>Setup time: 14 days → 5 minutes</li>
+                    <li>Platform teams provide tooling infrastructure</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 31: Activity - Microservices Design -->
+        <div class="slide">
+            <h1>Practice Activity <span class="emoji">🏗️</span></h1>
+            <div class="activity-box">
+                <h3>20-Minute Challenge: Design Your Microservices</h3>
+                <p>Choose a monolithic application and decompose it into microservices:</p>
+                <ol>
+                    <li>Identify bounded contexts</li>
+                    <li>Define service responsibilities</li>
+                    <li>Design communication patterns</li>
+                    <li>Plan data management strategy</li>
+                    <li>Consider deployment approach</li>
+                </ol>
+                <p style="margin-top: 15px;"><strong>Examples:</strong> Online banking, Social media platform, E-learning system</p>
+            </div>
+            <button data-timer="20">Start 20-Minute Timer</button>
+        </div>
+
+        <!-- Slide 32: Migration Strategies -->
+        <div class="slide">
+            <h1>Migrating from Monolith to Microservices</h1>
+            <ol style="font-size: 1.2em; line-height: 2;">
+                <li>🔍 <strong>Identify Bounded Contexts:</strong> Find natural service boundaries</li>
+                <li>🔪 <strong>Strangler Fig Pattern:</strong> Gradually replace monolith parts</li>
+                <li>📦 <strong>Extract Services:</strong> Start with least coupled components</li>
+                <li>🔌 <strong>API Gateway:</strong> Single entry point for clients</li>
+                <li>📊 <strong>Data Decomposition:</strong> Separate databases gradually</li>
+            </ol>
+        </div>
+
+        <!-- Slide 33: Anti-Patterns to Avoid -->
+        <div class="slide">
+            <h1>Microservices Anti-Patterns ⚠️</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Data Sharing</h3>
+                    <p>Multiple services sharing a database</p>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ Chatty Services</h3>
+                    <p>Too many synchronous calls between services</p>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ Distributed Monolith</h3>
+                    <p>Services that must be deployed together</p>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ Wrong Boundaries</h3>
+                    <p>Services split by technical layers, not business</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 34: When NOT to Use Microservices -->
+        <div class="slide">
+            <h1>When NOT to Use Microservices</h1>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>🚫 Small teams or projects</li>
+                <li>🚫 Unclear domain boundaries</li>
+                <li>🚫 Strong data consistency requirements</li>
+                <li>🚫 Limited DevOps maturity</li>
+                <li>🚫 Proof of concept or MVP phase</li>
+            </ul>
+            <div class="tip-box" style="margin-top: 30px;">
+                <strong>Remember:</strong> Microservices solve organizational problems, not technical ones
+            </div>
+        </div>
+
+        <!-- Slide 35: Tools and Technologies -->
+        <div class="slide">
+            <h1>Microservices Technology Stack</h1>
+            <div class="comparison-grid">
+                <div class="pattern-card">
+                    <h3>Service Mesh</h3>
+                    <p>Istio, Linkerd, Consul</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>API Gateway</h3>
+                    <p>Kong, Zuul, AWS API Gateway</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>Container Orchestration</h3>
+                    <p>Kubernetes, Docker Swarm, Nomad</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>Message Brokers</h3>
+                    <p>Kafka, RabbitMQ, AWS SQS</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 36: Security Considerations -->
+        <div class="slide">
+            <h1>Security in Microservices</h1>
+            <ul style="font-size: 1.2em; line-height: 2;">
+                <li>🔒 <strong>Service-to-Service Authentication:</strong> mTLS, OAuth 2.0</li>
+                <li>🔑 <strong>API Gateway Security:</strong> Rate limiting, API keys</li>
+                <li>🛡️ <strong>Secrets Management:</strong> Vault, AWS Secrets Manager</li>
+                <li>📝 <strong>Audit Logging:</strong> Centralized logging for all services</li>
+                <li>🔍 <strong>Zero Trust:</strong> Never trust, always verify</li>
+            </ul>
+        </div>
+
+        <!-- Slide 37: Observability -->
+        <div class="slide">
+            <h1>Observability in Microservices</h1>
+            <div class="demo-box">
+                <h3>Three Pillars of Observability</h3>
+                <ol style="margin-top: 15px; font-size: 1.1em; line-height: 2;">
+                    <li><strong>Metrics:</strong> Prometheus, Grafana, DataDog</li>
+                    <li><strong>Logging:</strong> ELK Stack, Splunk, CloudWatch</li>
+                    <li><strong>Tracing:</strong> Jaeger, Zipkin, AWS X-Ray</li>
+                </ol>
+            </div>
+            <p style="margin-top: 20px;">Essential for debugging distributed systems!</p>
+        </div>
+
+        <!-- Slide 38: Best Practices -->
+        <div class="slide">
+            <h1>Microservices Best Practices</h1>
+            <ol style="font-size: 1.2em; line-height: 2;">
+                <li>✅ Design for failure - assume things will break</li>
+                <li>✅ Implement comprehensive monitoring</li>
+                <li>✅ Use API versioning from the start</li>
+                <li>✅ Automate everything possible</li>
+                <li>✅ Document service contracts clearly</li>
+                <li>✅ Keep services truly independent</li>
+                <li>✅ Implement proper testing strategies</li>
+            </ol>
+        </div>
+
+        <!-- Slide 39: Testing Strategies -->
+        <div class="slide">
+            <h1>Testing Microservices</h1>
+            <div class="architecture-diagram">
+                <h2>Testing Pyramid for Microservices</h2>
+                <div style="text-align: center;">
+                    <div style="background: #4CAF50; color: white; padding: 20px; width: 300px; margin: 10px auto;">Unit Tests (Many)</div>
+                    <div style="background: #FF9800; color: white; padding: 20px; width: 250px; margin: 10px auto;">Integration Tests</div>
+                    <div style="background: #2196F3; color: white; padding: 20px; width: 200px; margin: 10px auto;">Contract Tests</div>
+                    <div style="background: #9C27B0; color: white; padding: 20px; width: 150px; margin: 10px auto;">E2E Tests (Few)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 40: Performance Considerations -->
+        <div class="slide">
+            <h1>Performance Optimization</h1>
+            <ul style="font-size: 1.2em; line-height: 2;">
+                <li>⚡ <strong>Caching:</strong> Redis, Memcached at multiple levels</li>
+                <li>🔄 <strong>Async Communication:</strong> Use message queues when possible</li>
+                <li>📊 <strong>Database per Service:</strong> Optimize for specific needs</li>
+                <li>🎯 <strong>Service Mesh:</strong> Intelligent routing and load balancing</li>
+                <li>📈 <strong>Auto-scaling:</strong> Scale services based on demand</li>
+            </ul>
+        </div>
+
+        <!-- Slide 41: Future Trends -->
+        <div class="slide">
+            <h1>Future of Microservices</h1>
+            <div class="comparison-grid">
+                <div class="pattern-card">
+                    <h3>🤖 AI-Driven Operations</h3>
+                    <p>Automated scaling and optimization</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>⚡ Serverless Integration</h3>
+                    <p>Functions as microservices</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>🌐 Edge Computing</h3>
+                    <p>Distributed microservices at edge</p>
+                </div>
+                <div class="pattern-card">
+                    <h3>🔮 Service Mesh Evolution</h3>
+                    <p>More intelligent service management</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 42: Group Discussion -->
+        <div class="slide">
+            <h1>Group Discussion <span class="emoji">💬</span></h1>
+            <div class="activity-box">
+                <h3>Discussion Topics (10 minutes)</h3>
+                <ol>
+                    <li>What challenges do you foresee in adopting microservices?</li>
+                    <li>How would you convince management to migrate from monolithic?</li>
+                    <li>What's your strategy for handling distributed transactions?</li>
+                    <li>How do you ensure consistency across services?</li>
+                </ol>
+            </div>
+            <button data-timer="10">Start Discussion Timer</button>
+        </div>
+
+        <!-- Slide 43: Key Takeaways -->
+        <div class="slide">
+            <h1>Key Takeaways - Part 1</h1>
+            <ul style="font-size: 1.2em; line-height: 2;">
+                <li>✔️ Microservices are independent, self-contained components</li>
+                <li>✔️ They solve scaling and deployment problems of monoliths</li>
+                <li>✔️ Communication can be synchronous or asynchronous</li>
+                <li>✔️ Coordination through orchestration or choreography</li>
+                <li>✔️ Eventual consistency replaces ACID transactions</li>
+            </ul>
+        </div>
+
+        <!-- Slide 44: Key Takeaways -->
+        <div class="slide">
+            <h1>Key Takeaways - Part 2</h1>
+            <ul style="font-size: 1.2em; line-height: 2;">
+                <li>✔️ Containers enable consistent deployment</li>
+                <li>✔️ DevOps teams own services end-to-end</li>
+                <li>✔️ Continuous deployment is the norm</li>
+                <li>✔️ Failure management is crucial</li>
+                <li>✔️ Not suitable for all projects</li>
+            </ul>
+        </div>
+
+        <!-- Slide 45: Summary -->
+        <div class="slide">
+            <h1>Today's Accomplishments <span class="emoji">🎓</span></h1>
+            <h2>You Can Now:</h2>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>✅ Design microservices architectures</li>
+                <li>✅ Choose appropriate communication patterns</li>
+                <li>✅ Handle data consistency challenges</li>
+                <li>✅ Plan deployment strategies</li>
+                <li>✅ Identify when to use (or avoid) microservices</li>
+            </ul>
+            <div class="demo-box" style="margin-top: 30px;">
+                <p><strong>Next Class:</strong> Cloud-based Software and Deployment Strategies</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <button id="prevBtn">Previous</button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">45</span>
+            </span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- Shared Presentation JavaScript -->
+    <script src="../../js/presentation.js"></script>
+
+    <!-- Lecture-Specific JavaScript -->
+    <script>
+        // Listen for slide change events
+        document.addEventListener('slidechange', (e) => {
+            console.log(`Slide ${e.detail.currentSlide + 1} of ${e.detail.totalSlides}`);
+            
+            // Add any specific animations or actions for certain slides
+            if (e.detail.currentSlide === 10) { // Photo printing system
+                // Could add animation here
+            }
+        });
+
+        // Add any lecture-specific functionality
+        console.log('Microservices Architecture lecture loaded');
+    </script>
+</body>
+</html>
