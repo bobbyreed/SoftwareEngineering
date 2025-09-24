@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 9: Reliable Programming - CSCI 5403</title>
+    
+    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <link rel="stylesheet" href="../../styles/presentation.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    
+    <!-- Lecture-Specific Styles -->
+    <style>
+        .quality-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .quality-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--ocu-gold);
+        }
+        
+        .pattern-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .pattern-table th,
+        .pattern-table td {
+            border: 1px solid var(--ocu-light-blue);
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .pattern-table th {
+            background: var(--ocu-dark-blue);
+            color: white;
+        }
+        
+        .vulnerability-example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme toggle will be automatically added by JavaScript -->
+    
+    <div class="presentation-container">
+        <!-- Timer display for activities -->
+        <div class="timer-display" id="timer-display">
+            <span id="timer-text">Lecture 9: Reliable Programming
+                <button class="home"><a href="../index.html">Home</a></button>
+            </span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Reliable Programming</h1>
+            <h2>Building Software That Users Trust <span class="emoji">🛡️</span></h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">CSCI 5403 - Software Engineering</p>
+            <p style="font-size: 1.3em;">Week 5, Lecture 9</p>
+            <p style="margin-top: auto; font-style: italic;">"Quality is not an act, it is a habit" - Aristotle</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h1>Today's Learning Objectives</h1>
+            <ul style="font-size: 1.4em; line-height: 2;">
+                <li>🎯 Understand key software quality attributes</li>
+                <li>🎯 Master fault avoidance techniques</li>
+                <li>🎯 Implement effective input validation</li>
+                <li>🎯 Design robust failure management strategies</li>
+                <li>🎯 Apply refactoring to reduce complexity</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: The Importance of Quality -->
+        <div class="slide">
+            <h1>Why Software Quality Matters</h1>
+            <div class="demo-box">
+                <p style="font-size: 1.3em;">Creating a successful software product requires more than just useful features!</p>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>✅ Users need confidence that software won't crash</li>
+                <li>✅ Information must be protected from loss</li>
+                <li>✅ Software should be learnable and usable</li>
+                <li>✅ Errors should be minimized and handled gracefully</li>
+            </ul>
+        </div>
+
+        <!-- Slide 4: Quality Attributes Overview -->
+        <div class="slide">
+            <h1>Software Product Quality Attributes</h1>
+            <div class="quality-grid">
+                <div class="quality-item">
+                    <h3>🔒 Reliability</h3>
+                    <p>Consistent performance without failures</p>
+                </div>
+                <div class="quality-item">
+                    <h3>🛡️ Security</h3>
+                    <p>Protection from unauthorized access</p>
+                </div>
+                <div class="quality-item">
+                    <h3>✅ Availability</h3>
+                    <p>Operational when needed</p>
+                </div>
+                <div class="quality-item">
+                    <h3>👤 Usability</h3>
+                    <p>Easy to learn and use effectively</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: More Quality Attributes -->
+        <div class="slide">
+            <h1>Additional Quality Attributes</h1>
+            <div class="quality-grid">
+                <div class="quality-item">
+                    <h3>⚡ Responsiveness</h3>
+                    <p>Quick response to user actions</p>
+                </div>
+                <div class="quality-item">
+                    <h3>🔧 Maintainability</h3>
+                    <p>Easy to modify and update</p>
+                </div>
+                <div class="quality-item">
+                    <h3>💪 Resilience</h3>
+                    <p>Ability to recover from failures</p>
+                </div>
+                <div class="quality-item">
+                    <h3>📊 Scalability</h3>
+                    <p>Handle growing workload gracefully</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Three Pillars of Reliability -->
+        <div class="slide">
+            <h1>Programming for Reliability: Three Pillars</h1>
+            <div style="display: flex; justify-content: space-around; align-items: center; margin: 40px 0;">
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 3em;">🚫</div>
+                    <h2>Fault Avoidance</h2>
+                    <p>Prevent introducing bugs</p>
+                </div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 3em;">✔️</div>
+                    <h2>Input Validation</h2>
+                    <p>Check all user inputs</p>
+                </div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 3em;">🛠️</div>
+                    <h2>Failure Management</h2>
+                    <p>Handle failures gracefully</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Fault Avoidance Section -->
+        <div class="slide">
+            <h1>Part 1: Fault Avoidance</h1>
+            <h2 style="color: var(--ocu-gold);">Programming to Prevent Bugs <span class="emoji">🚫🐛</span></h2>
+            <div class="tip-box">
+                <strong>Key Principle:</strong> Program in a way that reduces the probability of making mistakes
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px;">Next: Understanding and managing complexity...</p>
+        </div>
+
+        <!-- Slide 8: Program Complexity -->
+        <div class="slide">
+            <h1>Understanding Program Complexity</h1>
+            <div class="demo-box">
+                <p><strong>Complexity</strong> is related to the number and nature of relationships between program elements</p>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li><strong>Coupling:</strong> Number of relationships between components</li>
+                <li><strong>Static relationships:</strong> Stable, don't change during execution</li>
+                <li><strong>Dynamic relationships:</strong> Change over time (more complex)</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Remember:</strong> Higher coupling = Higher complexity = More bugs!
+            </div>
+        </div>
+
+        <!-- Slide 9: Complexity Types -->
+        <div class="slide">
+            <h1>Types of Complexity</h1>
+            <table class="pattern-table">
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Solution</th>
+                </tr>
+                <tr>
+                    <td>Reading Complexity</td>
+                    <td>Hard to understand variable/function names</td>
+                    <td>Rename for clarity</td>
+                </tr>
+                <tr>
+                    <td>Structural Complexity</td>
+                    <td>Large classes or functions</td>
+                    <td>Break into smaller units</td>
+                </tr>
+                <tr>
+                    <td>Data Complexity</td>
+                    <td>Complex database schemas</td>
+                    <td>Simplify and normalize</td>
+                </tr>
+                <tr>
+                    <td>Decision Complexity</td>
+                    <td>Deeply nested if-else statements</td>
+                    <td>Use guard clauses</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Slide 10: Cohesion and Coupling -->
+        <div class="slide">
+            <h1>Cohesion vs Coupling</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>✅ High Cohesion (Good)</h3>
+                    <p>All related functionality is grouped together</p>
+                    <ul>
+                        <li>Single responsibility</li>
+                        <li>Self-contained modules</li>
+                        <li>Clear purpose</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ High Coupling (Bad)</h3>
+                    <p>Too many dependencies between components</p>
+                    <ul>
+                        <li>Hard to change</li>
+                        <li>Brittle code</li>
+                        <li>Difficult to test</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Guard Clauses -->
+        <div class="slide">
+            <h1>Using Guard Clauses</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Nested Conditions</h3>
+                    <div class="code-example">
+                        <pre>if (user != null) {
+    if (user.isActive()) {
+        if (user.hasPermission()) {
+            // Do something
+        }
+    }
+}</pre>
+                    </div>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✅ Guard Clauses</h3>
+                    <div class="code-example">
+                        <pre>if (user == null) return;
+if (!user.isActive()) return;
+if (!user.hasPermission()) return;
+
+// Do something</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Design Patterns Introduction -->
+        <div class="slide">
+            <h1>Design Patterns</h1>
+            <div class="demo-box">
+                <p><strong>Definition:</strong> General reusable solutions to commonly-occurring problems in software design</p>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>✅ Tried and tested solutions</li>
+                <li>✅ Reduce program complexity</li>
+                <li>✅ Improve code organization</li>
+                <li>✅ Make code more maintainable</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Note:</strong> Patterns describe structure but must be adapted to your specific needs
+            </div>
+        </div>
+
+        <!-- Slide 13: Pattern Categories -->
+        <div class="slide">
+            <h1>Design Pattern Categories</h1>
+            <div style="display: flex; justify-content: space-around; margin: 40px 0;">
+                <div style="text-align: center; flex: 1;">
+                    <h2 style="color: var(--ocu-gold);">Creational</h2>
+                    <p>Object creation mechanisms</p>
+                    <ul style="list-style: none;">
+                        <li>• Factory</li>
+                        <li>• Prototype</li>
+                        <li>• Singleton</li>
+                    </ul>
+                </div>
+                <div style="text-align: center; flex: 1;">
+                    <h2 style="color: var(--ocu-gold);">Structural</h2>
+                    <p>Object composition</p>
+                    <ul style="list-style: none;">
+                        <li>• Adapter</li>
+                        <li>• Facade</li>
+                        <li>• Decorator</li>
+                    </ul>
+                </div>
+                <div style="text-align: center; flex: 1;">
+                    <h2 style="color: var(--ocu-gold);">Behavioral</h2>
+                    <p>Object collaboration</p>
+                    <ul style="list-style: none;">
+                        <li>• Mediator</li>
+                        <li>• State</li>
+                        <li>• Observer</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Pattern Examples -->
+        <div class="slide">
+            <h1>Common Design Patterns</h1>
+            <table class="pattern-table">
+                <tr>
+                    <th>Pattern</th>
+                    <th>Type</th>
+                    <th>Use Case</th>
+                </tr>
+                <tr>
+                    <td>Factory</td>
+                    <td>Creational</td>
+                    <td>Create objects when different variants may be needed</td>
+                </tr>
+                <tr>
+                    <td>Adapter</td>
+                    <td>Structural</td>
+                    <td>Match incompatible interfaces</td>
+                </tr>
+                <tr>
+                    <td>Facade</td>
+                    <td>Structural</td>
+                    <td>Provide simple interface to complex subsystem</td>
+                </tr>
+                <tr>
+                    <td>State</td>
+                    <td>Behavioral</td>
+                    <td>Object behavior changes based on internal state</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Slide 15: Pattern Documentation -->
+        <div class="slide">
+            <h1>How Patterns Are Documented</h1>
+            <div class="demo-box">
+                <h3>Standard Pattern Documentation Includes:</h3>
+            </div>
+            <ol style="font-size: 1.2em; line-height: 2;">
+                <li><strong>Name:</strong> Meaningful identifier for the pattern</li>
+                <li><strong>Problem:</strong> Description of when to apply the pattern</li>
+                <li><strong>Solution:</strong> How the pattern solves the problem</li>
+                <li><strong>Implementation:</strong> Code structure and examples</li>
+                <li><strong>Consequences:</strong> Trade-offs and considerations</li>
+            </ol>
+        </div>
+
+        <!-- Slide 16: Refactoring Introduction -->
+        <div class="slide">
+            <h1>Refactoring</h1>
+            <div class="demo-box">
+                <p><strong>Definition:</strong> Changing a program to reduce its complexity without changing its external behavior</p>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>✅ Makes code more readable</li>
+                <li>✅ Reduces "reading complexity"</li>
+                <li>✅ Makes changes easier</li>
+                <li>✅ Reduces chance of mistakes</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Best Practice:</strong> Refactor regularly as you develop, not just when code becomes unmanageable
+            </div>
+        </div>
+
+        <!-- Slide 17: Refactoring Process -->
+        <div class="slide">
+            <h1>The Refactoring Process</h1>
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; margin: 40px 0;">
+                <div style="text-align: center; margin: 20px;">
+                    <div style="background: var(--ocu-dark-blue); color: white; padding: 20px; border-radius: 10px;">
+                        <h3>1. Identify Code Smell</h3>
+                    </div>
+                    <p>↓</p>
+                </div>
+                <div style="text-align: center; margin: 20px;">
+                    <div style="background: var(--ocu-dark-blue); color: white; padding: 20px; border-radius: 10px;">
+                        <h3>2. Choose Strategy</h3>
+                    </div>
+                    <p>↓</p>
+                </div>
+                <div style="text-align: center; margin: 20px;">
+                    <div style="background: var(--ocu-dark-blue); color: white; padding: 20px; border-radius: 10px;">
+                        <h3>3. Make Small Changes</h3>
+                    </div>
+                    <p>↓</p>
+                </div>
+                <div style="text-align: center; margin: 20px;">
+                    <div style="background: var(--ocu-gold); color: black; padding: 20px; border-radius: 10px;">
+                        <h3>4. Run Tests</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Code Smells -->
+        <div class="slide">
+            <h1>Common Code Smells</h1>
+            <div class="demo-box">
+                <p>Code smells are indicators of deeper problems in your code</p>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>🦨 <strong>Large Classes:</strong> Trying to do too much</li>
+                <li>🦨 <strong>Long Methods:</strong> Functions that are hard to understand</li>
+                <li>🦨 <strong>Duplicate Code:</strong> Same logic in multiple places</li>
+                <li>🦨 <strong>Long Parameter Lists:</strong> Too many arguments</li>
+                <li>🦨 <strong>Comments:</strong> Often indicate unclear code</li>
+            </ul>
+        </div>
+
+        <!-- Slide 19: Activity - Refactoring Practice -->
+        <div class="slide">
+            <h1>Practice Activity: Identify Code Smells <span class="emoji">💻</span></h1>
+            <div class="activity-box">
+                <h3>5-Minute Challenge</h3>
+                <p>Review this DeviceInventory class and identify potential improvements:</p>
+                <div class="code-example">
+                    <pre>class DeviceInventory:
+    def __init__(self):
+        self.laptops = []
+        self.tablets = []
+        self.phones = []
+        self.device_assignment = {}
+    
+    def addDevice(self, type, device)
+    def removeDevice(self, type, device)
+    def assignDevice(self, device, user)
+    def unassignDevice(self, device)
+    def getDeviceAssignment(self, device)
+    def printInventory(self)  # 200 lines of code!</pre>
+                </div>
+            </div>
+            <button data-timer="5">Start 5-Minute Timer</button>
+        </div>
+
+        <!-- Slide 20: Refactoring Solution -->
+        <div class="slide">
+            <h1>Refactoring Solution</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Before</h3>
+                    <p>Single class doing everything</p>
+                    <ul>
+                        <li>Device management</li>
+                        <li>Assignment tracking</li>
+                        <li>Report generation</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✅ After</h3>
+                    <p>Separated responsibilities</p>
+                    <ul>
+                        <li>DeviceInventory class</li>
+                        <li>DeviceAssignment class</li>
+                        <li>InventoryReport class</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Input Validation Section -->
+        <div class="slide">
+            <h1>Part 2: Input Validation</h1>
+            <h2 style="color: var(--ocu-gold);">Your First Line of Defense <span class="emoji">🛡️</span></h2>
+            <div class="tip-box">
+                <strong>Critical for:</strong> Security and reliability - prevents malicious input and accidental errors
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px;">Next: Understanding validation techniques...</p>
+        </div>
+
+        <!-- Slide 22: Why Input Validation Matters -->
+        <div class="slide">
+            <h1>Why Input Validation is Critical</h1>
+            <div class="demo-box">
+                <p>Input validation catches both malicious attacks and accidental errors</p>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>🔒 Prevents SQL injection attacks</li>
+                <li>🔒 Blocks cross-site scripting (XSS)</li>
+                <li>🔒 Prevents buffer overflow exploits</li>
+                <li>✅ Catches user typing errors</li>
+                <li>✅ Prevents database pollution</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Remember:</strong> User input errors are the most common cause of database pollution!
+            </div>
+        </div>
+
+        <!-- Slide 23: Validation Methods -->
+        <div class="slide">
+            <h1>Input Validation Methods</h1>
+            <table class="pattern-table">
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>Built-in Functions</td>
+                    <td>Framework validators</td>
+                    <td>Email format validation</td>
+                </tr>
+                <tr>
+                    <td>Type Coercion</td>
+                    <td>Convert to expected type</td>
+                    <td>int() in Python</td>
+                </tr>
+                <tr>
+                    <td>Explicit Comparisons</td>
+                    <td>Check against allowed values</td>
+                    <td>Month names list</td>
+                </tr>
+                <tr>
+                    <td>Regular Expressions</td>
+                    <td>Pattern matching</td>
+                    <td>Phone number format</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Slide 24: Name Validation Rules -->
+        <div class="slide">
+            <h1>Example: Name Validation Rules</h1>
+            <div class="demo-box">
+                <h3>Rules for Safe Name Input:</h3>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>✅ Length: 2-40 characters</li>
+                <li>✅ Characters: Alphabetic or accented letters</li>
+                <li>✅ Must start with a letter</li>
+                <li>✅ Allowed separators: hyphen (-), apostrophe (')</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Result:</strong> Prevents buffer overflow and SQL injection in name fields
+            </div>
+        </div>
+
+        <!-- Slide 25: Regular Expressions -->
+        <div class="slide">
+            <h1>Regular Expressions for Validation</h1>
+            <div class="demo-box">
+                <p><strong>Regular Expressions (REs):</strong> Powerful pattern matching for input validation</p>
+            </div>
+            <div class="code-example">
+                <pre># Example: Validate email format
+import re
+
+email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+def validate_email(email):
+    return re.match(email_pattern, email) is not None</pre>
+            </div>
+            <div class="tip-box">
+                <strong>Benefit:</strong> Compact and fast way to check input format
+            </div>
+        </div>
+
+        <!-- Slide 26: Common Regex Patterns -->
+        <div class="slide">
+            <h1>Common Validation Patterns</h1>
+            <table class="pattern-table">
+                <tr>
+                    <th>Input Type</th>
+                    <th>Pattern</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Phone (US)</td>
+                    <td>^\d{3}-\d{3}-\d{4}$</td>
+                    <td>123-456-7890</td>
+                </tr>
+                <tr>
+                    <td>Postal Code</td>
+                    <td>^\d{5}(-\d{4})?$</td>
+                    <td>12345 or 12345-6789</td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td>^[a-zA-Z0-9_]{3,20}$</td>
+                    <td>Letters, numbers, underscore</td>
+                </tr>
+                <tr>
+                    <td>Strong Password</td>
+                    <td>^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$</td>
+                    <td>Upper, lower, digit, 8+ chars</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Slide 27: Format String Vulnerability -->
+        <div class="slide">
+            <h1>Real Security Risk: Format String Vulnerabilities</h1>
+            <div class="vulnerability-example">
+                <pre>// Dangerous C code
+printf(user_input);  // ❌ Never do this!
+
+// Safe alternative
+printf("%s", user_input);  // ✅ Always specify format</pre>
+            </div>
+            <div class="tip-box">
+                <strong>Why it's dangerous:</strong> Attackers can read memory, crash programs, or execute code by crafting malicious format strings
+            </div>
+        </div>
+
+        <!-- Slide 28: Format String Attack Example -->
+        <div class="slide">
+            <h1>Format String Attack Example</h1>
+            <div class="vulnerability-example">
+                <pre>// Vulnerable code
+char buffer[512];
+strcpy(buffer, argv[1]);
+printf(buffer);  // User controls format string!
+
+// Attack: ./program "%x %x %x %x"
+// Result: Dumps stack memory
+
+// Attack: ./program "%s%s%s%s"
+// Result: Potential crash
+
+// Attack: ./program "%n"
+// Result: Write to memory!</pre>
+            </div>
+            <div class="demo-box">
+                <p><strong>Lesson:</strong> Always validate and sanitize ALL user input!</p>
+            </div>
+        </div>
+
+        <!-- Slide 29: Activity - Input Validation -->
+        <div class="slide">
+            <h1>Practice Activity: Input Validation <span class="emoji">💻</span></h1>
+            <div class="activity-box">
+                <h3>10-Minute Challenge</h3>
+                <p>Write validation rules for a user registration form:</p>
+                <ol>
+                    <li>Username (alphanumeric, 3-20 chars)</li>
+                    <li>Email (valid format)</li>
+                    <li>Password (8+ chars, mixed case, number)</li>
+                    <li>Age (18-120)</li>
+                    <li>Phone (optional, valid format)</li>
+                </ol>
+            </div>
+            <button data-timer="10">Start 10-Minute Timer</button>
+        </div>
+
+        <!-- Slide 30: Failure Management Section -->
+        <div class="slide">
+            <h1>Part 3: Failure Management</h1>
+            <h2 style="color: var(--ocu-gold);">When Things Go Wrong <span class="emoji">🛠️</span></h2>
+            <div class="tip-box">
+                <strong>Reality Check:</strong> No matter how careful you are, failures will happen
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px;">Next: Planning for graceful failure...</p>
+        </div>
+
+        <!-- Slide 31: Why Failures Happen -->
+        <div class="slide">
+            <h1>Why Software Fails</h1>
+            <div class="demo-box">
+                <p>Software is complex - failures are inevitable</p>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>🐛 Undetected bugs in code</li>
+                <li>💾 Hardware failures</li>
+                <li>🌐 Network issues</li>
+                <li>📊 Resource exhaustion</li>
+                <li>🔗 External service failures</li>
+                <li>👤 Unexpected user behavior</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Goal:</strong> Make failures as graceful and non-disruptive as possible
+            </div>
+        </div>
+
+        <!-- Slide 32: Failure Effect Minimization -->
+        <div class="slide">
+            <h1>Minimizing Failure Effects</h1>
+            <div class="demo-box">
+                <h3>Key Principles for Graceful Failure:</h3>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>💾 <strong>Preserve Data:</strong> Never lose or corrupt persistent data</li>
+                <li>🔄 <strong>Enable Recovery:</strong> Users should recover their work</li>
+                <li>🚫 <strong>No Crashes:</strong> Software should not hang or crash</li>
+                <li>🔒 <strong>Fail Secure:</strong> Don't expose confidential data</li>
+            </ul>
+        </div>
+
+        <!-- Slide 33: Exception Handling -->
+        <div class="slide">
+            <h1>Exception Handling</h1>
+            <div class="demo-box">
+                <p><strong>Exceptions:</strong> Events that disrupt normal program flow</p>
+            </div>
+            <div class="code-example">
+                <pre>try:
+    # Normal processing
+    result = risky_operation()
+    process_result(result)
+except IOError as e:
+    # Handle I/O errors
+    log_error(e)
+    use_cached_data()
+except Exception as e:
+    # Handle any other errors
+    log_error(e)
+    graceful_shutdown()</pre>
+            </div>
+        </div>
+
+        <!-- Slide 34: Exception Flow Diagram -->
+        <div class="slide">
+            <h1>Exception Handling Flow</h1>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 40px 0;">
+                <div style="background: var(--ocu-light-blue); padding: 20px; border-radius: 10px; margin: 10px;">
+                    <h3>Normal Processing</h3>
+                </div>
+                <p>↓</p>
+                <div style="background: var(--ocu-gold); padding: 20px; border-radius: 10px; margin: 10px;">
+                    <h3>Exception Occurs</h3>
+                </div>
+                <p>↓</p>
+                <div style="background: var(--ocu-dark-blue); color: white; padding: 20px; border-radius: 10px; margin: 10px;">
+                    <h3>Exception Handler</h3>
+                </div>
+                <p>↓</p>
+                <div style="background: var(--ocu-light-blue); padding: 20px; border-radius: 10px; margin: 10px;">
+                    <h3>Recovery or Exit</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 35: Auto-save and Logging -->
+        <div class="slide">
+            <h1>Recovery Strategies: Auto-save & Logging</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>🔄 Auto-save</h3>
+                    <p>Automatically save user data at intervals</p>
+                    <ul>
+                        <li>Every 5 minutes</li>
+                        <li>Save only changes</li>
+                        <li>Minimal data loss</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>📝 Activity Logging</h3>
+                    <p>Keep log of user actions</p>
+                    <ul>
+                        <li>Track all operations</li>
+                        <li>Enable replay</li>
+                        <li>Restore exact state</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 36: Secure Failure Example -->
+        <div class="slide">
+            <h1>Example: Failing Securely</h1>
+            <div class="code-example">
+                <pre>def process_sensitive_data():
+    try:
+        # Open files
+        work_file = open('workfile.txt', 'w')
+        encrypted_file = open('encrypted.txt', 'w')
+        
+        # Process data
+        sensitive_data = get_sensitive_data()
+        work_file.write(sensitive_data)
+        
+    except Exception as e:
+        # Secure cleanup on failure
+        log_error(e)
+        
+        # Encrypt any exposed data
+        if work_file_exists():
+            encrypt_and_save(work_file)
+            
+        # Remove temporary files
+        remove_temp_files()
+        
+        # Don't expose error details to user
+        show_user_message("An error occurred. Please try again.")</pre>
+            </div>
+        </div>
+
+        <!-- Slide 37: External Service Failures -->
+        <div class="slide">
+            <h1>Handling External Service Failures</h1>
+            <div class="demo-box">
+                <p>Your app depends on services you don't control</p>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>⏱️ <strong>Timeouts:</strong> Don't wait forever</li>
+                <li>🔄 <strong>Retries:</strong> Try again with exponential backoff</li>
+                <li>💾 <strong>Caching:</strong> Use cached data when possible</li>
+                <li>🔀 <strong>Fallbacks:</strong> Have alternative services ready</li>
+                <li>🔔 <strong>Circuit Breakers:</strong> Stop trying when service is down</li>
+            </ul>
+        </div>
+
+        <!-- Slide 38: Activity - Failure Scenarios -->
+        <div class="slide">
+            <h1>Practice Activity: Design Failure Recovery <span class="emoji">💻</span></h1>
+            <div class="activity-box">
+                <h3>10-Minute Challenge</h3>
+                <p>Design recovery strategies for these scenarios:</p>
+                <ol>
+                    <li>Network connection lost during file upload</li>
+                    <li>Database becomes unavailable</li>
+                    <li>User's browser crashes while filling long form</li>
+                    <li>Payment gateway timeout</li>
+                </ol>
+                <p>Consider: Data preservation, user experience, security</p>
+            </div>
+            <button data-timer="10">Start 10-Minute Timer</button>
+        </div>
+
+        <!-- Slide 39: Best Practices Summary -->
+        <div class="slide">
+            <h1>Reliability Best Practices</h1>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div class="demo-box">
+                    <h3>🚫 Fault Avoidance</h3>
+                    <ul>
+                        <li>Minimize complexity</li>
+                        <li>Use design patterns</li>
+                        <li>Refactor regularly</li>
+                        <li>Code reviews</li>
+                    </ul>
+                </div>
+                <div class="demo-box">
+                    <h3>✔️ Input Validation</h3>
+                    <ul>
+                        <li>Validate everything</li>
+                        <li>Use whitelists</li>
+                        <li>Regular expressions</li>
+                        <li>Type checking</li>
+                    </ul>
+                </div>
+                <div class="demo-box">
+                    <h3>🛠️ Failure Management</h3>
+                    <ul>
+                        <li>Exception handling</li>
+                        <li>Auto-save</li>
+                        <li>Activity logging</li>
+                        <li>Graceful degradation</li>
+                    </ul>
+                </div>
+                <div class="demo-box">
+                    <h3>🔒 Security</h3>
+                    <ul>
+                        <li>Fail secure</li>
+                        <li>Sanitize input</li>
+                        <li>Validate formats</li>
+                        <li>Encrypt sensitive data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 40: Real-World Example -->
+        <div class="slide">
+            <h1>Real-World Case Study: Netflix</h1>
+            <div class="demo-box">
+                <h3>How Netflix Achieves 99.99% Availability</h3>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>🔄 <strong>Chaos Engineering:</strong> Deliberately inject failures</li>
+                <li>🌍 <strong>Regional Failover:</strong> Multiple data centers</li>
+                <li>💾 <strong>Graceful Degradation:</strong> Reduced quality over failure</li>
+                <li>🔔 <strong>Circuit Breakers:</strong> Prevent cascade failures</li>
+                <li>📊 <strong>Extensive Monitoring:</strong> Detect issues early</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Lesson:</strong> Build reliability through systematic planning and testing
+            </div>
+        </div>
+
+        <!-- Slide 41: Common Pitfalls -->
+        <div class="slide">
+            <h1>Common Reliability Pitfalls to Avoid</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Don't Do This</h3>
+                    <ul>
+                        <li>Trust user input</li>
+                        <li>Ignore error handling</li>
+                        <li>Assume services are reliable</li>
+                        <li>Skip refactoring</li>
+                        <li>Write complex code</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✅ Do This Instead</h3>
+                    <ul>
+                        <li>Validate everything</li>
+                        <li>Plan for failures</li>
+                        <li>Build in redundancy</li>
+                        <li>Refactor regularly</li>
+                        <li>Keep it simple</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 42: Testing for Reliability -->
+        <div class="slide">
+            <h1>Testing for Reliability</h1>
+            <div class="demo-box">
+                <h3>Types of Testing for Reliable Software</h3>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>🧪 <strong>Unit Tests:</strong> Test individual components</li>
+                <li>🔗 <strong>Integration Tests:</strong> Test component interactions</li>
+                <li>💥 <strong>Stress Tests:</strong> Test under heavy load</li>
+                <li>🔨 <strong>Chaos Tests:</strong> Inject random failures</li>
+                <li>🔒 <strong>Security Tests:</strong> Test for vulnerabilities</li>
+                <li>📱 <strong>Usability Tests:</strong> Test with real users</li>
+            </ul>
+        </div>
+
+        <!-- Slide 43: Key Takeaways -->
+        <div class="slide">
+            <h1>Key Takeaways</h1>
+            <div style="font-size: 1.3em; line-height: 2;">
+                <p>✅ <strong>Quality attributes</strong> define successful software</p>
+                <p>✅ <strong>Complexity</strong> is the enemy of reliability</p>
+                <p>✅ <strong>Design patterns</strong> provide proven solutions</p>
+                <p>✅ <strong>Refactoring</strong> keeps code maintainable</p>
+                <p>✅ <strong>Input validation</strong> is your first defense</p>
+                <p>✅ <strong>Failures will happen</strong> - plan for them</p>
+                <p>✅ <strong>Recovery strategies</strong> minimize impact</p>
+            </div>
+        </div>
+
+        <!-- Slide 44: Resources -->
+        <div class="slide">
+            <h1>Additional Resources 📚</h1>
+            <div class="demo-box">
+                <h3>Recommended Reading:</h3>
+            </div>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>📖 "Clean Code" by Robert Martin</li>
+                <li>📖 "Design Patterns" by Gang of Four</li>
+                <li>📖 "Refactoring" by Martin Fowler</li>
+                <li>📖 "Release It!" by Michael Nygard</li>
+                <li>🌐 OWASP Input Validation Cheat Sheet</li>
+                <li>🌐 Netflix Tech Blog on Reliability</li>
+            </ul>
+        </div>
+
+        <!-- Slide 45: Summary -->
+        <div class="slide">
+            <h1>Today's Accomplishments <span class="emoji">🎓</span></h1>
+            <h2>You Can Now:</h2>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>✅ Identify and apply software quality attributes</li>
+                <li>✅ Reduce complexity through design patterns</li>
+                <li>✅ Refactor code to improve maintainability</li>
+                <li>✅ Implement robust input validation</li>
+                <li>✅ Design effective failure recovery strategies</li>
+                <li>✅ Build more reliable software systems</li>
+            </ul>
+            <div class="demo-box">
+                <p><strong>Next Class:</strong> Testing Strategies and Test-Driven Development</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <button id="prevBtn">Previous</button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">45</span>
+            </span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- Shared Presentation JavaScript -->
+    <script src="../../js/presentation.js"></script>
+
+    <!-- Lecture-Specific JavaScript -->
+    <script>
+        // Add any lecture-specific JavaScript here
+        document.addEventListener('slidechange', (e) => {
+            console.log(`Slide ${e.detail.currentSlide + 1} of ${e.detail.totalSlides}`);
+        });
+    </script>
+</body>
+</html>

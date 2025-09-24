@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps and Code Management - CSCI 5403</title>
+    
+    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <link rel="stylesheet" href="../../styles/presentation.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    
+    <!-- Lecture-Specific Styles -->
+    <style>
+        /* DevOps-specific styles */
+        .devops-diagram {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(40, 167, 69, 0.1));
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .pipeline-step {
+            display: inline-block;
+            background: var(--ocu-blue);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+        }
+        
+        .pipeline-step:hover {
+            transform: scale(1.05);
+        }
+        
+        .metric-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            display: inline-block;
+            min-width: 200px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            color: var(--ocu-gold);
+            font-weight: bold;
+        }
+        
+        .git-command {
+            background: #1e1e1e;
+            color: #4ec9b0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .tool-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme toggle will be automatically added by JavaScript -->
+    
+    <div class="presentation-container">
+        <!-- Timer display for activities -->
+        <div class="timer-display" id="timer-display">
+            <span id="timer-text">DevOps and Code Management
+                 <button class="home"><a href="../index.html">Home</a></button>
+            </span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>DevOps and Code Management</h1>
+            <h2>Building, Deploying, and Managing Modern Software <span class="emoji">🚀</span></h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">CSCI 5403 - Software Engineering</p>
+            <p style="font-size: 1.3em;">Week 8, Class 15</p>
+            <p style="margin-top: auto; font-style: italic;">"Automate everything that can be automated!"</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h1>Today's Learning Objectives</h1>
+            <ul style="font-size: 1.4em; line-height: 2;">
+                <li>🎯 Understand DevOps principles and practices</li>
+                <li>🎯 Master code management fundamentals</li>
+                <li>🎯 Learn Git and version control workflows</li>
+                <li>🎯 Implement CI/CD pipelines</li>
+                <li>🎯 Apply infrastructure as code concepts</li>
+                <li>🎯 Measure DevOps success with metrics</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: What is DevOps? -->
+        <div class="slide">
+            <h1>What is DevOps?</h1>
+            <div class="devops-diagram">
+                <h2>The Integration of Development and Operations</h2>
+                <p style="font-size: 1.3em;">DevOps = Development + Deployment + Support</p>
+                <p style="font-size: 1.1em;">Same team responsible for the entire software lifecycle</p>
+            </div>
+            <div class="tip-box">
+                <strong>Key Point:</strong> DevOps breaks down silos between development and operations teams
+            </div>
+        </div>
+
+        <!-- Slide 4: Benefits of DevOps -->
+        <div class="slide">
+            <h1>Why DevOps Matters</h1>
+            <h2>Core Benefits:</h2>
+            <ul style="font-size: 1.3em; line-height: 1.8;">
+                <li>⚡ Faster deployment of features</li>
+                <li>🛡️ Reduced risk through automation</li>
+                <li>🔧 Faster repair of buggy code</li>
+                <li>👥 More productive teams</li>
+                <li>📈 Better alignment with business goals</li>
+            </ul>
+            <div class="demo-box">
+                <p><strong>Industry Impact:</strong> Elite performers deploy 200x more frequently than low performers</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Code Management Challenge -->
+        <div class="slide">
+            <h1>The Code Management Challenge</h1>
+            <p style="font-size: 1.2em;">During software development, teams create:</p>
+            <ul style="font-size: 1.1em;">
+                <li>📄 Tens of thousands of lines of code</li>
+                <li>🗂️ Hundreds of files</li>
+                <li>📚 Dozens of libraries</li>
+                <li>🔧 Multiple configuration files</li>
+                <li>✅ Thousands of automated tests</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Challenge:</strong> How do we manage this complexity while enabling collaboration?
+            </div>
+        </div>
+
+        <!-- Slide 6: Code Management Definition -->
+        <div class="slide">
+            <h1>What is Code Management?</h1>
+            <p style="font-size: 1.3em; margin-bottom: 30px;">A set of software-supported practices to manage an evolving codebase</p>
+            <h2>Key Goals:</h2>
+            <ul style="font-size: 1.2em; line-height: 1.8;">
+                <li>✅ Prevent developer changes from interfering</li>
+                <li>✅ Create different product versions</li>
+                <li>✅ Track changes and history</li>
+                <li>✅ Enable collaboration</li>
+                <li>✅ Build executable products easily</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Code Management Features -->
+        <div class="slide">
+            <h1>Core Code Management Features</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>📥 Code Transfer</h3>
+                    <p>Move code between developer workspace and repository</p>
+                </div>
+                <div class="comparison-card good">
+                    <h3>💾 Version Storage</h3>
+                    <p>Store and retrieve multiple file versions</p>
+                </div>
+                <div class="comparison-card good">
+                    <h3>🔀 Branching & Merging</h3>
+                    <p>Enable parallel development</p>
+                </div>
+                <div class="comparison-card good">
+                    <h3>📊 Version Information</h3>
+                    <p>Track and retrieve version metadata</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Git Introduction -->
+        <div class="slide">
+            <h1>Enter Git: The Revolution</h1>
+            <p style="font-size: 1.2em;">Created by Linus Torvalds in 2005 for Linux kernel development</p>
+            <h2>Git is a Distributed Version Control System (DVCS)</h2>
+            <ul style="font-size: 1.1em;">
+                <li>🌍 Every developer has a complete repository clone</li>
+                <li>🔄 Works offline with full functionality</li>
+                <li>⚡ Fast operations (local by default)</li>
+                <li>🌳 Powerful branching and merging</li>
+            </ul>
+            <div class="demo-box">
+                <p><strong>Fun Fact:</strong> Git now manages millions of repositories worldwide!</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Git Architecture -->
+        <div class="slide">
+            <h1>Git Architecture</h1>
+            <div style="text-align: center;">
+                <div class="pipeline-step">Local Repository</div>
+                <span style="font-size: 2em;">↔️</span>
+                <div class="pipeline-step">Remote Repository</div>
+            </div>
+            <h2>Key Concepts:</h2>
+            <ul style="font-size: 1.1em;">
+                <li><strong>Working Directory:</strong> Your current files</li>
+                <li><strong>Staging Area:</strong> Changes ready to commit</li>
+                <li><strong>Local Repository:</strong> Your complete history</li>
+                <li><strong>Remote Repository:</strong> Shared team repository</li>
+            </ul>
+        </div>
+
+        <!-- Slide 10: Basic Git Commands -->
+        <div class="slide">
+            <h1>Essential Git Commands</h1>
+            <div class="git-command">git init</div>
+            <p>Initialize a new repository</p>
+            
+            <div class="git-command">git clone [url]</div>
+            <p>Copy a remote repository</p>
+            
+            <div class="git-command">git add [files]</div>
+            <p>Stage changes for commit</p>
+            
+            <div class="git-command">git commit -m "message"</div>
+            <p>Save changes to local repository</p>
+            
+            <div class="git-command">git push</div>
+            <p>Upload changes to remote repository</p>
+        </div>
+
+        <!-- Slide 11: More Git Commands -->
+        <div class="slide">
+            <h1>Collaborative Git Commands</h1>
+            <div class="git-command">git pull</div>
+            <p>Download and merge remote changes</p>
+            
+            <div class="git-command">git branch [name]</div>
+            <p>Create a new branch</p>
+            
+            <div class="git-command">git checkout [branch]</div>
+            <p>Switch to a different branch</p>
+            
+            <div class="git-command">git merge [branch]</div>
+            <p>Combine branches</p>
+            
+            <div class="git-command">git status</div>
+            <p>Check repository status</p>
+        </div>
+
+        <!-- Slide 12: Branching Strategy -->
+        <div class="slide">
+            <h1>Branching and Merging</h1>
+            <p style="font-size: 1.2em;">Branches enable parallel development without conflicts</p>
+            <div class="devops-diagram">
+                <h3>Common Branch Types:</h3>
+                <ul style="font-size: 1.1em;">
+                    <li>🏢 <strong>Master/Main:</strong> Production-ready code</li>
+                    <li>🔧 <strong>Development:</strong> Integration branch</li>
+                    <li>✨ <strong>Feature:</strong> New functionality</li>
+                    <li>🐛 <strong>Hotfix:</strong> Emergency fixes</li>
+                    <li>🚀 <strong>Release:</strong> Version preparation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 13: Git Flow -->
+        <div class="slide">
+            <h1>Git Flow Workflow</h1>
+            <ol style="font-size: 1.2em; line-height: 1.8;">
+                <li>Create feature branch from develop</li>
+                <li>Work on feature in isolation</li>
+                <li>Test changes locally</li>
+                <li>Create pull request</li>
+                <li>Code review by team</li>
+                <li>Merge to develop branch</li>
+                <li>Deploy to staging</li>
+                <li>Merge to main for production</li>
+            </ol>
+        </div>
+
+        <!-- Slide 14: Activity - Git Practice -->
+        <div class="slide">
+            <h1>Practice Activity <span class="emoji">💻</span></h1>
+            <div class="activity-box">
+                <h3>10-Minute Git Challenge</h3>
+                <p>Create a simple Git workflow:</p>
+                <ol>
+                    <li>Initialize a new repository</li>
+                    <li>Create and commit a README file</li>
+                    <li>Create a feature branch</li>
+                    <li>Make changes and commit</li>
+                    <li>Merge back to main</li>
+                </ol>
+            </div>
+            <button data-timer="10">Start 10-Minute Timer</button>
+        </div>
+
+        <!-- Slide 15: DevOps Automation -->
+        <div class="slide">
+            <h1>DevOps Automation</h1>
+            <h2 style="color: var(--ocu-gold);">🤖 "Automate Everything" Principle</h2>
+            <p style="font-size: 1.2em;">Benefits of Automation:</p>
+            <ul style="font-size: 1.1em;">
+                <li>⏰ Reduced time and costs</li>
+                <li>🎯 More reliable and reproducible</li>
+                <li>📝 Self-documenting processes</li>
+                <li>🔄 Consistent environments</li>
+                <li>😊 Happier developers</li>
+            </ul>
+        </div>
+
+        <!-- Slide 16: CI/CD Overview -->
+        <div class="slide">
+            <h1>The CI/CD Pipeline</h1>
+            <div style="text-align: center; margin: 30px 0;">
+                <div class="pipeline-step">Code</div>
+                <span>→</span>
+                <div class="pipeline-step">Build</div>
+                <span>→</span>
+                <div class="pipeline-step">Test</div>
+                <span>→</span>
+                <div class="pipeline-step">Deploy</div>
+            </div>
+            <ul style="font-size: 1.1em;">
+                <li><strong>CI:</strong> Continuous Integration</li>
+                <li><strong>CD:</strong> Continuous Delivery/Deployment</li>
+            </ul>
+        </div>
+
+        <!-- Slide 17: Continuous Integration -->
+        <div class="slide">
+            <h1>Continuous Integration (CI)</h1>
+            <p style="font-size: 1.3em; color: var(--ocu-gold);">Integrate code changes frequently</p>
+            <h2>CI Process:</h2>
+            <ol style="font-size: 1.1em; line-height: 1.8;">
+                <li>Developer commits code</li>
+                <li>Trigger automated build</li>
+                <li>Compile and package</li>
+                <li>Run automated tests</li>
+                <li>Report results</li>
+                <li>Fix issues immediately</li>
+            </ol>
+            <div class="tip-box">
+                <strong>Best Practice:</strong> Integrate at least daily, preferably multiple times per day
+            </div>
+        </div>
+
+        <!-- Slide 18: System Building -->
+        <div class="slide">
+            <h1>System Building & Integration</h1>
+            <h2>Typical Build Activities:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>📦 Install database software</li>
+                <li>🗃️ Set up database schema</li>
+                <li>📊 Load test data</li>
+                <li>⚙️ Compile source files</li>
+                <li>🔗 Link with libraries</li>
+                <li>✅ Verify external services</li>
+                <li>🧪 Run integration tests</li>
+            </ul>
+            <div class="demo-box">
+                <p><strong>Key:</strong> Fast, incremental builds are essential for CI</p>
+            </div>
+        </div>
+
+        <!-- Slide 19: Build Automation Tools -->
+        <div class="slide">
+            <h1>Build Automation Tools</h1>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Make</h3>
+                    <p>Classic Unix tool</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Maven</h3>
+                    <p>Java ecosystem</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Gradle</h3>
+                    <p>Modern JVM builds</p>
+                </div>
+                <div class="tool-card">
+                    <h3>npm/yarn</h3>
+                    <p>JavaScript/Node.js</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Docker</h3>
+                    <p>Container builds</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Bazel</h3>
+                    <p>Google's build tool</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Continuous Delivery -->
+        <div class="slide">
+            <h1>Continuous Delivery</h1>
+            <p style="font-size: 1.3em;">Ensure software is always ready for deployment</p>
+            <h2>CD Pipeline Stages:</h2>
+            <ol style="font-size: 1.1em; line-height: 1.8;">
+                <li>🔨 Build artifact</li>
+                <li>🧪 Run unit tests</li>
+                <li>🔍 Static code analysis</li>
+                <li>🎭 Deploy to staging</li>
+                <li>🤖 Run integration tests</li>
+                <li>👤 User acceptance tests</li>
+                <li>✅ Ready for production</li>
+            </ol>
+        </div>
+
+        <!-- Slide 21: Continuous Deployment -->
+        <div class="slide">
+            <h1>Continuous Deployment</h1>
+            <p style="font-size: 1.3em; color: var(--ocu-gold);">Automatic deployment to production</p>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>✅ When Possible</h3>
+                    <ul style="text-align: left;">
+                        <li>Cloud services</li>
+                        <li>Web applications</li>
+                        <li>Microservices</li>
+                        <li>SaaS products</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ When Not Possible</h3>
+                    <ul style="text-align: left;">
+                        <li>Embedded systems</li>
+                        <li>Desktop software</li>
+                        <li>Mobile apps (stores)</li>
+                        <li>Regulated industries</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: CI/CD Tools -->
+        <div class="slide">
+            <h1>Popular CI/CD Tools</h1>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Jenkins</h3>
+                    <p>Open source, extensible</p>
+                </div>
+                <div class="tool-card">
+                    <h3>GitHub Actions</h3>
+                    <p>Native GitHub integration</p>
+                </div>
+                <div class="tool-card">
+                    <h3>GitLab CI</h3>
+                    <p>Built into GitLab</p>
+                </div>
+                <div class="tool-card">
+                    <h3>CircleCI</h3>
+                    <p>Cloud-native CI/CD</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Travis CI</h3>
+                    <p>Simple configuration</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Azure DevOps</h3>
+                    <p>Microsoft ecosystem</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: GitHub Actions Example -->
+        <div class="slide">
+            <h1>GitHub Actions Example</h1>
+            <div class="code-example" style="text-align: left; font-size: 0.9em;">
+                <pre>
+name: CI Pipeline
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+    - run: npm install
+    - run: npm test
+    - run: npm run build</pre>
+            </div>
+        </div>
+
+        <!-- Slide 24: Infrastructure as Code -->
+        <div class="slide">
+            <h1>Infrastructure as Code (IaC)</h1>
+            <p style="font-size: 1.3em;">Define infrastructure using machine-readable files</p>
+            <h2>Benefits:</h2>
+            <ul style="font-size: 1.1em; line-height: 1.8;">
+                <li>🔄 Reproducible environments</li>
+                <li>📝 Version controlled infrastructure</li>
+                <li>🚀 Rapid provisioning</li>
+                <li>💰 Cost optimization</li>
+                <li>🛡️ Consistent security</li>
+            </ul>
+        </div>
+
+        <!-- Slide 25: IaC Tools -->
+        <div class="slide">
+            <h1>Infrastructure as Code Tools</h1>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Terraform</h3>
+                    <p>Cloud agnostic IaC</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Ansible</h3>
+                    <p>Configuration management</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Puppet</h3>
+                    <p>Enterprise automation</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Chef</h3>
+                    <p>Policy-based automation</p>
+                </div>
+                <div class="tool-card">
+                    <h3>CloudFormation</h3>
+                    <p>AWS infrastructure</p>
+                </div>
+                <div class="tool-card">
+                    <h3>Kubernetes</h3>
+                    <p>Container orchestration</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 26: IaC Example -->
+        <div class="slide">
+            <h1>Terraform Example</h1>
+            <div class="code-example" style="text-align: left; font-size: 0.9em;">
+                <pre>
+resource "aws_instance" "web_server" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+  
+  tags = {
+    Name        = "WebServer"
+    Environment = "Production"
+  }
+  
+  user_data = &lt;&lt;-EOF
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get install -y nginx
+    sudo systemctl start nginx
+  EOF
+}</pre>
+            </div>
+        </div>
+
+        <!-- Slide 27: DevOps Measurement -->
+        <div class="slide">
+            <h1>DevOps Measurement</h1>
+            <p style="font-size: 1.3em;">You can't improve what you don't measure</p>
+            <h2>Types of Measurement:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>📊 <strong>Process:</strong> Development and deployment metrics</li>
+                <li>🎯 <strong>Service:</strong> Performance and reliability</li>
+                <li>👥 <strong>Usage:</strong> How customers use the product</li>
+                <li>💼 <strong>Business:</strong> Impact on business success</li>
+            </ul>
+        </div>
+
+        <!-- Slide 28: DORA Metrics -->
+        <div class="slide">
+            <h1>DORA Metrics</h1>
+            <p style="font-size: 1.2em;">DevOps Research and Assessment key metrics</p>
+            <div class="metric-card">
+                <h3>Deployment Frequency</h3>
+                <div class="metric-value">Daily+</div>
+                <p>How often you deploy</p>
+            </div>
+            <div class="metric-card">
+                <h3>Lead Time</h3>
+                <div class="metric-value">&lt; 1 hour</div>
+                <p>Commit to production</p>
+            </div>
+            <div class="metric-card">
+                <h3>MTTR</h3>
+                <div class="metric-value">&lt; 1 hour</div>
+                <p>Mean Time To Recovery</p>
+            </div>
+            <div class="metric-card">
+                <h3>Change Failure Rate</h3>
+                <div class="metric-value">&lt; 15%</div>
+                <p>Failed deployments</p>
+            </div>
+        </div>
+
+        <!-- Slide 29: Elite vs Low Performers -->
+        <div class="slide">
+            <h1>Performance Comparison</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>🏆 Elite Performers</h3>
+                    <ul style="text-align: left;">
+                        <li>Deploy multiple times/day</li>
+                        <li>&lt; 1 hour lead time</li>
+                        <li>&lt; 1 hour recovery</li>
+                        <li>&lt; 15% failure rate</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>🐌 Low Performers</h3>
+                    <ul style="text-align: left;">
+                        <li>Deploy monthly</li>
+                        <li>1-6 months lead time</li>
+                        <li>1 week+ recovery</li>
+                        <li>46-60% failure rate</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="demo-box">
+                <p><strong>Impact:</strong> Elite performers are 200x more productive!</p>
+            </div>
+        </div>
+
+        <!-- Slide 30: Metrics Dashboard -->
+        <div class="slide">
+            <h1>DevOps Metrics Dashboard</h1>
+            <h2>Track These Key Metrics:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>📈 Deployment frequency trend</li>
+                <li>⏱️ Build and test duration</li>
+                <li>🔄 Code commit frequency</li>
+                <li>🐛 Defect escape rate</li>
+                <li>✅ Test coverage percentage</li>
+                <li>🚨 Alert response time</li>
+                <li>😊 Customer satisfaction</li>
+                <li>💰 Cost per deployment</li>
+            </ul>
+        </div>
+
+        <!-- Slide 31: Security in DevOps -->
+        <div class="slide">
+            <h1>DevSecOps</h1>
+            <p style="font-size: 1.3em;">Security integrated throughout the pipeline</p>
+            <h2>Security Practices:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>🔐 Secret management (never hardcode!)</li>
+                <li>🔍 Static Application Security Testing (SAST)</li>
+                <li>🎯 Dynamic Application Security Testing (DAST)</li>
+                <li>📦 Container vulnerability scanning</li>
+                <li>🔑 Identity and access management</li>
+                <li>📊 Security metrics and monitoring</li>
+            </ul>
+        </div>
+
+        <!-- Slide 32: Common Anti-Patterns -->
+        <div class="slide">
+            <h1>DevOps Anti-Patterns to Avoid</h1>
+            <ul style="font-size: 1.1em; line-height: 1.8;">
+                <li>❌ Creating a separate "DevOps team"</li>
+                <li>❌ Manual deployments disguised as automated</li>
+                <li>❌ Ignoring failed builds</li>
+                <li>❌ Long-lived feature branches</li>
+                <li>❌ Insufficient testing</li>
+                <li>❌ Hardcoded secrets and configurations</li>
+                <li>❌ Not measuring or ignoring metrics</li>
+                <li>❌ Treating DevOps as just tools</li>
+            </ul>
+        </div>
+
+        <!-- Slide 33: Cultural Transformation -->
+        <div class="slide">
+            <h1>DevOps Culture</h1>
+            <p style="font-size: 1.3em;">It's not just about tools!</p>
+            <h2>Cultural Elements:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>🤝 <strong>Collaboration:</strong> Break down silos</li>
+                <li>🔄 <strong>Continuous Learning:</strong> Embrace failure</li>
+                <li>📊 <strong>Data-Driven:</strong> Measure everything</li>
+                <li>🚀 <strong>Innovation:</strong> Experiment safely</li>
+                <li>👥 <strong>Ownership:</strong> You build it, you run it</li>
+                <li>🎯 <strong>Customer Focus:</strong> Deliver value</li>
+            </ul>
+        </div>
+
+        <!-- Slide 34: Real-World Success Stories -->
+        <div class="slide">
+            <h1>DevOps Success Stories</h1>
+            <div class="metric-card" style="width: 80%; margin: 20px auto;">
+                <h3>Amazon</h3>
+                <p>Deploys code every 11.7 seconds</p>
+            </div>
+            <div class="metric-card" style="width: 80%; margin: 20px auto;">
+                <h3>Netflix</h3>
+                <p>Thousands of deployments per day</p>
+            </div>
+            <div class="metric-card" style="width: 80%; margin: 20px auto;">
+                <h3>Etsy</h3>
+                <p>50+ deployments daily by 150+ engineers</p>
+            </div>
+        </div>
+
+        <!-- Slide 35: Microservices and DevOps -->
+        <div class="slide">
+            <h1>DevOps for Microservices</h1>
+            <h2>Special Considerations:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>🎯 Independent deployments</li>
+                <li>🔄 Service versioning</li>
+                <li>🔍 Distributed tracing</li>
+                <li>📊 Service mesh (Istio, Linkerd)</li>
+                <li>🚀 Container orchestration (Kubernetes)</li>
+                <li>📈 Per-service metrics</li>
+            </ul>
+            <div class="tip-box">
+                <strong>Challenge:</strong> Coordinating deployments across multiple services
+            </div>
+        </div>
+
+        <!-- Slide 36: Activity - Design a Pipeline -->
+        <div class="slide">
+            <h1>Design Activity <span class="emoji">📐</span></h1>
+            <div class="activity-box">
+                <h3>15-Minute Pipeline Design</h3>
+                <p>Design a CI/CD pipeline for a web application:</p>
+                <ol>
+                    <li>Identify pipeline stages</li>
+                    <li>Choose appropriate tools</li>
+                    <li>Define quality gates</li>
+                    <li>Plan deployment strategy</li>
+                    <li>Select metrics to track</li>
+                </ol>
+            </div>
+            <button data-timer="15">Start 15-Minute Timer</button>
+        </div>
+
+        <!-- Slide 37: Future of DevOps -->
+        <div class="slide">
+            <h1>The Future of DevOps</h1>
+            <h2>Emerging Trends:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>🤖 <strong>AI/ML in DevOps:</strong> Intelligent automation</li>
+                <li>🌐 <strong>GitOps:</strong> Git as single source of truth</li>
+                <li>⚡ <strong>Serverless:</strong> NoOps movement</li>
+                <li>🔒 <strong>Zero Trust Security:</strong> Never trust, always verify</li>
+                <li>📱 <strong>Edge Computing:</strong> Distributed deployments</li>
+                <li>🎯 <strong>Platform Engineering:</strong> Developer experience focus</li>
+            </ul>
+        </div>
+
+        <!-- Slide 38: Best Practices Summary -->
+        <div class="slide">
+            <h1>DevOps Best Practices</h1>
+            <ol style="font-size: 1.1em; line-height: 1.8;">
+                <li>✅ Automate everything possible</li>
+                <li>✅ Version control everything</li>
+                <li>✅ Test early and often</li>
+                <li>✅ Deploy frequently in small batches</li>
+                <li>✅ Monitor and measure continuously</li>
+                <li>✅ Foster a culture of collaboration</li>
+                <li>✅ Embrace failure as learning</li>
+                <li>✅ Keep security in mind always</li>
+                <li>✅ Document and share knowledge</li>
+                <li>✅ Focus on customer value</li>
+            </ol>
+        </div>
+
+        <!-- Slide 39: Implementation Roadmap -->
+        <div class="slide">
+            <h1>Your DevOps Journey</h1>
+            <h2>Implementation Steps:</h2>
+            <ol style="font-size: 1.1em; line-height: 1.8;">
+                <li>📊 Assess current state</li>
+                <li>🎯 Define goals and metrics</li>
+                <li>🛠️ Start with version control</li>
+                <li>🔨 Automate builds</li>
+                <li>✅ Add automated testing</li>
+                <li>🚀 Implement CI/CD</li>
+                <li>☁️ Adopt infrastructure as code</li>
+                <li>📈 Monitor and optimize</li>
+                <li>🔄 Iterate and improve</li>
+            </ol>
+        </div>
+
+        <!-- Slide 40: Resources -->
+        <div class="slide">
+            <h1>Resources for Learning More</h1>
+            <h2>Books:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>📚 "The Phoenix Project" - Gene Kim</li>
+                <li>📚 "The DevOps Handbook" - Gene Kim et al.</li>
+                <li>📚 "Accelerate" - Nicole Forsgren et al.</li>
+            </ul>
+            <h2>Online Resources:</h2>
+            <ul style="font-size: 1.1em;">
+                <li>🌐 DORA State of DevOps Report</li>
+                <li>🌐 DevOps Institute</li>
+                <li>🌐 Cloud Native Computing Foundation</li>
+            </ul>
+        </div>
+
+        <!-- Slide 41: Key Takeaways -->
+        <div class="slide">
+            <h1>Key Takeaways</h1>
+            <ul style="font-size: 1.2em; line-height: 2;">
+                <li>🔑 DevOps integrates development and operations</li>
+                <li>🔑 Code management is essential for collaboration</li>
+                <li>🔑 Git enables distributed version control</li>
+                <li>🔑 CI/CD automates software delivery</li>
+                <li>🔑 Infrastructure as code ensures consistency</li>
+                <li>🔑 Metrics drive continuous improvement</li>
+                <li>🔑 Culture is as important as technology</li>
+            </ul>
+        </div>
+
+        <!-- Slide 42: Questions for Reflection -->
+        <div class="slide">
+            <h1>Questions for Reflection 🤔</h1>
+            <ol style="font-size: 1.2em; line-height: 2;">
+                <li>How could DevOps improve your current projects?</li>
+                <li>What would be the first thing you'd automate?</li>
+                <li>Which metrics would be most valuable to track?</li>
+                <li>What cultural changes would be needed in your organization?</li>
+                <li>How would you handle resistance to change?</li>
+            </ol>
+        </div>
+
+        <!-- Slide 43: Final Summary -->
+        <div class="slide">
+            <h1>Today's Accomplishments <span class="emoji">🎓</span></h1>
+            <h2>You Can Now:</h2>
+            <ul style="font-size: 1.2em; line-height: 2;">
+                <li>✅ Explain DevOps principles and benefits</li>
+                <li>✅ Use Git for version control</li>
+                <li>✅ Design CI/CD pipelines</li>
+                <li>✅ Apply infrastructure as code concepts</li>
+                <li>✅ Measure DevOps success</li>
+                <li>✅ Identify tools and best practices</li>
+            </ul>
+            <div class="demo-box">
+                <p><strong>Remember:</strong> DevOps is a journey, not a destination!</p>
+            </div>
+        </div>
+
+        <!-- Slide 44: Next Steps -->
+        <div class="slide">
+            <h1>Your Next Steps</h1>
+            <h2>To Master DevOps:</h2>
+            <ol style="font-size: 1.2em; line-height: 2;">
+                <li>🎯 Set up a Git repository for your project</li>
+                <li>🎯 Create a simple CI/CD pipeline</li>
+                <li>🎯 Automate one manual process</li>
+                <li>🎯 Start measuring key metrics</li>
+                <li>🎯 Share knowledge with your team</li>
+            </ol>
+            <div class="tip-box">
+                <strong>Pro Tip:</strong> Start small, iterate, and celebrate wins!</p>
+            </div>
+        </div>
+
+        <!-- Final Slide: Thank You -->
+        <div class="slide">
+            <h1>Thank You! 🙏</h1>
+            <h2>DevOps and Code Management</h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">Questions?</p>
+            <div class="demo-box" style="margin-top: 40px;">
+                <p><strong>Final Exam Review:</strong> Next Class</p>
+                <p><strong>Remember:</strong> Automate everything that can be automated!</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <button id="prevBtn">Previous</button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">44</span>
+            </span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- Shared Presentation JavaScript -->
+    <script src="../../js/presentation.js"></script>
+
+    <!-- Lecture-Specific JavaScript -->
+    <script>
+        // Add any lecture-specific JavaScript here
+        document.addEventListener('slidechange', (e) => {
+            console.log(`Slide ${e.detail.currentSlide + 1} of ${e.detail.totalSlides}`);
+        });
+    </script>
+</body>
+</html>
