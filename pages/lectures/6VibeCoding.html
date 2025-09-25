@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vibe Coding Imperative - CSCI 5403</title>
+    
+    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <link rel="stylesheet" href="../../styles/presentation.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    
+    <!-- Lecture-Specific Styles -->
+    <style>
+        .vibe-example {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .skill-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--ocu-gold);
+        }
+        
+        .timeline-item {
+            background: var(--card-bg);
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid var(--ocu-true-blue);
+        }
+        
+        .stat-box {
+            background: var(--ocu-true-blue);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px;
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme toggle will be automatically added by JavaScript -->
+    
+    <div class="presentation-container">
+        <!-- Optional timer display for activities -->
+        <div class="timer-display" id="timer-display">
+            <span id="timer-text">Lecture 6: Vibe Coding
+                 <button class="home"><a href="../index.html">Home</a></button>
+            </span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>The Vibe Coding Imperative</h1>
+            <h2>Understanding AI-Driven Development for Product Managers <span class="emoji">🚀</span></h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">CSCI 5403 - Software Engineering</p>
+            <p style="font-size: 1.3em;">Block 2, Class 7</p>
+            <p style="margin-top: auto; font-style: italic;">"The conversation between human and machine has started"</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h1>Today's Learning Objectives</h1>
+            <ul style="font-size: 1.4em; line-height: 2;">
+                <li>🎯 Understand what vibe coding is and how it works</li>
+                <li>🎯 Master the technology stack behind AI-driven development</li>
+                <li>🎯 Identify how vibe coding transforms product management</li>
+                <li>🎯 Develop essential skills for AI-native development</li>
+                <li>🎯 Create your first vibe-coded application</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Opening Quote -->
+        <div class="slide">
+            <h1>A Paradigm Shift</h1>
+            <blockquote style="font-size: 1.6em; line-height: 1.8; margin: 40px; font-style: italic;">
+                "It's not really coding—I just see stuff, say stuff, run stuff, and copy-paste stuff, and it mostly works. It's a way to fully give in to the vibes, embrace exponentials, and forget that the code even exists."
+            </blockquote>
+            <p style="text-align: right; font-size: 1.3em; margin-top: 30px;">
+                — Andrej Karpathy, February 2025
+            </p>
+        </div>
+
+        <!-- Slide 4: What is Vibe Coding? -->
+        <div class="slide">
+            <h1>What Exactly is Vibe Coding?</h1>
+            <p style="font-size: 1.3em; margin: 30px 0;">A groundbreaking shift in software development where you describe what you want in plain English, and AI figures out the rest.</p>
+            <div class="vibe-example">
+                Human: "I need a login page that remembers users"<br><br>
+                AI: *generates complete authentication system*
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px;">The barrier between idea and implementation has almost disappeared.</p>
+        </div>
+
+        <!-- Slide 5: Key Characteristics -->
+        <div class="slide">
+            <h1>Key Characteristics of Vibe Coding</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>✨ Natural Language Input</h3>
+                    <p>You describe, not code</p>
+                </div>
+                <div class="comparison-card good">
+                    <h3>🎭 Multimodal Interaction</h3>
+                    <p>Voice, text, or images</p>
+                </div>
+            </div>
+            <div class="comparison-table" style="margin-top: 20px;">
+                <div class="comparison-card good">
+                    <h3>💬 Conversational Development</h3>
+                    <p>Iterate through dialogue</p>
+                </div>
+                <div class="comparison-card good">
+                    <h3>🤖 Agentic Autonomy</h3>
+                    <p>AI suggests, flags issues, learns your style</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Traditional vs Vibe Coding -->
+        <div class="slide">
+            <h1>Traditional Coding vs. Vibe Coding</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>📝 Traditional Approach</h3>
+                    <ul>
+                        <li>Write code line by line</li>
+                        <li>Debug syntax errors</li>
+                        <li>Manage dependencies manually</li>
+                        <li>Long development cycles</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✨ Vibe Coding Approach</h3>
+                    <ul>
+                        <li>Describe desired outcome</li>
+                        <li>AI handles implementation</li>
+                        <li>Instant prototypes</li>
+                        <li>Rapid iteration through conversation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: The Technology Stack -->
+        <div class="slide">
+            <h1>The Tech Behind the Magic 🔧</h1>
+            <h2>Core Technologies Enabling Vibe Coding</h2>
+            <ul style="font-size: 1.3em; line-height: 1.8;">
+                <li>🧠 Large Language Models (GPT-4, Claude, Gemini)</li>
+                <li>💾 Vector Embeddings & Conversational Memory</li>
+                <li>🎯 Reinforcement Learning with Human Feedback (RLHF)</li>
+                <li>🛠️ AI-Native IDEs (Cursor, Replit, Ghostwriter)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 8: Multimodal AI Models -->
+        <div class="slide">
+            <h1>Multimodal AI Models</h1>
+            <div class="demo-box">
+                <h3>GPT-4o & Google Gemini 1.5</h3>
+                <p>Process various inputs and turn them into working code:</p>
+                <ul style="font-size: 1.2em; margin-top: 20px;">
+                    <li>📝 Text descriptions</li>
+                    <li>🎤 Voice commands</li>
+                    <li>🖼️ Images and sketches</li>
+                    <li>📊 Data structures</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: Conversational Memory -->
+        <div class="slide">
+            <h1>Conversational Memory Systems</h1>
+            <p style="font-size: 1.3em;">AI systems like LangGraph and OpenDevin use vector embeddings to:</p>
+            <div class="tip-box" style="margin-top: 30px;">
+                <ul style="font-size: 1.2em;">
+                    <li>Remember past interactions</li>
+                    <li>Maintain project context</li>
+                    <li>Track design decisions</li>
+                    <li>Learn your coding preferences</li>
+                </ul>
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px; font-style: italic;">The AI becomes your collaborative partner, not just a tool.</p>
+        </div>
+
+        <!-- Slide 10: RLHF -->
+        <div class="slide">
+            <h1>Reinforcement Learning with Human Feedback</h1>
+            <div class="code-example">
+                <p style="font-size: 1.2em; line-height: 1.8;">
+                    RLHF trains AI models using reward systems that prioritize output to align with human values and nuances.
+                </p>
+            </div>
+            <p style="font-size: 1.3em; margin-top: 30px; text-align: center;">
+                <strong>Result:</strong> AI doesn't just write code—it writes code the way humans want it written.
+            </p>
+        </div>
+
+        <!-- Slide 11: AI-Native IDEs -->
+        <div class="slide">
+            <h1>AI-Native Development Environments</h1>
+            <div class="skill-grid">
+                <div class="skill-card">
+                    <h3>🖥️ Cursor</h3>
+                    <p>AI-first code editor with deep integration</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🔧 Replit</h3>
+                    <p>Cloud-based collaborative coding platform</p>
+                </div>
+                <div class="skill-card">
+                    <h3>👻 Ghostwriter</h3>
+                    <p>AI pair programmer for instant code generation</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🎤 Serenade/Superwhisper</h3>
+                    <p>Voice-controlled coding assistants</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Impact Statistics -->
+        <div class="slide">
+            <h1>The Impact: By the Numbers</h1>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div class="stat-box">
+                    <div class="stat-number">78%</div>
+                    <p>Development teams using AI-assisted coding (2024)</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">40%</div>
+                    <p>Productivity increase with generative AI</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">5%</div>
+                    <p>Reduction in time-to-market</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">80%</div>
+                    <p>Developers will need AI skills by 2027</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Reshaping Product Management -->
+        <div class="slide">
+            <h1>Why It's a Big Deal: Reshaping Product Management</h1>
+            <h2>Three Major Transformations</h2>
+            <div class="timeline-item">
+                <h3>⚡ Rapid Prototyping</h3>
+                <p>What once took weeks now happens in hours</p>
+            </div>
+            <div class="timeline-item">
+                <h3>🌍 Democratized Creation</h3>
+                <p>Non-technical PMs can build functional prototypes</p>
+            </div>
+            <div class="timeline-item">
+                <h3>🔄 Iterative Discovery</h3>
+                <p>Real-time feedback and instant refinement</p>
+            </div>
+        </div>
+
+        <!-- Slide 14: Case Study -->
+        <div class="slide">
+            <h1>Case Study: 2025 Vibe Coding Game Jam</h1>
+            <div class="demo-box">
+                <h3>The Challenge</h3>
+                <p>Non-technical teams create playable games using only AI</p>
+                
+                <h3 style="margin-top: 30px;">The Results</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>✅ Teams with zero coding experience built games</li>
+                    <li>✅ Average development time: 4 hours</li>
+                    <li>✅ Demonstrated accessibility of AI-driven development</li>
+                </ul>
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px; text-align: center;">
+                <em>Sponsored by Bolt and Lambda</em>
+            </p>
+        </div>
+
+        <!-- Slide 15: The Limitations -->
+        <div class="slide">
+            <h1>The Catch—It's Not Perfect ⚠️</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>🎲 Unpredictable Code</h3>
+                    <p>Same prompt, different outputs</p>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>🔒 Security Concerns</h3>
+                    <p>25-70% of AI code has vulnerabilities</p>
+                </div>
+            </div>
+            <div class="tip-box" style="margin-top: 30px;">
+                <h3>🐛 Debugging Challenges</h3>
+                <p>Without understanding the generated code, fixing bugs can be difficult</p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Security Deep Dive -->
+        <div class="slide">
+            <h1>Security Concerns in Detail</h1>
+            <blockquote style="font-size: 1.3em; margin: 30px; font-style: italic;">
+                "Vibe coding your way to a production codebase is clearly risky without understanding the underlying code."
+                <br><br>— Simon Willison
+            </blockquote>
+            <div class="demo-box">
+                <h3>Common Vulnerabilities</h3>
+                <ul>
+                    <li>SQL injection risks</li>
+                    <li>Exposed API keys</li>
+                    <li>Inadequate input validation</li>
+                    <li>Memory leaks in generated code</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 17: When to Use Vibe Coding -->
+        <div class="slide">
+            <h1>When to Use Vibe Coding</h1>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>✅ Excellent For</h3>
+                    <ul>
+                        <li>Prototyping</li>
+                        <li>Experimentation</li>
+                        <li>Rapid iteration</li>
+                        <li>Proof of concepts</li>
+                        <li>Learning & exploration</li>
+                    </ul>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ Use Caution For</h3>
+                    <ul>
+                        <li>Enterprise systems</li>
+                        <li>Production databases</li>
+                        <li>Security-critical apps</li>
+                        <li>Financial systems</li>
+                        <li>Healthcare applications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: New Skills Required -->
+        <div class="slide">
+            <h1>New Skills for Product Managers</h1>
+            <h2>The Evolution of the PM Role</h2>
+            <p style="font-size: 1.2em; margin: 20px 0;">
+                Vibe coding demands new competencies to thrive in an AI-native landscape:
+            </p>
+        </div>
+
+        <!-- Slide 19: AI Literacy -->
+        <div class="slide">
+            <h1>Essential Skill #1: AI Literacy</h1>
+            <div class="demo-box">
+                <h3>🧠 Machine Learning Fundamentals</h3>
+                <p>Product managers must understand:</p>
+                <ul style="font-size: 1.2em; margin-top: 20px;">
+                    <li>Model training concepts</li>
+                    <li>Bias detection and mitigation</li>
+                    <li>Performance metrics</li>
+                    <li>Limitations of AI systems</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 20: Prompt Engineering -->
+        <div class="slide">
+            <h1>Essential Skill #2: Prompt Engineering</h1>
+            <div class="vibe-example">
+                <p><strong>Poor Prompt:</strong> "Make a website"</p>
+                <p style="margin-top: 20px;"><strong>Effective Prompt:</strong> "Create a responsive e-commerce landing page with a hero section featuring a product carousel, customer testimonials, and a newsletter signup form using modern design principles"</p>
+            </div>
+            <div class="tip-box" style="margin-top: 30px;">
+                <strong>Key:</strong> Clear, concise, and comprehensive prompts guide AI effectively
+            </div>
+        </div>
+
+        <!-- Slide 21: Data Fluency -->
+        <div class="slide">
+            <h1>Essential Skill #3: Data Fluency</h1>
+            <div class="skill-card" style="max-width: 600px; margin: 0 auto;">
+                <h3>📊 Analytical Thinking</h3>
+                <p>Product managers must be capable of:</p>
+                <ul style="margin-top: 20px;">
+                    <li>Identifying necessary data</li>
+                    <li>Understanding data pipelines</li>
+                    <li>Deriving actionable insights</li>
+                    <li>Validating AI-generated analyses</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 22: Human-AI Collaboration -->
+        <div class="slide">
+            <h1>Essential Skill #4: Human-AI Orchestration</h1>
+            <p style="font-size: 1.3em; margin: 30px 0;">
+                The future involves seamless human-AI collaboration
+            </p>
+            <div class="comparison-table">
+                <div class="comparison-card good">
+                    <h3>🤖 Delegate to AI</h3>
+                    <ul>
+                        <li>Repetitive tasks</li>
+                        <li>Initial prototypes</li>
+                        <li>Data analysis</li>
+                        <li>Code generation</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>👤 Keep Human-Driven</h3>
+                    <ul>
+                        <li>Strategic decisions</li>
+                        <li>Creative vision</li>
+                        <li>Ethical considerations</li>
+                        <li>User empathy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Strategic Storytelling -->
+        <div class="slide">
+            <h1>Essential Skill #5: Strategic Storytelling with AI</h1>
+            <div class="demo-box">
+                <p style="font-size: 1.3em;">Translate complex AI concepts into compelling narratives for:</p>
+                <ul style="font-size: 1.2em; margin-top: 20px;">
+                    <li>👔 Executive stakeholders</li>
+                    <li>👥 Development teams</li>
+                    <li>🎯 End users</li>
+                    <li>💼 Investors</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 24: Future Timeline -->
+        <div class="slide">
+            <h1>What's Next? The Future of Vibe Coding</h1>
+            <h2>12-24 Month Horizon</h2>
+            <div class="timeline-item">
+                <h3>2025: AI-Native IDEs Become Standard</h3>
+                <p>Cursor and DevIn adoption reaches critical mass</p>
+            </div>
+            <div class="timeline-item">
+                <h3>2026: Agentic DevOps</h3>
+                <p>AI agents manage workflows from development to deployment</p>
+            </div>
+            <div class="timeline-item">
+                <h3>2027: Emotion-Aware Agents</h3>
+                <p>IDEs adapt based on tone and user excitement</p>
+            </div>
+        </div>
+
+        <!-- Slide 25: Multimodal Future -->
+        <div class="slide">
+            <h1>Multimodal Vibe Design</h1>
+            <p style="font-size: 1.3em; margin: 30px 0;">
+                The future combines multiple input modalities:
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div class="skill-card">
+                    <h3>🎤 Voice Commands</h3>
+                    <p>Natural speech interaction</p>
+                </div>
+                <div class="skill-card">
+                    <h3>✋ Gestures</h3>
+                    <p>Spatial computing interfaces</p>
+                </div>
+                <div class="skill-card">
+                    <h3>✏️ Sketches</h3>
+                    <p>Draw to generate UI</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🥽 AR/VR</h3>
+                    <p>Immersive development</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 26: Exercise Introduction -->
+        <div class="slide">
+            <h1>Hands-On Exercise: Vibe Coding Challenge 💻</h1>
+            <div class="activity-box">
+                <h3>Your Mission</h3>
+                <p style="font-size: 1.3em;">Create a functional website using only natural language prompts</p>
+                <div style="margin-top: 30px;">
+                    <h4>Requirements:</h4>
+                    <ul>
+                        <li>Build a product landing page</li>
+                        <li>Include at least 5 interactive elements</li>
+                        <li>Make it responsive and accessible</li>
+                        <li>Deploy to GitHub Pages</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 27: Exercise Setup -->
+        <div class="slide">
+            <h1>Exercise Setup</h1>
+            <div class="demo-box">
+                <h3>Tools You'll Use:</h3>
+                <ul style="font-size: 1.3em; line-height: 2;">
+                    <li>🤖 AI Assistant (ChatGPT, Claude, or Cursor)</li>
+                    <li>🔧 Code editor (VS Code or Replit)</li>
+                    <li>🐙 GitHub for version control</li>
+                    <li>🚀 GitHub Pages for deployment</li>
+                </ul>
+            </div>
+            <button data-timer="45">Start 45-Minute Challenge</button>
+        </div>
+
+        <!-- Slide 28: Exercise Steps -->
+        <div class="slide">
+            <h1>Step-by-Step Process</h1>
+            <ol style="font-size: 1.3em; line-height: 2;">
+                <li><strong>Define Your Product:</strong> Choose what you're building</li>
+                <li><strong>Initial Prompt:</strong> Describe your vision to the AI</li>
+                <li><strong>Iterate:</strong> Refine through conversation</li>
+                <li><strong>Test:</strong> Ensure functionality works</li>
+                <li><strong>Deploy:</strong> Push to GitHub Pages</li>
+                <li><strong>Document:</strong> Prepare presentation notes</li>
+            </ol>
+        </div>
+
+        <!-- Slide 29: Prompt Examples -->
+        <div class="slide">
+            <h1>Example Prompts for Success</h1>
+            <div class="code-example">
+                <p><strong>Starting Prompt:</strong></p>
+                <p>"Create a modern, responsive landing page for an AI-powered task management app called 'FlowState'. Include a hero section with animated gradient background, feature cards with hover effects, pricing table, and newsletter signup. Use a purple and blue color scheme with glassmorphism effects."</p>
+            </div>
+            <div class="tip-box" style="margin-top: 30px;">
+                <strong>Pro Tip:</strong> Be specific about visual styles, interactions, and functionality
+            </div>
+        </div>
+
+        <!-- Slide 30: Common Pitfalls -->
+        <div class="slide">
+            <h1>Avoiding Common Vibe Coding Pitfalls</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Don't</h3>
+                    <ul>
+                        <li>Accept first output blindly</li>
+                        <li>Ignore error messages</li>
+                        <li>Skip testing</li>
+                        <li>Forget accessibility</li>
+                    </ul>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✅ Do</h3>
+                    <ul>
+                        <li>Iterate and refine</li>
+                        <li>Debug with AI help</li>
+                        <li>Test thoroughly</li>
+                        <li>Ensure WCAG compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 31: Best Practices -->
+        <div class="slide">
+            <h1>Vibe Coding Best Practices</h1>
+            <div class="skill-grid">
+                <div class="skill-card">
+                    <h3>📝 Clear Communication</h3>
+                    <p>Provide context and constraints upfront</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🔄 Iterative Refinement</h3>
+                    <p>Build in small, testable increments</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🔍 Code Review</h3>
+                    <p>Always review generated code for security</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📚 Learn from Output</h3>
+                    <p>Study the generated code to improve</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 32: Real World Applications -->
+        <div class="slide">
+            <h1>Real-World Vibe Coding Success Stories</h1>
+            <div class="timeline-item">
+                <h3>🎮 Indie Game Development</h3>
+                <p>Solo developers creating full games in days, not months</p>
+            </div>
+            <div class="timeline-item">
+                <h3>🏢 Enterprise Prototyping</h3>
+                <p>Fortune 500 companies testing ideas at 10x speed</p>
+            </div>
+            <div class="timeline-item">
+                <h3>📚 Educational Tools</h3>
+                <p>Teachers creating custom learning applications</p>
+            </div>
+            <div class="timeline-item">
+                <h3>🚀 Startup MVPs</h3>
+                <p>Non-technical founders building functional products</p>
+            </div>
+        </div>
+
+        <!-- Slide 33: Industry Impact -->
+        <div class="slide">
+            <h1>Industry-Wide Transformation</h1>
+            <div class="stat-box" style="max-width: 600px; margin: 0 auto;">
+                <h3>McKinsey Report Findings</h3>
+                <ul style="font-size: 1.2em; text-align: left; margin-top: 20px;">
+                    <li>5% reduction in product time-to-market</li>
+                    <li>40% increase in developer productivity</li>
+                    <li>60% reduction in prototype development time</li>
+                    <li>30% increase in experimentation velocity</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 34: Ethical Considerations -->
+        <div class="slide">
+            <h1>Ethical Considerations</h1>
+            <div class="demo-box">
+                <h3>Important Questions to Consider</h3>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🤔 Who owns AI-generated code?</li>
+                    <li>⚖️ How do we ensure fairness and avoid bias?</li>
+                    <li>🔒 What about data privacy in training models?</li>
+                    <li>👥 Impact on traditional developer jobs?</li>
+                    <li>🌍 Environmental cost of AI computation?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 35: The Mindset Shift -->
+        <div class="slide">
+            <h1>The Mindset Shift</h1>
+            <blockquote style="font-size: 1.5em; line-height: 1.8; margin: 40px;">
+                "Vibe coding is more than a technological advancement; it's a mindset shift. It's about dreaming big because the barriers between ideas and execution are dropping."
+            </blockquote>
+            <p style="font-size: 1.2em; margin-top: 30px; text-align: center;">
+                The strongest skill isn't writing perfect code—it's thinking clearly and communicating intention.
+            </p>
+        </div>
+
+        <!-- Slide 36: Building Your Vibe Coding Toolkit -->
+        <div class="slide">
+            <h1>Building Your Vibe Coding Toolkit</h1>
+            <div class="skill-grid">
+                <div class="skill-card">
+                    <h3>🛠️ Essential Tools</h3>
+                    <ul>
+                        <li>Cursor or VS Code</li>
+                        <li>GitHub Copilot</li>
+                        <li>ChatGPT/Claude</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>📚 Learning Resources</h3>
+                    <ul>
+                        <li>DeepLearning.AI courses</li>
+                        <li>Replit tutorials</li>
+                        <li>ACM articles</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>🌟 Communities</h3>
+                    <ul>
+                        <li>AI Developer Discord</li>
+                        <li>Vibe Coding Reddit</li>
+                        <li>Twitter/X tech community</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>🎯 Practice Projects</h3>
+                    <ul>
+                        <li>Personal portfolio</li>
+                        <li>Chrome extensions</li>
+                        <li>Mobile app prototypes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 37: Action Items -->
+        <div class="slide">
+            <h1>Your Action Items</h1>
+            <div class="activity-box">
+                <h3>This Week's Goals</h3>
+                <ol style="font-size: 1.3em; line-height: 2;">
+                    <li>✅ Complete your vibe coding website project</li>
+                    <li>✅ Deploy to GitHub Pages</li>
+                    <li>✅ Document your prompts and iterations</li>
+                    <li>✅ Prepare 5-minute presentation</li>
+                    <li>✅ Read assigned ACM articles</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 38: Presentation Guidelines -->
+        <div class="slide">
+            <h1>Presentation Guidelines</h1>
+            <div class="demo-box">
+                <h3>Your 5-Minute Presentation Should Include:</h3>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🎯 Product concept and target audience</li>
+                    <li>💬 Key prompts used and iterations</li>
+                    <li>🚧 Challenges encountered and solutions</li>
+                    <li>✨ Final product demonstration</li>
+                    <li>💡 Lessons learned about vibe coding</li>
+                </ul>
+            </div>
+            <p style="font-size: 1.2em; margin-top: 30px; text-align: center;">
+                <strong>Due:</strong> Next class (Class 8)
+            </p>
+        </div>
+
+        <!-- Slide 39: Resources -->
+        <div class="slide">
+            <h1>Resources & References</h1>
+            <div class="tip-box">
+                <h3>Required Reading</h3>
+                <ul>
+                    <li>📄 The Vibe Coding Imperative for Product Managers (ACM)</li>
+                    <li>📄 How Can Vibe Coding Transform Programming Education?</li>
+                    <li>📄 Catching the Vibe of Vibe Coding</li>
+                </ul>
+                <h3 style="margin-top: 20px;">Additional Resources</h3>
+                <ul>
+                    <li>🎥 Karpathy's original vibe coding thread</li>
+                    <li>📚 DeepLearning.AI: Vibe Coding 101 with Replit</li>
+                    <li>📊 GitLab 2024 DevSecOps Report</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 40: Key Takeaway -->
+        <div class="slide">
+            <h1>The Bottom Line</h1>
+            <div class="demo-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <p style="font-size: 1.6em; line-height: 1.8;">
+                    The conversation between human and machine has started.
+                    <br><br>
+                    The question isn't whether you should join it—
+                    <br>
+                    it's how quickly you can learn to make it productive.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 41: Summary -->
+        <div class="slide">
+            <h1>Today's Takeaways <span class="emoji">🎓</span></h1>
+            <h2>You Can Now:</h2>
+            <ul style="font-size: 1.3em; line-height: 2;">
+                <li>✅ Explain what vibe coding is and how it works</li>
+                <li>✅ Identify the key technologies enabling AI-driven development</li>
+                <li>✅ Apply vibe coding techniques to create functional prototypes</li>
+                <li>✅ Evaluate when to use vibe coding vs traditional development</li>
+                <li>✅ Develop essential skills for AI-native product management</li>
+            </ul>
+            <div class="demo-box" style="margin-top: 30px;">
+                <p><strong>Next Class:</strong> Cloud-based Software & Vibe Coding Troubleshooting</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation">
+            <button id="prevBtn">Previous</button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">41</span>
+            </span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- Shared Presentation JavaScript -->
+    <script src="../../js/presentation.js"></script>
+
+    <!-- Lecture-Specific JavaScript -->
+    <script>
+        // Add any lecture-specific JavaScript here
+        document.addEventListener('slidechange', (e) => {
+            console.log(`Slide ${e.detail.currentSlide + 1} of ${e.detail.totalSlides}`);
+            
+            // Update total slides count
+            const totalSlidesElement = document.getElementById('totalSlides');
+            if (totalSlidesElement) {
+                totalSlidesElement.textContent = e.detail.totalSlides;
+            }
+        });
+    </script>
+</body>
+</html>

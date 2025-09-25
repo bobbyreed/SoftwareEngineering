@@ -593,7 +593,302 @@
             </div>
         </div>
 
-        <!-- Slide 34: Implementation Strategy -->
+        <!-- Slide 34: Hands-On Exercise Introduction -->
+        <div class="slide">
+            <h1>Hands-On: GitHub Pages CI/CD <span class="emoji">🛠️</span></h1>
+            <div class="pipeline-diagram">
+                <h2>Let's Build a Real Pipeline!</h2>
+                <p style="font-size: 1.3em; text-align: center; margin: 1em 0;">
+                    Time to apply what we've learned by creating<br>
+                    a working CI/CD pipeline with GitHub Pages
+                </p>
+                <div class="success-metric" style="margin: 1em auto; display: block; text-align: center;">
+                    <h3>Exercise Duration: 30 Minutes</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 35: Exercise Overview -->
+        <div class="slide">
+            <h1>Exercise Overview</h1>
+            <div class="activity-box">
+                <h3>What We'll Build</h3>
+                <p style="font-size: 1.2em;">A complete CI/CD pipeline that:</p>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>✅ Automatically builds your website on every push</li>
+                    <li>✅ Runs tests to validate HTML/CSS</li>
+                    <li>✅ Deploys to GitHub Pages automatically</li>
+                    <li>✅ Provides deployment status and URLs</li>
+                </ul>
+                <div class="tip-box" style="margin-top: 1em;">
+                    <strong>Prerequisites:</strong> GitHub account, basic Git knowledge, text editor
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 36: Step 1 - Repository Setup -->
+        <div class="slide">
+            <h1>Step 1: Repository Setup</h1>
+            <div class="activity-box">
+                <h3>Create Your Project Repository</h3>
+                <ol style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Go to GitHub.com and create a new repository</li>
+                    <li>Name it: <code>my-cicd-website</code></li>
+                    <li>Initialize with README.md</li>
+                    <li>Clone to your local machine:
+                        <div class="code-example" style="margin: 0.5em 0;">
+                            <span>git clone https://github.com/[username]/my-cicd-website.git</span>
+                        </div>
+                    </li>
+                    <li>Create initial project structure:
+                        <div class="code-example" style="margin: 0.5em 0;">
+                            <span>index.html, style.css, script.js</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 37: Step 2 - Basic Website -->
+        <div class="slide">
+            <h1>Step 2: Create Basic Website</h1>
+            <div class="activity-box">
+                <h3>Sample index.html</h3>
+                <div class="code-example" style="font-size: 0.9em;">
+                    <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My CI/CD Demo&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to CI/CD!&lt;/h1&gt;
+    &lt;p&gt;This site is deployed automatically.&lt;/p&gt;
+    &lt;p&gt;Build: &lt;span id="build-info"&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 38: Step 3 - GitHub Actions Directory -->
+        <div class="slide">
+            <h1>Step 3: Setup GitHub Actions</h1>
+            <div class="activity-box">
+                <h3>Create Workflow Directory Structure</h3>
+                <ol style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Create <code>.github</code> folder in project root</li>
+                    <li>Inside <code>.github</code>, create <code>workflows</code> folder</li>
+                    <li>Create workflow file: <code>deploy.yml</code></li>
+                </ol>
+                <div class="code-example" style="margin: 1em 0;">
+                    <pre>my-cicd-website/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── index.html
+├── style.css
+├── script.js
+└── README.md</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 39: Step 4 - Workflow YAML -->
+        <div class="slide">
+            <h1>Step 4: GitHub Actions Workflow</h1>
+            <div class="activity-box">
+                <h3>deploy.yml Configuration</h3>
+                <div class="code-example" style="font-size: 0.8em;">
+                    <pre>name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 40: Step 5 - Add Testing Stage -->
+        <div class="slide">
+            <h1>Step 5: Add Testing Stage</h1>
+            <div class="activity-box">
+                <h3>Continue deploy.yml - Testing</h3>
+                <div class="code-example" style="font-size: 0.8em;">
+                    <pre>    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install --save-dev html-validate
+    
+    - name: Validate HTML
+      run: npx html-validate index.html
+    
+    - name: Check for broken links
+      run: |
+        # Simple check for basic issues
+        grep -E 'href="|src="' index.html || true
+    
+    - name: Run security checks
+      run: |
+        # Check for hardcoded secrets
+        ! grep -E 'api_key|password|secret' *.js *.html</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 41: Step 6 - Deployment Stage -->
+        <div class="slide">
+            <h1>Step 6: Add Deployment Stage</h1>
+            <div class="activity-box">
+                <h3>Complete deploy.yml - Deployment</h3>
+                <div class="code-example" style="font-size: 0.8em;">
+                    <pre>    - name: Build site
+      run: |
+        # Add build timestamp
+        echo "window.BUILD_TIME='$(date)';" > build-info.js
+        cat script.js >> build-info.js
+        mv build-info.js script.js
+    
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        cname: optional.custom.domain</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 42: Step 7 - Enable GitHub Pages -->
+        <div class="slide">
+            <h1>Step 7: Configure GitHub Pages</h1>
+            <div class="activity-box">
+                <h3>Repository Settings</h3>
+                <ol style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Go to repository Settings → Pages</li>
+                    <li>Source: Deploy from a branch</li>
+                    <li>Branch: <code>gh-pages</code> (created by action)</li>
+                    <li>Folder: <code>/ (root)</code></li>
+                    <li>Save settings</li>
+                </ol>
+                <div class="tip-box" style="margin-top: 1em;">
+                    <strong>URL Format:</strong> https://[username].github.io/my-cicd-website/
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 43: Step 8 - Commit and Push -->
+        <div class="slide">
+            <h1>Step 8: Trigger the Pipeline</h1>
+            <div class="activity-box">
+                <h3>Git Commands</h3>
+                <div class="code-example" style="font-size: 1.1em;">
+                    <pre>git add .
+git commit -m "feat: Add CI/CD pipeline with GitHub Actions"
+git push origin main</pre>
+                </div>
+                <h3 style="margin-top: 1em;">Monitor Progress</h3>
+                <ul style="font-size: 1.1em;">
+                    <li>Go to GitHub repository → Actions tab</li>
+                    <li>Watch workflow execution in real-time</li>
+                    <li>Green checkmark = Success! ✅</li>
+                    <li>Red X = Check logs for errors ❌</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 44: Understanding YAML -->
+        <div class="slide">
+            <h1>Understanding the YAML</h1>
+            <div class="metric-box">
+                <h2>Key Components Explained</h2>
+                <ul style="font-size: 1.1em; line-height: 1.8;">
+                    <li><strong>on:</strong> Triggers (push, pull_request, schedule)</li>
+                    <li><strong>jobs:</strong> Parallel or sequential tasks</li>
+                    <li><strong>runs-on:</strong> Runner environment (ubuntu, windows, macos)</li>
+                    <li><strong>steps:</strong> Individual actions in sequence</li>
+                    <li><strong>uses:</strong> Pre-built actions from marketplace</li>
+                    <li><strong>run:</strong> Shell commands to execute</li>
+                    <li><strong>if:</strong> Conditional execution logic</li>
+                    <li><strong>secrets:</strong> Secure credential storage</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 45: Advanced Features -->
+        <div class="slide">
+            <h1>Exercise Extensions</h1>
+            <div class="activity-box">
+                <h3>Try These Enhancements</h3>
+                <ol style="font-size: 1.1em; line-height: 1.8;">
+                    <li>🔔 Add Slack/Discord notifications on deployment</li>
+                    <li>🧪 Include Lighthouse performance testing</li>
+                    <li>🎨 Add CSS linting with stylelint</li>
+                    <li>📊 Generate test coverage reports</li>
+                    <li>🏷️ Implement semantic versioning</li>
+                    <li>🔄 Create staging environment workflow</li>
+                    <li>📦 Add dependency vulnerability scanning</li>
+                    <li>🚀 Implement blue-green deployments</li>
+                </ol>
+                <button data-timer="15">Start Extension Timer</button>
+            </div>
+        </div>
+
+        <!-- Slide 46: Troubleshooting Guide -->
+        <div class="slide">
+            <h1>Troubleshooting Common Issues</h1>
+            <div class="comparison-table">
+                <div class="comparison-card bad">
+                    <h3>❌ Common Errors</h3>
+                    <p><strong>Permission denied:</strong> Check GITHUB_TOKEN</p>
+                    <p><strong>Branch not found:</strong> Verify branch names</p>
+                    <p><strong>Build fails:</strong> Check syntax errors</p>
+                    <p><strong>Page 404:</strong> Verify Pages settings</p>
+                </div>
+                <div class="comparison-card good">
+                    <h3>✅ Solutions</h3>
+                    <p>Enable workflow permissions in Settings</p>
+                    <p>Use correct default branch (main/master)</p>
+                    <p>Validate YAML at yamllint.com</p>
+                    <p>Wait 10 minutes for DNS propagation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 47: Best Practices Review -->
+        <div class="slide">
+            <h1>CI/CD Best Practices Applied</h1>
+            <div class="metric-box">
+                <h2>What We Implemented</h2>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>✅ <strong>Version Control:</strong> All code in Git</li>
+                    <li>✅ <strong>Automation:</strong> Zero manual deployment</li>
+                    <li>✅ <strong>Testing:</strong> Validation before deployment</li>
+                    <li>✅ <strong>Security:</strong> Secret scanning, token management</li>
+                    <li>✅ <strong>Monitoring:</strong> Action logs and status badges</li>
+                    <li>✅ <strong>Documentation:</strong> Clear workflow comments</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 48: Implementation Strategy (renumbered from 34) -->
         <div class="slide">
             <h1>Progressive Implementation</h1>
             <div class="activity-box">
@@ -610,24 +905,25 @@
             </div>
         </div>
 
-        <!-- Slide 35: Activity -->
+        <!-- Slide 49: Additional Practice Activity -->
         <div class="slide">
-            <h1>Practice Activity <span class="emoji">💻</span></h1>
+            <h1>Design Exercise <span class="emoji">📐</span></h1>
             <div class="activity-box">
-                <h3>Design Your CI/CD Pipeline</h3>
-                <p>Create a basic CI/CD pipeline for a web application:</p>
+                <h3>Design Your Production Pipeline</h3>
+                <p>Now design a more complex CI/CD pipeline:</p>
                 <ol>
                     <li>Choose your architecture (monorepo vs polyrepo)</li>
-                    <li>Define your stages (build, test, deploy)</li>
-                    <li>Add security checkpoints</li>
-                    <li>Include quality gates</li>
+                    <li>Define your stages (build, test, stage, prod)</li>
+                    <li>Add security checkpoints at each stage</li>
+                    <li>Include quality gates and approvals</li>
                     <li>Plan your rollback strategy</li>
+                    <li>Consider monitoring and alerting</li>
                 </ol>
             </div>
-            <button data-timer="15">Start 15-Minute Timer</button>
+            <button data-timer="10">Start 10-Minute Timer</button>
         </div>
 
-        <!-- Slide 36: Future Directions -->
+        <!-- Slide 50: Future Directions -->
         <div class="slide">
             <h1>Future of CI/CD</h1>
             <div class="pipeline-diagram">
@@ -756,7 +1052,7 @@
             </div>
         </div>
 
-        <!-- Slide 43: Summary -->
+        <!-- Slide 57: Summary -->
         <div class="slide">
             <h1>Today's Learning Complete! <span class="emoji">🎓</span></h1>
             <h2>You Can Now:</h2>
@@ -766,6 +1062,7 @@
                 <li>✅ Apply DORA metrics for optimization</li>
                 <li>✅ Avoid common anti-patterns</li>
                 <li>✅ Implement progressive CI/CD strategies</li>
+                <li>✅ Build working GitHub Actions workflows</li>
             </ul>
             <div class="demo-box">
                 <p><strong>Next Class:</strong> Security and Privacy in Software Engineering</p>
@@ -776,7 +1073,7 @@
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">43</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">57</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>

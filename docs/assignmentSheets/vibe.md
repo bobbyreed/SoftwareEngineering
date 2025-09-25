@@ -4,7 +4,6 @@
 
 In this assignment, you will practice "vibe coding" - the modern software engineering approach of orchestrating and integrating AI-generated code. You'll build a complete website by directing multiple AI assistants, learning how to effectively prompt, evaluate, integrate, and refine AI-generated code through a CI/CD pipeline. This simulates real-world GenAI-augmented development workflows.
 
-**Points:** 100  
 **Focus:** GenAI Integration, Prompt Engineering, Code Synthesis, CI/CD
 
 ---

@@ -4,8 +4,6 @@
 
 In this assignment, you will learn how to use GitHub Pages as a Continuous Integration/Continuous Deployment (CI/CD) pipeline for rapid prototyping. You'll deploy a provided website template, make modifications, and observe how GitHub automatically builds and deploys your changes. This simulates real-world software deployment workflows.
 
-**Difficulty:** Beginner  
-**Points:** 100  
 **Focus:** Version Control, CI/CD, Deployment Pipeline
 
 ---
