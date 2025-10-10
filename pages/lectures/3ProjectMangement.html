@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agile Product Management - CSCI 5403</title>
     
-    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <!-- Blueprint Theme Presentation Styles with Theme Support -->
     <link rel="stylesheet" href="../../styles/presentation.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    
+
     <!-- Lecture-Specific Styles -->
     <style>
         .persona-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--blueprint-sky) 0%, var(--blueprint-purple) 100%);
             color: white;
             border-radius: 15px;
             padding: 25px;
@@ -20,46 +20,54 @@
             max-width: 600px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        
+
         .persona-card h3 {
             margin-top: 0;
             font-size: 1.8em;
         }
-        
+
         .persona-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-top: 15px;
         }
-        
+
         .persona-detail {
             background: rgba(255,255,255,0.1);
             padding: 10px;
             border-radius: 8px;
         }
-        
+
         .scenario-box {
-            background: #f8f9fa;
-            border-left: 5px solid #28a745;
+            background: var(--success-bg);
+            color: var(--text-primary);
+            border-left: 5px solid var(--success-border);
             padding: 20px;
             margin: 20px 0;
             border-radius: 5px;
         }
-        
+
+        .scenario-box h3,
+        .scenario-box p,
+        .scenario-box strong {
+            color: var(--text-primary);
+        }
+
         .user-story {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
+            background: var(--warning-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--warning-border);
             padding: 15px;
             margin: 15px 0;
             border-radius: 8px;
             font-size: 1.1em;
         }
-        
+
         .user-story strong {
-            color: #856404;
+            color: var(--text-primary);
         }
-        
+
         .feature-flow {
             display: flex;
             align-items: center;
@@ -67,55 +75,58 @@
             margin: 30px 0;
             flex-wrap: wrap;
         }
-        
+
         .flow-item {
-            background: #007bff;
+            background: var(--blueprint-sky);
             color: white;
             padding: 15px 25px;
             border-radius: 10px;
             margin: 10px;
             font-size: 1.2em;
         }
-        
+
         .flow-arrow {
             font-size: 2em;
-            color: #666;
+            color: var(--blueprint-purple);
             margin: 0 10px;
         }
-        
+
         .kanban-board {
             display: flex;
             gap: 20px;
             justify-content: center;
             margin: 30px 0;
         }
-        
+
         .kanban-column {
-            background: #f5f5f5;
+            background: var(--bg-accent);
+            color: var(--text-primary);
             border-radius: 8px;
             padding: 15px;
             flex: 1;
             max-width: 250px;
         }
-        
+
         .kanban-column h3 {
             margin-top: 0;
-            color: #333;
-            border-bottom: 2px solid #007bff;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--blueprint-sky);
             padding-bottom: 10px;
         }
-        
+
         .kanban-card {
-            background: white;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             border-radius: 5px;
             padding: 10px;
             margin: 10px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px var(--shadow-color);
         }
-        
+
         .microservice-box {
-            background: #e8f4f8;
-            border-left: 4px solid #007bff;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--text-primary);
+            border-left: 4px solid var(--blueprint-sky);
             padding: 15px;
             margin: 20px 0;
         }
@@ -361,7 +372,7 @@
                 </ol>
             </div>
             
-            <div class="scenario-box" style="background: #e8f4f8;">
+            <div class="scenario-box">
                 <p><strong>Scenario Action:</strong> "She checks team availability"</p>
                 <p><strong>Required Feature:</strong> Availability Calendar with team view</p>
                 <p><strong>Related Functions:</strong> View schedules, block time, set recurring availability</p>

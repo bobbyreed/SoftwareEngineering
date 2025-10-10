@@ -1,65 +1,118 @@
-/* OCU Brand Color Variables */
+/* Import Blueprint Theme Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+/* Blueprint Theme Color Variables */
 :root {
-    /* Primary Colors */
-    --ocu-black: #000000;
-    --ocu-true-blue: #00669b;
-    --ocu-white: #ffffff;
-    
-    /* Secondary Colors */
-    --ocu-dark-blue: #043d5d;
-    --ocu-cyan: #009edb;
-    --ocu-light-blue: #9ddcf9;
-    
-    /* Accent Colors */
-    --ocu-green: #70bf54;
-    --ocu-light-green: #afd46c;
-    --ocu-yellow: #ffc222;
-    
-    /* Semantic colors for light mode (default) */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --bg-accent: #e8f4f9;
-    --text-primary: #000000;
-    --text-secondary: #043d5d;
-    --text-muted: #666666;
-    --border-color: #009edb;
-    --shadow-color: rgba(0, 102, 155, 0.15);
-    --code-bg: #043d5d;
-    --code-text: #ffffff;
-    --success-bg: #e8f7e3;
-    --success-border: #70bf54;
-    --warning-bg: #fff8e5;
-    --warning-border: #ffc222;
-    --gradient-start: #00669b;
-    --gradient-end: #009edb;
-    --slide-bg: #ffffff;
-    --nav-bg: #00669b;
-    --nav-text: #ffffff;
-    --button-hover: #043d5d;
+    /* Primary Blueprint Colors - Light Mode */
+    --blueprint-bg-primary: #F0F4F8;
+    --blueprint-bg-secondary: #FFFFFF;
+    --blueprint-bg-accent: #E0E7EF;
+    --blueprint-text-primary: #334155;
+    --blueprint-text-secondary: #64748B;
+    --blueprint-text-muted: #94A3B8;
+
+    /* Accent Colors - Sky Blue & Purple */
+    --blueprint-sky: #0EA5E9;
+    --blueprint-sky-light: #38BDF8;
+    --blueprint-sky-dark: #0284C7;
+    --blueprint-purple: #8B5CF6;
+    --blueprint-purple-light: #A78BFA;
+    --blueprint-purple-dark: #7C3AED;
+
+    /* Border & Grid Colors */
+    --blueprint-border: #CBD5E1;
+    --blueprint-grid: rgba(203, 213, 225, 0.3);
+
+    /* Semantic Colors */
+    --success-bg: #ECFDF5;
+    --success-border: #10B981;
+    --success-text: #047857;
+    --warning-bg: #FEF3C7;
+    --warning-border: #F59E0B;
+    --warning-text: #D97706;
+    --error-bg: #FEE2E2;
+    --error-border: #EF4444;
+    --error-text: #DC2626;
+
+    /* Shadow Colors */
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+    --shadow-heavy: rgba(0, 0, 0, 0.15);
+
+    /* Semantic Aliases for Light Mode */
+    --bg-primary: var(--blueprint-bg-primary);
+    --bg-secondary: var(--blueprint-bg-secondary);
+    --bg-accent: var(--blueprint-bg-accent);
+    --text-primary: var(--blueprint-text-primary);
+    --text-secondary: var(--blueprint-text-secondary);
+    --text-muted: var(--blueprint-text-muted);
+    --border-color: var(--blueprint-border);
+    --shadow-color: var(--shadow-medium);
+    --code-bg: #1E293B;
+    --code-text: #F1F5F9;
+    --gradient-start: var(--blueprint-sky);
+    --gradient-end: var(--blueprint-purple);
+    --slide-bg: var(--blueprint-bg-secondary);
+    --nav-bg: var(--blueprint-sky);
+    --nav-text: #FFFFFF;
+    --button-hover: var(--blueprint-sky-dark);
 }
 
-/* Dark Mode Variables */
+/* Dark Mode Variables - Blueprint Theme */
 [data-theme="dark"] {
-    --bg-primary: #000000;
-    --bg-secondary: #1a1a1a;
-    --bg-accent: #043d5d;
-    --text-primary: #ffffff;
-    --text-secondary: #9ddcf9;
-    --text-muted: #aaaaaa;
-    --border-color: #009edb;
-    --shadow-color: rgba(0, 158, 219, 0.3);
-    --code-bg: #1a1a1a;
-    --code-text: #9ddcf9;
-    --success-bg: rgba(112, 191, 84, 0.1);
-    --success-border: #afd46c;
-    --warning-bg: rgba(255, 194, 34, 0.1);
-    --warning-border: #ffc222;
-    --gradient-start: #043d5d;
-    --gradient-end: #00669b;
-    --slide-bg: #1a1a1a;
-    --nav-bg: #043d5d;
-    --nav-text: #ffffff;
-    --button-hover: #009edb;
+    /* Primary Blueprint Colors - Dark Mode */
+    --blueprint-bg-primary: #0F172A;
+    --blueprint-bg-secondary: #1E293B;
+    --blueprint-bg-accent: #334155;
+    --blueprint-text-primary: #F1F5F9;
+    --blueprint-text-secondary: #CBD5E1;
+    --blueprint-text-muted: #94A3B8;
+
+    /* Accent Colors - Brighter for Dark Mode */
+    --blueprint-sky: #38BDF8;
+    --blueprint-sky-light: #7DD3FC;
+    --blueprint-sky-dark: #0EA5E9;
+    --blueprint-purple: #A78BFA;
+    --blueprint-purple-light: #C4B5FD;
+    --blueprint-purple-dark: #8B5CF6;
+
+    /* Border & Grid Colors */
+    --blueprint-border: #334155;
+    --blueprint-grid: rgba(51, 65, 85, 0.3);
+
+    /* Semantic Colors - Dark Mode */
+    --success-bg: rgba(16, 185, 129, 0.1);
+    --success-border: #34D399;
+    --success-text: #6EE7B7;
+    --warning-bg: rgba(245, 158, 11, 0.1);
+    --warning-border: #FBBF24;
+    --warning-text: #FCD34D;
+    --error-bg: rgba(239, 68, 68, 0.1);
+    --error-border: #F87171;
+    --error-text: #FCA5A5;
+
+    /* Shadow Colors */
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.3);
+    --shadow-heavy: rgba(0, 0, 0, 0.4);
+
+    /* Semantic Aliases for Dark Mode */
+    --bg-primary: var(--blueprint-bg-primary);
+    --bg-secondary: var(--blueprint-bg-secondary);
+    --bg-accent: var(--blueprint-bg-accent);
+    --text-primary: var(--blueprint-text-primary);
+    --text-secondary: var(--blueprint-text-secondary);
+    --text-muted: var(--blueprint-text-muted);
+    --border-color: var(--blueprint-border);
+    --shadow-color: var(--shadow-medium);
+    --code-bg: #0F172A;
+    --code-text: #E2E8F0;
+    --gradient-start: var(--blueprint-sky-dark);
+    --gradient-end: var(--blueprint-purple-dark);
+    --slide-bg: var(--blueprint-bg-secondary);
+    --nav-bg: var(--blueprint-bg-accent);
+    --nav-text: var(--blueprint-text-primary);
+    --button-hover: var(--blueprint-sky);
 }
 
 /* Reset and Base Styles */
@@ -70,14 +123,38 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+    background: #7BA5CC;
+    background-attachment: fixed;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: auto;
     transition: background 0.3s ease;
+    position: relative;
+}
+
+/* Blueprint grid overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(230, 240, 250, 0.6) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(230, 240, 250, 0.6) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: 0;
+}
+
+body > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* Theme Toggle Switch */
@@ -121,7 +198,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--ocu-light-blue);
+    background-color: var(--blueprint-sky-light);
     transition: .4s;
     border-radius: 30px;
 }
@@ -143,7 +220,7 @@ body {
 }
 
 input:checked + .theme-slider {
-    background-color: var(--ocu-dark-blue);
+    background-color: var(--blueprint-purple-dark);
 }
 
 input:checked + .theme-slider:before {
@@ -157,10 +234,13 @@ input:checked + .theme-slider:before {
     height: 90vh;
     background: var(--slide-bg);
     border-radius: 20px;
-    box-shadow: 0 20px 60px var(--shadow-color);
+    box-shadow:
+        0 20px 60px var(--shadow-color),
+        0 0 0 1px var(--blueprint-border);
     position: relative;
     overflow: hidden;
     transition: background 0.3s ease, color 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 /* Slide Styles */
@@ -198,8 +278,10 @@ input:checked + .theme-slider:before {
 
 /* Typography */
 h1 {
-    color: var(--ocu-true-blue);
+    font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+    color: var(--blueprint-sky-dark);
     font-size: 2.8em;
+    font-weight: 700;
     margin-bottom: 30px;
     border-bottom: 3px solid var(--border-color);
     padding-bottom: 20px;
@@ -207,24 +289,28 @@ h1 {
 }
 
 [data-theme="dark"] h1 {
-    color: var(--ocu-cyan);
+    color: var(--blueprint-sky-light);
 }
 
 h2 {
-    color: var(--ocu-dark-blue);
+    font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+    color: var(--blueprint-text-primary);
     font-size: 2.2em;
+    font-weight: 600;
     margin-bottom: 25px;
     margin-top: 30px;
     transition: color 0.3s ease;
 }
 
 [data-theme="dark"] h2 {
-    color: var(--ocu-light-blue);
+    color: var(--blueprint-text-primary);
 }
 
 h3 {
+    font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
     color: var(--text-secondary);
     font-size: 1.6em;
+    font-weight: 600;
     margin: 20px 0;
     transition: color 0.3s ease;
 }
@@ -262,19 +348,19 @@ li {
 }
 
 .code-example .tag {
-    color: var(--ocu-yellow);
+    color: #F59E0B;
 }
 
 .code-example .attribute {
-    color: var(--ocu-light-green);
+    color: #10B981;
 }
 
 .code-example .value {
-    color: var(--ocu-cyan);
+    color: var(--blueprint-sky-light);
 }
 
 [data-theme="dark"] .code-example .value {
-    color: var(--ocu-light-blue);
+    color: var(--blueprint-sky-light);
 }
 
 .code-example .content {
@@ -287,16 +373,16 @@ li {
 }
 
 .code-example .good {
-    color: var(--ocu-green);
+    color: var(--success-border);
 }
 
 .code-example .bad {
-    color: #ff5555;
+    color: var(--error-border);
 }
 
 /* Utility Classes */
 .highlight {
-    background: linear-gradient(120deg, var(--ocu-true-blue) 0%, var(--ocu-cyan) 100%);
+    background: linear-gradient(120deg, var(--blueprint-sky) 0%, var(--blueprint-purple) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -310,16 +396,18 @@ li {
 
 /* Box Components */
 .activity-box {
-    background: linear-gradient(135deg, var(--ocu-true-blue) 0%, var(--ocu-cyan) 100%);
+    background: linear-gradient(135deg, var(--blueprint-sky) 0%, var(--blueprint-purple) 100%);
     color: white;
     padding: 30px;
     border-radius: 15px;
     margin: 30px 0;
-    box-shadow: 0 4px 10px var(--shadow-color);
+    box-shadow:
+        0 4px 10px var(--shadow-color),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .activity-box {
-    background: linear-gradient(135deg, var(--ocu-dark-blue) 0%, var(--ocu-true-blue) 100%);
+    background: linear-gradient(135deg, var(--blueprint-sky-dark) 0%, var(--blueprint-purple-dark) 100%);
 }
 
 .activity-box h3 {
@@ -471,12 +559,12 @@ code {
     padding: 2px 6px;
     border-radius: 3px;
     font-family: 'Courier New', monospace;
-    color: var(--ocu-true-blue);
+    color: var(--blueprint-sky-dark);
     transition: all 0.3s ease;
 }
 
 [data-theme="dark"] code {
-    color: var(--ocu-cyan);
+    color: var(--blueprint-sky-light);
 }
 
 /* Special List Styles */
@@ -487,13 +575,13 @@ code {
 
 .icon-list li::before {
     content: "→ ";
-    color: var(--ocu-true-blue);
+    color: var(--blueprint-sky);
     font-weight: bold;
     margin-right: 10px;
 }
 
 [data-theme="dark"] .icon-list li::before {
-    color: var(--ocu-cyan);
+    color: var(--blueprint-sky-light);
 }
 
 /* Scrollbar Styling */
@@ -507,20 +595,20 @@ code {
 }
 
 .slide::-webkit-scrollbar-thumb {
-    background: var(--ocu-true-blue);
+    background: var(--blueprint-sky);
     border-radius: 10px;
 }
 
 .slide::-webkit-scrollbar-thumb:hover {
-    background: var(--ocu-dark-blue);
+    background: var(--blueprint-sky-dark);
 }
 
 [data-theme="dark"] .slide::-webkit-scrollbar-thumb {
-    background: var(--ocu-cyan);
+    background: var(--blueprint-sky-light);
 }
 
 [data-theme="dark"] .slide::-webkit-scrollbar-thumb:hover {
-    background: var(--ocu-light-blue);
+    background: var(--blueprint-sky);
 }
 
 /* Responsive Design */

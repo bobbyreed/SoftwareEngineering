@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Software Testing - CSCI 5403</title>
     
-    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <!-- Blueprint Theme Presentation Styles with Theme Support -->
     <link rel="stylesheet" href="../../styles/presentation.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    
+
     <!-- Lecture-Specific Styles -->
     <style>
         .test-pyramid {
@@ -25,27 +25,40 @@
             justify-content: center;
             margin: 5px auto;
         }
-        .pyramid-unit { 
-            background: #4CAF50; 
+        .pyramid-unit {
+            background: #4CAF50;
             width: 200px;
             height: 80px;
         }
-        .pyramid-feature { 
+        .pyramid-feature {
             background: #FF9800;
             width: 140px;
             height: 60px;
         }
-        .pyramid-system { 
+        .pyramid-system {
             background: #F44336;
             width: 80px;
             height: 40px;
         }
         .test-example {
-            background: #f4f4f4;
-            border-left: 4px solid #2196F3;
+            background: var(--bg-accent);
+            color: var(--text-primary);
+            border-left: 4px solid var(--blueprint-sky);
             padding: 15px;
             margin: 20px 0;
             font-family: monospace;
+        }
+
+        .test-example h3 {
+            color: var(--text-primary);
+        }
+
+        table tr.table-alt-row {
+            background: var(--bg-accent);
+        }
+
+        table td {
+            color: var(--text-primary);
         }
     </style>
 </head>
@@ -195,7 +208,7 @@
         <div class="slide">
             <h1>Equivalence Partitions: Name Validator</h1>
             <table style="width: 100%; font-size: 0.9em;">
-                <tr style="background: #2196F3; color: white;">
+                <tr style="background: var(--blueprint-sky); color: white;">
                     <th>Partition</th>
                     <th>Description</th>
                     <th>Example</th>
@@ -205,7 +218,7 @@
                     <td>Only alphabetic, 2-40 chars</td>
                     <td>"John", "Mary"</td>
                 </tr>
-                <tr style="background: #f5f5f5;">
+                <tr class="table-alt-row">
                     <td>Correct 2</td>
                     <td>With hyphens/apostrophes</td>
                     <td>"O'Brien", "Smith-Jones"</td>
@@ -215,7 +228,7 @@
                     <td>Invalid characters</td>
                     <td>"John123", "Mary!"</td>
                 </tr>
-                <tr style="background: #f5f5f5;">
+                <tr class="table-alt-row">
                     <td>Incorrect 2</td>
                     <td>Wrong length</td>
                     <td>"J", "A"*41</td>
@@ -225,7 +238,7 @@
                     <td>Starts with hyphen/apostrophe</td>
                     <td>"-John", "'Mary"</td>
                 </tr>
-                <tr style="background: #f5f5f5;">
+                <tr class="table-alt-row">
                     <td>Incorrect 4</td>
                     <td>Double hyphen or quotes</td>
                     <td>"John--Doe", "O\"Brien\""</td>
@@ -370,9 +383,9 @@ function testValidateName() {
         <div class="slide">
             <h1>The Test Pyramid</h1>
             <div style="text-align: center;">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cpolygon points='200,50 100,250 300,250' fill='%23f0f0f0' stroke='%23333' stroke-width='2'/%3E%3Cline x1='125' y1='150' x2='275' y2='150' stroke='%23333' stroke-width='1'/%3E%3Cline x1='150' y1='200' x2='250' y2='200' stroke='%23333' stroke-width='1'/%3E%3Ctext x='200' y='235' text-anchor='middle' font-size='16' font-weight='bold'>Unit Tests%3C/text%3E%3Ctext x='200' y='180' text-anchor='middle' font-size='14'>Feature Tests%3C/text%3E%3Ctext x='200' y='100' text-anchor='middle' font-size='12'>System Tests%3C/text%3E%3Ctext x='350' y='235' font-size='10'>Many%3C/text%3E%3Ctext x='350' y='180' font-size='10'>Some%3C/text%3E%3Ctext x='350' y='100' font-size='10'>Few%3C/text%3E%3C/svg%3E" alt="Test Pyramid" style="max-width: 400px;">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Cpolygon points='300,60 80,360 520,360' fill='%23FFFFFF' stroke='%23334155' stroke-width='4'/%3E%3Cline x1='120' y1='210' x2='480' y2='210' stroke='%23334155' stroke-width='3'/%3E%3Cline x1='180' y1='285' x2='420' y2='285' stroke='%23334155' stroke-width='3'/%3E%3Ctext x='300' y='335' text-anchor='middle' font-size='28' font-weight='bold' fill='%23047857'>Unit Tests%3C/text%3E%3Ctext x='300' y='255' text-anchor='middle' font-size='24' font-weight='bold' fill='%23D97706'>Feature Tests%3C/text%3E%3Ctext x='300' y='155' text-anchor='middle' font-size='20' font-weight='bold' fill='%23DC2626'>System Tests%3C/text%3E%3Ctext x='540' y='335' font-size='20' font-weight='bold' fill='%23047857'>Many%3C/text%3E%3Ctext x='540' y='255' font-size='20' font-weight='bold' fill='%23D97706'>Some%3C/text%3E%3Ctext x='540' y='155' font-size='20' font-weight='bold' fill='%23DC2626'>Few%3C/text%3E%3C/svg%3E" alt="Test Pyramid" style="max-width: 550px; margin-bottom: 20px;">
             </div>
-            <ul>
+            <ul style="font-size: 1.1em; line-height: 1.6;">
                 <li><strong>More automation at the bottom</strong></li>
                 <li><strong>Lower costs for unit tests</strong></li>
                 <li><strong>Faster execution at lower levels</strong></li>
@@ -398,7 +411,7 @@ function testValidateName() {
         <div class="slide">
             <h1>TDD Process Steps</h1>
             <table style="width: 100%; font-size: 1em;">
-                <tr style="background: #2196F3; color: white;">
+                <tr style="background: var(--blueprint-sky); color: white;">
                     <th>Step</th>
                     <th>Action</th>
                 </tr>
@@ -406,7 +419,7 @@ function testValidateName() {
                     <td>1. Identify partial implementation</td>
                     <td>Break down functionality into mini-units</td>
                 </tr>
-                <tr style="background: #f5f5f5;">
+                <tr class="table-alt-row">
                     <td>2. Write mini-unit tests</td>
                     <td>Create tests for chosen mini-unit</td>
                 </tr>
@@ -414,7 +427,7 @@ function testValidateName() {
                     <td>3. Write code stub</td>
                     <td>Incomplete code that will fail</td>
                 </tr>
-                <tr style="background: #f5f5f5;">
+                <tr class="table-alt-row">
                     <td>4. Run all tests</td>
                     <td>Previous pass, new test fails</td>
                 </tr>
@@ -422,7 +435,7 @@ function testValidateName() {
                     <td>5. Implement functionality</td>
                     <td>Write code to pass the test</td>
                 </tr>
-                <tr style="background: #f5f5f5;">
+                <tr class="table-alt-row">
                     <td>6. Refactor if needed</td>
                     <td>Improve code while tests pass</td>
                 </tr>
@@ -509,7 +522,7 @@ function testValidateName() {
                     <td>Unauthorized access</td>
                     <td>Stolen credentials, weak passwords</td>
                 </tr>
-                <tr style="background: #ffebee;">
+                <tr class="table-alt-row">
                     <td>Privilege escalation</td>
                     <td>User accesses admin functions</td>
                 </tr>
@@ -517,7 +530,7 @@ function testValidateName() {
                     <td>SQL injection</td>
                     <td>Database manipulation via input</td>
                 </tr>
-                <tr style="background: #ffebee;">
+                <tr class="table-alt-row">
                     <td>Session hijacking</td>
                     <td>Cookie theft, session fixation</td>
                 </tr>
@@ -525,7 +538,7 @@ function testValidateName() {
                     <td>Data exposure</td>
                     <td>Unencrypted sensitive data</td>
                 </tr>
-                <tr style="background: #ffebee;">
+                <tr class="table-alt-row">
                     <td>Key leakage</td>
                     <td>Encryption keys in code/logs</td>
                 </tr>
@@ -706,7 +719,7 @@ function testValidateName() {
                         <li>Track test coverage</li>
                     </ul>
                 </div>
-                <div class="tip-box" style="background: #ffebee;">
+                <div class="warning-box">
                     <h3>❌ Avoid This</h3>
                     <ul>
                         <li>Testing only happy paths</li>
@@ -836,7 +849,7 @@ function testValidateName() {
         <div class="slide">
             <h1>Key Testing Metrics</h1>
             <table style="width: 100%;">
-                <tr style="background: #2196F3; color: white;">
+                <tr style="background: var(--blueprint-sky); color: white;">
                     <th>Metric</th>
                     <th>What it Measures</th>
                     <th>Target</th>
@@ -846,7 +859,7 @@ function testValidateName() {
                     <td>% of code tested</td>
                     <td>>80%</td>
                 </tr>
-                <tr style="background: #f5f5f5;">
+                <tr class="table-alt-row">
                     <td>Defect Density</td>
                     <td>Bugs per 1000 lines</td>
                     <td><1</td>
@@ -856,7 +869,7 @@ function testValidateName() {
                     <td>% of passing tests</td>
                     <td>>95%</td>
                 </tr>
-                <tr style="background: #f5f5f5;">
+                <tr class="table-alt-row">
                     <td>Defect Escape Rate</td>
                     <td>Bugs found in production</td>
                     <td><5%</td>
