@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture 1: Welcome! - CSCI 5403</title>
     
-    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <!-- Blueprint Theme Presentation Styles with Theme Support -->
     <link rel="stylesheet" href="../../styles/presentation.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    
+
     <!-- Lecture-Specific Styles -->
     <style>
         .expectations-grid {
@@ -17,43 +17,108 @@
             gap: 20px;
             margin: 20px 0;
         }
-        
+
         .expectation-card {
-            background: rgba(0, 62, 126, 0.05);
+            background: var(--bg-accent);
             padding: 20px;
             border-radius: 10px;
-            border: 2px solid var(--ocu-true-blue);
+            border: 2px solid var(--blueprint-sky);
         }
-        
+
         .schedule-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
             font-size: 0.9em;
         }
-        
+
         .schedule-table th {
-            background: var(--ocu-true-blue);
+            background: var(--blueprint-sky);
             color: white;
             padding: 10px;
             text-align: left;
         }
-        
+
         .schedule-table td {
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
         }
-        
+
         .schedule-table tr:nth-child(even) {
-            background: rgba(0, 62, 126, 0.05);
+            background: var(--bg-accent);
         }
-        
+
         .course-component {
-            background: white;
+            background: var(--bg-secondary);
             padding: 15px;
             margin: 10px 0;
-            border-left: 5px solid var(--ocu-cyan);
+            border-left: 5px solid var(--blueprint-sky);
             border-radius: 5px;
+        }
+
+        /* UML-specific styles */
+        .uml-diagram-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--blueprint-sky);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .exercise-box {
+            background: rgba(139, 92, 246, 0.1);
+            border: 3px solid var(--blueprint-purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .exercise-box h3 {
+            color: var(--blueprint-sky-dark);
+            margin-bottom: 15px;
+        }
+
+        .exercise-content {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .exercise-content h4 {
+            color: var(--text-primary);
+        }
+
+        .exercise-content strong {
+            color: var(--text-primary);
+        }
+
+        .uml-notation {
+            background: var(--bg-accent);
+            border-left: 4px solid var(--blueprint-purple);
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 0.95em;
+        }
+
+        .diagram-parts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .diagram-part {
+            background: rgba(14, 165, 233, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--blueprint-sky);
         }
     </style>
 </head>
@@ -79,7 +144,7 @@
         <div class="slide">
             <h1>Meet Your Instructor</h1>
             <div style="text-align: center; padding: 20px;">
-                <h2 style="color: var(--ocu-true-blue); font-size: 2em;">Professor Bobby Reed</h2>
+                <h2 style="color: var(--blueprint-sky-dark); font-size: 2em;">Professor Bobby Reed</h2>
                 <div style="margin-top: 30px; font-size: 1.3em; line-height: 1.8;">
                     <p>📧 Email: bobby.reed@okcu.edu</p>
                     <p>🏢 Office: Sarkeys Science and Math Center (SSM) - 204A</p>
@@ -94,9 +159,9 @@
         <!-- Slide 3: Course Intensity Warning -->
         <div class="slide">
             <h1>⚡ 8-Week Intensity Alert!</h1>
-            <div class="demo-box" style="background: #fff3cd; border-color: #ffc107; margin: 20px 0;">
-                <h2>This is an 8-week graduate course</h2>
-                <p style="font-size: 1.3em;">It will be <strong>intense</strong> and <strong>challenging</strong>!</p>
+            <div class="demo-box" style="background: var(--warning-bg); border-color: var(--warning-border); color: var(--warning-text); margin: 20px 0;">
+                <h2 style="color: var(--warning-text);">This is an 8-week graduate course</h2>
+                <p style="font-size: 1.3em; color: var(--warning-text);">It will be <strong>intense</strong> and <strong>challenging</strong>!</p>
             </div>
             
             <div style="font-size: 1.2em; line-height: 1.8; margin-top: 30px;">
@@ -120,7 +185,7 @@
                     <h3>Traditional 16-Week Course</h3>
                     <p style="font-size: 1.2em;">3 credit hours</p>
                     <p style="font-size: 1.2em;">3 hours of outside class work per credit hour <strong>per week</strong></strong></p>
-                    <p style="font-size: 1.5em; font-weight: bold; color: var(--ocu-true-blue);">9 hours/week</p>
+                    <p style="font-size: 1.5em; font-weight: bold; color: var(--blueprint-sky-dark);">9 hours/week</p>
                     <p>outside class work per credit hour</p>
                 </div>
                 
@@ -271,34 +336,34 @@
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; font-size: 1.2em;">
                 <div>
-                    <h3 style="color: var(--ocu-true-blue);">Development Methodologies</h3>
+                    <h3 style="color: var(--blueprint-sky-dark);">Development Methodologies</h3>
                     <ul>
                         <li>Agile & Scrum</li>
                         <li>Software Development Life Cycle</li>
                         <li>Project Management</li>
                     </ul>
                 </div>
-                
+
                 <div>
-                    <h3 style="color: var(--ocu-true-blue);">Technical Skills</h3>
+                    <h3 style="color: var(--blueprint-sky-dark);">Technical Skills</h3>
                     <ul>
                         <li>Requirements Engineering</li>
                         <li>Design & Implementation</li>
                         <li>Software Testing</li>
                     </ul>
                 </div>
-                
+
                 <div>
-                    <h3 style="color: var(--ocu-true-blue);">Advanced Topics</h3>
+                    <h3 style="color: var(--blueprint-purple);">Advanced Topics</h3>
                     <ul>
                         <li>Distributed Systems</li>
                         <li>Component-Based Engineering</li>
                         <li>Reliability Engineering</li>
                     </ul>
                 </div>
-                
+
                 <div>
-                    <h3 style="color: var(--ocu-true-blue);">Professional Skills</h3>
+                    <h3 style="color: var(--blueprint-purple);">Professional Skills</h3>
                     <ul>
                         <li>Team Programming</li>
                         <li>Documentation</li>
@@ -388,7 +453,7 @@
             
             <div style="text-align: center; font-size: 1.3em; line-height: 2; margin: 40px 0;">
                 <p>This course will challenge you...</p>
-                <p style="font-size: 1.2em; color: var(--ocu-true-blue);">But you'll emerge as a skilled software engineer!</p>
+                <p style="font-size: 1.2em; color: var(--blueprint-sky-dark);">But you'll emerge as a skilled software engineer!</p>
             </div>
             
             <div class="demo-box">
@@ -406,11 +471,812 @@
             </p>
         </div>
 
+        <!-- PART 2: UML INTRODUCTION -->
+
+        <!-- Slide 14: Part 2 Transition -->
+        <div class="slide">
+            <h1>Part 2: Introduction to UML 📐</h1>
+
+            <div style="text-align: center; margin: 40px 0;">
+                <h2 style="color: var(--blueprint-sky-dark); font-size: 2em;">Unified Modeling Language</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">The Universal Language of Software Design</p>
+            </div>
+
+            <div class="demo-box" style="margin: 30px 0;">
+                <h3>What is UML?</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    UML is a standardized visual language for modeling software systems.
+                    It helps us communicate design ideas, document systems, and plan implementations
+                    before writing code.
+                </p>
+            </div>
+
+            <div style="font-size: 1.2em; margin-top: 30px;">
+                <p><strong>Today we'll cover:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li>Use Case Diagrams - What the system does</li>
+                    <li>Class Diagrams - System structure</li>
+                    <li>Sequence Diagrams - Interactions over time</li>
+                    <li>Activity Diagrams - Process workflows</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 15: Why UML Matters -->
+        <div class="slide">
+            <h1>Why UML Matters 🎯</h1>
+
+            <div class="diagram-parts">
+                <div class="diagram-part">
+                    <h3>📝 Communication</h3>
+                    <p>Share ideas with team members, stakeholders, and clients without ambiguity</p>
+                </div>
+
+                <div class="diagram-part">
+                    <h3>📋 Documentation</h3>
+                    <p>Create lasting records of system design that outlive individual developers</p>
+                </div>
+
+                <div class="diagram-part">
+                    <h3>🔍 Analysis</h3>
+                    <p>Discover problems and optimize designs before writing code</p>
+                </div>
+
+                <div class="diagram-part">
+                    <h3>🏗️ Planning</h3>
+                    <p>Visualize the system architecture and component relationships</p>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 30px;">
+                <strong>Industry Reality:</strong> UML diagrams are used daily at major tech companies
+                (Google, Microsoft, Amazon) for design reviews and system documentation.
+            </div>
+        </div>
+
+        <!-- USE CASE DIAGRAMS -->
+
+        <!-- Slide 16: Use Case Diagrams - Introduction -->
+        <div class="slide">
+            <h1>Use Case Diagrams 🎭</h1>
+
+            <div class="demo-box" style="margin: 20px 0;">
+                <h3>What are Use Case Diagrams?</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    Use Case Diagrams show <strong>what</strong> a system does from the user's perspective.
+                    They capture functional requirements by showing actors (users) and their interactions with the system.
+                </p>
+            </div>
+
+            <div class="diagram-parts" style="grid-template-columns: 1fr;">
+                <div class="uml-notation">
+                    <h4>Key Components:</h4>
+                    <ul>
+                        <li><strong>Actors:</strong> Users or external systems (stick figures)</li>
+                        <li><strong>Use Cases:</strong> System functions (ovals)</li>
+                        <li><strong>System Boundary:</strong> Box around use cases</li>
+                        <li><strong>Relationships:</strong> Lines connecting actors to use cases</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 1.1em;">
+                <p><strong>When to use:</strong> Requirements gathering, understanding user needs, initial system design</p>
+            </div>
+        </div>
+
+        <!-- Slide 17: Use Case Diagram - Instructor Example -->
+        <div class="slide">
+            <h1>Use Case Example: Library System 📚</h1>
+
+            <div class="uml-diagram-box">
+                <svg width="700" height="400" style="background: white;">
+                    <!-- System boundary -->
+                    <rect x="150" y="30" width="400" height="340" fill="none" stroke="#00447c" stroke-width="2" rx="10"/>
+                    <text x="320" y="20" font-size="16" font-weight="bold" fill="#00447c" text-anchor="middle">Library System</text>
+
+                    <!-- Actors -->
+                    <!-- Member -->
+                    <circle cx="60" cy="100" r="15" fill="none" stroke="#00447c" stroke-width="2"/>
+                    <line x1="60" y1="115" x2="60" y2="150" stroke="#00447c" stroke-width="2"/>
+                    <line x1="60" y1="130" x2="40" y2="145" stroke="#00447c" stroke-width="2"/>
+                    <line x1="60" y1="130" x2="80" y2="145" stroke="#00447c" stroke-width="2"/>
+                    <line x1="60" y1="150" x2="40" y2="170" stroke="#00447c" stroke-width="2"/>
+                    <line x1="60" y1="150" x2="80" y2="170" stroke="#00447c" stroke-width="2"/>
+                    <text x="60" y="190" font-size="14" text-anchor="middle" fill="#00447c">Member</text>
+
+                    <!-- Librarian -->
+                    <circle cx="650" cy="200" r="15" fill="none" stroke="#00447c" stroke-width="2"/>
+                    <line x1="650" y1="215" x2="650" y2="250" stroke="#00447c" stroke-width="2"/>
+                    <line x1="650" y1="230" x2="630" y2="245" stroke="#00447c" stroke-width="2"/>
+                    <line x1="650" y1="230" x2="670" y2="245" stroke="#00447c" stroke-width="2"/>
+                    <line x1="650" y1="250" x2="630" y2="270" stroke="#00447c" stroke-width="2"/>
+                    <line x1="650" y1="250" x2="670" y2="270" stroke="#00447c" stroke-width="2"/>
+                    <text x="650" y="290" font-size="14" text-anchor="middle" fill="#00447c">Librarian</text>
+
+                    <!-- Use Cases -->
+                    <ellipse cx="300" cy="80" rx="80" ry="30" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="300" y="85" font-size="12" text-anchor="middle">Search Catalog</text>
+
+                    <ellipse cx="300" cy="140" rx="80" ry="30" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="300" y="145" font-size="12" text-anchor="middle">Borrow Book</text>
+
+                    <ellipse cx="300" cy="200" rx="80" ry="30" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="300" y="205" font-size="12" text-anchor="middle">Return Book</text>
+
+                    <ellipse cx="420" cy="140" rx="80" ry="30" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="420" y="145" font-size="12" text-anchor="middle">Add Book</text>
+
+                    <ellipse cx="420" cy="200" rx="80" ry="30" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="420" y="205" font-size="12" text-anchor="middle">Generate Report</text>
+
+                    <ellipse cx="300" cy="280" rx="80" ry="30" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="300" y="285" font-size="12" text-anchor="middle">Reserve Book</text>
+
+                    <!-- Relationships -->
+                    <line x1="80" y1="120" x2="230" y2="80" stroke="#333" stroke-width="1.5"/>
+                    <line x1="80" y1="140" x2="230" y2="140" stroke="#333" stroke-width="1.5"/>
+                    <line x1="80" y1="160" x2="230" y2="195" stroke="#333" stroke-width="1.5"/>
+                    <line x1="80" y1="170" x2="235" y2="270" stroke="#333" stroke-width="1.5"/>
+
+                    <line x1="630" y1="210" x2="490" y2="150" stroke="#333" stroke-width="1.5"/>
+                    <line x1="630" y1="220" x2="490" y2="195" stroke="#333" stroke-width="1.5"/>
+                </svg>
+            </div>
+
+            <div class="tip-box">
+                <strong>Notice:</strong> Members interact with borrowing functions, while Librarians have administrative capabilities.
+            </div>
+        </div>
+
+        <!-- Slide 18: Use Case Diagram - Student Exercise -->
+        <div class="slide">
+            <h1>Your Turn: Food Delivery App 🍕</h1>
+
+            <div class="exercise-box">
+                <h3>✏️ In-Class Exercise (10 minutes)</h3>
+                <p style="font-size: 1.1em; margin-bottom: 15px;">
+                    Create a Use Case Diagram for a food delivery app (like DoorDash or Uber Eats)
+                </p>
+
+                <div class="exercise-content">
+                    <h4>System: Food Delivery App</h4>
+                    <p><strong>Actors to consider:</strong></p>
+                    <ul>
+                        <li>Customer</li>
+                        <li>Restaurant</li>
+                        <li>Delivery Driver</li>
+                    </ul>
+
+                    <p style="margin-top: 15px;"><strong>Possible Use Cases:</strong></p>
+                    <ul>
+                        <li>Place Order</li>
+                        <li>Track Delivery</li>
+                        <li>Rate Restaurant</li>
+                        <li>Update Menu</li>
+                        <li>Accept Delivery Request</li>
+                        <li>Process Payment</li>
+                    </ul>
+                </div>
+
+                <p><strong>Instructions:</strong> Draw on paper or use draw.io. Identify which actors interact with which use cases!</p>
+            </div>
+        </div>
+
+        <!-- CLASS DIAGRAMS -->
+
+        <!-- Slide 19: Class Diagrams - Introduction -->
+        <div class="slide">
+            <h1>Class Diagrams 🏗️</h1>
+
+            <div class="demo-box" style="margin: 20px 0;">
+                <h3>What are Class Diagrams?</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    Class Diagrams show the <strong>structure</strong> of a system by modeling classes,
+                    their attributes, methods, and relationships. This is the most commonly used UML diagram.
+                </p>
+            </div>
+
+            <div class="diagram-parts">
+                <div class="uml-notation">
+                    <h4>Class Structure:</h4>
+                    <ul>
+                        <li><strong>Top:</strong> Class name</li>
+                        <li><strong>Middle:</strong> Attributes (properties)</li>
+                        <li><strong>Bottom:</strong> Methods (behaviors)</li>
+                    </ul>
+                </div>
+
+                <div class="uml-notation">
+                    <h4>Relationships:</h4>
+                    <ul>
+                        <li><strong>Association:</strong> Solid line</li>
+                        <li><strong>Inheritance:</strong> Arrow with hollow head</li>
+                        <li><strong>Composition:</strong> Filled diamond</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 1.1em;">
+                <p><strong>When to use:</strong> Detailed system design, database design, object-oriented programming planning</p>
+            </div>
+        </div>
+
+        <!-- Slide 20: Class Diagram - Instructor Example -->
+        <div class="slide">
+            <h1>Class Diagram Example: Library System 📚</h1>
+
+            <div class="uml-diagram-box">
+                <svg width="750" height="420" style="background: white;">
+                    <!-- Book Class -->
+                    <rect x="50" y="50" width="180" height="140" fill="white" stroke="#00447c" stroke-width="2"/>
+                    <rect x="50" y="50" width="180" height="40" fill="#00447c" fill-opacity="0.1" stroke="#00447c" stroke-width="2"/>
+                    <text x="140" y="75" font-size="14" font-weight="bold" text-anchor="middle">Book</text>
+                    <line x1="50" y1="90" x2="230" y2="90" stroke="#00447c" stroke-width="1"/>
+                    <text x="60" y="110" font-size="11">- ISBN: String</text>
+                    <text x="60" y="125" font-size="11">- title: String</text>
+                    <text x="60" y="140" font-size="11">- author: String</text>
+                    <line x1="50" y1="145" x2="230" y2="145" stroke="#00447c" stroke-width="1"/>
+                    <text x="60" y="165" font-size="11">+ getDetails(): String</text>
+                    <text x="60" y="180" font-size="11">+ isAvailable(): Boolean</text>
+
+                    <!-- Member Class -->
+                    <rect x="300" y="50" width="180" height="140" fill="white" stroke="#00447c" stroke-width="2"/>
+                    <rect x="300" y="50" width="180" height="40" fill="#00447c" fill-opacity="0.1" stroke="#00447c" stroke-width="2"/>
+                    <text x="390" y="75" font-size="14" font-weight="bold" text-anchor="middle">Member</text>
+                    <line x1="300" y1="90" x2="480" y2="90" stroke="#00447c" stroke-width="1"/>
+                    <text x="310" y="110" font-size="11">- memberID: int</text>
+                    <text x="310" y="125" font-size="11">- name: String</text>
+                    <text x="310" y="140" font-size="11">- email: String</text>
+                    <line x1="300" y1="145" x2="480" y2="145" stroke="#00447c" stroke-width="1"/>
+                    <text x="310" y="165" font-size="11">+ borrowBook(): void</text>
+                    <text x="310" y="180" font-size="11">+ returnBook(): void</text>
+
+                    <!-- Loan Class -->
+                    <rect x="550" y="50" width="180" height="140" fill="white" stroke="#00447c" stroke-width="2"/>
+                    <rect x="550" y="50" width="180" height="40" fill="#00447c" fill-opacity="0.1" stroke="#00447c" stroke-width="2"/>
+                    <text x="640" y="75" font-size="14" font-weight="bold" text-anchor="middle">Loan</text>
+                    <line x1="550" y1="90" x2="730" y2="90" stroke="#00447c" stroke-width="1"/>
+                    <text x="560" y="110" font-size="11">- loanID: int</text>
+                    <text x="560" y="125" font-size="11">- issueDate: Date</text>
+                    <text x="560" y="140" font-size="11">- dueDate: Date</text>
+                    <line x1="550" y1="145" x2="730" y2="145" stroke="#00447c" stroke-width="1"/>
+                    <text x="560" y="165" font-size="11">+ calculateFine(): double</text>
+                    <text x="560" y="180" font-size="11">+ isOverdue(): Boolean</text>
+
+                    <!-- Librarian Class (inherits from Member) -->
+                    <rect x="300" y="250" width="180" height="110" fill="white" stroke="#00447c" stroke-width="2"/>
+                    <rect x="300" y="250" width="180" height="40" fill="#00447c" fill-opacity="0.1" stroke="#00447c" stroke-width="2"/>
+                    <text x="390" y="275" font-size="14" font-weight="bold" text-anchor="middle">Librarian</text>
+                    <line x1="300" y1="290" x2="480" y2="290" stroke="#00447c" stroke-width="1"/>
+                    <text x="310" y="310" font-size="11">- employeeID: int</text>
+                    <line x1="300" y1="315" x2="480" y2="315" stroke="#00447c" stroke-width="1"/>
+                    <text x="310" y="335" font-size="11">+ addBook(): void</text>
+                    <text x="310" y="350" font-size="11">+ removeBook(): void</text>
+
+                    <!-- Relationships -->
+                    <!-- Member borrows Book -->
+                    <line x1="300" y1="120" x2="230" y2="120" stroke="#00447c" stroke-width="2"/>
+                    <text x="265" y="110" font-size="10" text-anchor="middle">borrows</text>
+                    <text x="240" y="110" font-size="10">0..*</text>
+                    <text x="290" y="110" font-size="10">1</text>
+
+                    <!-- Loan connects Book and Member -->
+                    <line x1="550" y1="120" x2="480" y2="120" stroke="#00447c" stroke-width="2"/>
+                    <text x="520" y="110" font-size="10">1</text>
+
+                    <!-- Librarian inherits from Member (hollow arrow) -->
+                    <polygon points="390,250 380,235 400,235" fill="white" stroke="#00447c" stroke-width="2"/>
+                    <line x1="390" y1="235" x2="390" y2="190" stroke="#00447c" stroke-width="2"/>
+                </svg>
+            </div>
+
+            <div class="tip-box">
+                <strong>Key Points:</strong> Librarian inherits from Member (reuses attributes). Loan connects Book and Member (association class).
+            </div>
+        </div>
+
+        <!-- Slide 21: Class Diagram - Student Exercise -->
+        <div class="slide">
+            <h1>Your Turn: Food Delivery App 🍕</h1>
+
+            <div class="exercise-box">
+                <h3>✏️ In-Class Exercise (10 minutes)</h3>
+                <p style="font-size: 1.1em; margin-bottom: 15px;">
+                    Create a Class Diagram for the food delivery app
+                </p>
+
+                <div class="exercise-content">
+                    <h4>Classes to include:</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                        <div>
+                            <strong>Customer</strong>
+                            <ul style="font-size: 0.9em;">
+                                <li>customerID, name, address</li>
+                                <li>placeOrder(), trackOrder()</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <strong>Restaurant</strong>
+                            <ul style="font-size: 0.9em;">
+                                <li>restaurantID, name, cuisine</li>
+                                <li>updateMenu(), acceptOrder()</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <strong>Order</strong>
+                            <ul style="font-size: 0.9em;">
+                                <li>orderID, items, totalPrice</li>
+                                <li>calculateTotal(), getStatus()</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <strong>Driver</strong>
+                            <ul style="font-size: 0.9em;">
+                                <li>driverID, name, vehicle</li>
+                                <li>acceptDelivery(), updateLocation()</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <p><strong>Challenge:</strong> Show relationships between classes. Who places an Order? Who delivers it?</p>
+            </div>
+        </div>
+
+        <!-- SEQUENCE DIAGRAMS -->
+
+        <!-- Slide 22: Sequence Diagrams - Introduction -->
+        <div class="slide">
+            <h1>Sequence Diagrams ⏱️</h1>
+
+            <div class="demo-box" style="margin: 20px 0;">
+                <h3>What are Sequence Diagrams?</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    Sequence Diagrams show <strong>how</strong> objects interact over time.
+                    They capture the flow of messages between components in a specific scenario.
+                </p>
+            </div>
+
+            <div class="diagram-parts">
+                <div class="uml-notation">
+                    <h4>Components:</h4>
+                    <ul>
+                        <li><strong>Actors/Objects:</strong> Boxes at top</li>
+                        <li><strong>Lifelines:</strong> Dashed vertical lines</li>
+                        <li><strong>Messages:</strong> Horizontal arrows</li>
+                        <li><strong>Activation:</strong> Thin rectangles on lifeline</li>
+                    </ul>
+                </div>
+
+                <div class="uml-notation">
+                    <h4>Message Types:</h4>
+                    <ul>
+                        <li><strong>Synchronous:</strong> Solid arrow</li>
+                        <li><strong>Return:</strong> Dashed arrow</li>
+                        <li><strong>Create:</strong> Arrow to new object</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 1.1em;">
+                <p><strong>When to use:</strong> Understanding complex interactions, API design, debugging logic flows</p>
+            </div>
+        </div>
+
+        <!-- Slide 23: Sequence Diagram - Instructor Example -->
+        <div class="slide">
+            <h1>Sequence Example: Borrow Book 📚</h1>
+
+            <div class="uml-diagram-box">
+                <svg width="700" height="380" style="background: white;">
+                    <!-- Objects -->
+                    <rect x="50" y="20" width="80" height="40" fill="#00447c" fill-opacity="0.1" stroke="#00447c" stroke-width="2"/>
+                    <text x="90" y="45" font-size="12" text-anchor="middle" font-weight="bold">Member</text>
+
+                    <rect x="200" y="20" width="100" height="40" fill="#00447c" fill-opacity="0.1" stroke="#00447c" stroke-width="2"/>
+                    <text x="250" y="45" font-size="12" text-anchor="middle" font-weight="bold">LibrarySystem</text>
+
+                    <rect x="370" y="20" width="80" height="40" fill="#00447c" fill-opacity="0.1" stroke="#00447c" stroke-width="2"/>
+                    <text x="410" y="45" font-size="12" text-anchor="middle" font-weight="bold">Book</text>
+
+                    <rect x="520" y="20" width="80" height="40" fill="#00447c" fill-opacity="0.1" stroke="#00447c" stroke-width="2"/>
+                    <text x="560" y="45" font-size="12" text-anchor="middle" font-weight="bold">Loan</text>
+
+                    <!-- Lifelines -->
+                    <line x1="90" y1="60" x2="90" y2="350" stroke="#00447c" stroke-width="1" stroke-dasharray="5,5"/>
+                    <line x1="250" y1="60" x2="250" y2="350" stroke="#00447c" stroke-width="1" stroke-dasharray="5,5"/>
+                    <line x1="410" y1="60" x2="410" y2="350" stroke="#00447c" stroke-width="1" stroke-dasharray="5,5"/>
+                    <line x1="560" y1="60" x2="560" y2="350" stroke="#00447c" stroke-width="1" stroke-dasharray="5,5"/>
+
+                    <!-- Messages -->
+                    <!-- 1. borrowBook() -->
+                    <line x1="90" y1="90" x2="240" y2="90" stroke="#00447c" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="165" y="85" font-size="11">1: borrowBook(ISBN)</text>
+
+                    <!-- 2. checkAvailability() -->
+                    <line x1="250" y1="120" x2="400" y2="120" stroke="#00447c" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="325" y="115" font-size="11">2: checkAvailability()</text>
+
+                    <!-- 3. return true -->
+                    <line x1="400" y1="150" x2="260" y2="150" stroke="#00447c" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+                    <text x="330" y="145" font-size="11">3: true</text>
+
+                    <!-- 4. createLoan() -->
+                    <line x1="250" y1="180" x2="550" y2="180" stroke="#00447c" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="400" y="175" font-size="11">4: createLoan(member, book)</text>
+
+                    <!-- Activation box for Loan creation -->
+                    <rect x="555" y="180" width="10" height="60" fill="#00bfdf" fill-opacity="0.3" stroke="#00bfdf" stroke-width="1"/>
+
+                    <!-- 5. updateStatus() -->
+                    <line x1="560" y1="210" x2="420" y2="210" stroke="#00447c" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="490" y="205" font-size="11">5: updateStatus(borrowed)</text>
+
+                    <!-- 6. return loanID -->
+                    <line x1="550" y1="240" x2="260" y2="240" stroke="#00447c" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+                    <text x="405" y="235" font-size="11">6: loanID</text>
+
+                    <!-- 7. confirmation -->
+                    <line x1="240" y1="270" x2="100" y2="270" stroke="#00447c" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+                    <text x="170" y="265" font-size="11">7: confirmation</text>
+
+                    <!-- Arrow marker definition -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#00447c"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Activation boxes -->
+                    <rect x="85" y="85" width="10" height="200" fill="#00bfdf" fill-opacity="0.3" stroke="#00bfdf" stroke-width="1"/>
+                    <rect x="245" y="85" width="10" height="200" fill="#00bfdf" fill-opacity="0.3" stroke="#00bfdf" stroke-width="1"/>
+                    <rect x="405" y="115" width="10" height="50" fill="#00bfdf" fill-opacity="0.3" stroke="#00bfdf" stroke-width="1"/>
+                </svg>
+            </div>
+
+            <div class="tip-box">
+                <strong>Reading tip:</strong> Time flows downward. Each arrow represents a method call or message between objects.
+            </div>
+        </div>
+
+        <!-- Slide 24: Sequence Diagram - Student Exercise -->
+        <div class="slide">
+            <h1>Your Turn: Place Order 🍕</h1>
+
+            <div class="exercise-box">
+                <h3>✏️ In-Class Exercise (10 minutes)</h3>
+                <p style="font-size: 1.1em; margin-bottom: 15px;">
+                    Create a Sequence Diagram for placing an order in the food delivery app
+                </p>
+
+                <div class="exercise-content">
+                    <h4>Scenario: Customer places an order</h4>
+
+                    <p style="margin-top: 10px;"><strong>Objects involved:</strong></p>
+                    <ul>
+                        <li>Customer</li>
+                        <li>DeliveryApp</li>
+                        <li>Restaurant</li>
+                        <li>Order (created during process)</li>
+                        <li>PaymentSystem</li>
+                    </ul>
+
+                    <p style="margin-top: 15px;"><strong>Suggested flow:</strong></p>
+                    <ol style="font-size: 0.95em;">
+                        <li>Customer selects items and submits order</li>
+                        <li>App creates new Order</li>
+                        <li>App sends order to Restaurant</li>
+                        <li>Restaurant confirms availability</li>
+                        <li>App processes payment</li>
+                        <li>PaymentSystem confirms payment</li>
+                        <li>App sends confirmation to Customer</li>
+                    </ol>
+                </div>
+
+                <p><strong>Tip:</strong> Use solid arrows for calls, dashed arrows for returns!</p>
+            </div>
+        </div>
+
+        <!-- ACTIVITY DIAGRAMS -->
+
+        <!-- Slide 25: Activity Diagrams - Introduction -->
+        <div class="slide">
+            <h1>Activity Diagrams 🔄</h1>
+
+            <div class="demo-box" style="margin: 20px 0;">
+                <h3>What are Activity Diagrams?</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    Activity Diagrams show <strong>workflows</strong> and business processes.
+                    They're like flowcharts on steroids, modeling the flow of control from activity to activity.
+                </p>
+            </div>
+
+            <div class="diagram-parts">
+                <div class="uml-notation">
+                    <h4>Components:</h4>
+                    <ul>
+                        <li><strong>Start:</strong> Filled circle</li>
+                        <li><strong>Activity:</strong> Rounded rectangle</li>
+                        <li><strong>Decision:</strong> Diamond</li>
+                        <li><strong>End:</strong> Bull's eye (circle in circle)</li>
+                    </ul>
+                </div>
+
+                <div class="uml-notation">
+                    <h4>Control Flow:</h4>
+                    <ul>
+                        <li><strong>Fork:</strong> Split into parallel flows</li>
+                        <li><strong>Join:</strong> Merge parallel flows</li>
+                        <li><strong>Swimlanes:</strong> Group by responsibility</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 1.1em;">
+                <p><strong>When to use:</strong> Business process modeling, workflow automation, algorithm visualization</p>
+            </div>
+        </div>
+
+        <!-- Slide 26: Activity Diagram - Instructor Example -->
+        <div class="slide">
+            <h1>Activity Example: Return Book 📚</h1>
+
+            <div class="uml-diagram-box">
+                <svg width="600" height="400" style="background: white;">
+                    <!-- Start node -->
+                    <circle cx="300" cy="30" r="10" fill="#00447c"/>
+
+                    <!-- Activity 1: Scan book -->
+                    <rect x="220" y="60" width="160" height="40" rx="20" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="300" y="85" font-size="12" text-anchor="middle">Scan book barcode</text>
+                    <line x1="300" y1="40" x2="300" y2="60" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+
+                    <!-- Decision: Book in system? -->
+                    <polygon points="300,120 350,150 300,180 250,150" fill="#fdb913" fill-opacity="0.2" stroke="#fdb913" stroke-width="2"/>
+                    <text x="300" y="155" font-size="11" text-anchor="middle">Book in</text>
+                    <text x="300" y="168" font-size="11" text-anchor="middle">system?</text>
+                    <line x1="300" y1="100" x2="300" y2="120" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+
+                    <!-- No path: Show error -->
+                    <rect x="420" y="130" width="140" height="40" rx="20" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="490" y="155" font-size="12" text-anchor="middle">Show error message</text>
+                    <line x1="350" y1="150" x2="420" y2="150" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <text x="385" y="145" font-size="10" fill="#ff0000">No</text>
+
+                    <!-- Error to end -->
+                    <line x1="490" y1="170" x2="490" y2="360" stroke="#00447c" stroke-width="2"/>
+                    <line x1="490" y1="360" x2="300" y2="360" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+
+                    <!-- Yes path: Check overdue -->
+                    <polygon points="300,210 350,240 300,270 250,240" fill="#fdb913" fill-opacity="0.2" stroke="#fdb913" stroke-width="2"/>
+                    <text x="300" y="245" font-size="11" text-anchor="middle">Overdue?</text>
+                    <line x1="300" y1="180" x2="300" y2="210" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <text x="315" y="200" font-size="10" fill="#00ff00">Yes</text>
+
+                    <!-- No overdue: Update status -->
+                    <rect x="50" y="220" width="140" height="40" rx="20" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="120" y="245" font-size="12" text-anchor="middle">Update status</text>
+                    <line x1="250" y1="240" x2="190" y2="240" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <text x="220" y="235" font-size="10" fill="#00ff00">No</text>
+
+                    <!-- Yes overdue: Calculate fine -->
+                    <rect x="220" y="300" width="160" height="40" rx="20" fill="#00bfdf" fill-opacity="0.2" stroke="#00bfdf" stroke-width="2"/>
+                    <text x="300" y="325" font-size="12" text-anchor="middle">Calculate fine</text>
+                    <line x1="300" y1="270" x2="300" y2="300" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <text x="315" y="285" font-size="10" fill="#ff0000">Yes</text>
+
+                    <!-- Both paths merge -->
+                    <line x1="120" y1="260" x2="120" y2="360" stroke="#00447c" stroke-width="2"/>
+                    <line x1="120" y1="360" x2="280" y2="360" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <line x1="300" y1="340" x2="300" y2="360" stroke="#00447c" stroke-width="2" marker-end="url(#arrow2)"/>
+
+                    <!-- End node -->
+                    <circle cx="300" cy="370" r="10" fill="none" stroke="#00447c" stroke-width="2"/>
+                    <circle cx="300" cy="370" r="6" fill="#00447c"/>
+
+                    <!-- Arrow marker -->
+                    <defs>
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#00447c"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="tip-box">
+                <strong>Notice:</strong> Diamonds represent decisions. All paths eventually lead to the end node.
+            </div>
+        </div>
+
+        <!-- Slide 27: Activity Diagram - Student Exercise -->
+        <div class="slide">
+            <h1>Your Turn: Process Delivery 🍕</h1>
+
+            <div class="exercise-box">
+                <h3>✏️ In-Class Exercise (10 minutes)</h3>
+                <p style="font-size: 1.1em; margin-bottom: 15px;">
+                    Create an Activity Diagram for the delivery process
+                </p>
+
+                <div class="exercise-content">
+                    <h4>Process: From order acceptance to delivery</h4>
+
+                    <p style="margin-top: 10px;"><strong>Activities to include:</strong></p>
+                    <ol style="font-size: 0.95em;">
+                        <li>Restaurant receives order</li>
+                        <li>Check ingredient availability
+                            <ul><li>If not available: Cancel order</li></ul>
+                        </li>
+                        <li>Prepare food</li>
+                        <li>Notify driver</li>
+                        <li>Driver picks up order</li>
+                        <li>Driver delivers to customer</li>
+                        <li>Customer confirms delivery</li>
+                        <li>Complete order</li>
+                    </ol>
+                </div>
+
+                <p><strong>Remember:</strong> Use diamonds for decisions (like "Ingredients available?") and show both Yes/No paths!</p>
+            </div>
+        </div>
+
+        <!-- UML TOOLS & WRAP-UP -->
+
+        <!-- Slide 28: UML Tools -->
+        <div class="slide">
+            <h1>UML Tools & Resources 🛠️</h1>
+
+            <div style="font-size: 1.1em;">
+                <div class="course-component">
+                    <h3>💻 Free Online Tools</h3>
+                    <ul>
+                        <li><strong>draw.io (diagrams.net)</strong> - Versatile, free, web-based</li>
+                        <li><strong>Lucidchart</strong> - Professional, free tier available</li>
+                        <li><strong>PlantUML</strong> - Text-based diagrams (code to diagram)</li>
+                        <li><strong>Mermaid</strong> - Markdown-like diagram syntax</li>
+                    </ul>
+                </div>
+
+                <div class="course-component">
+                    <h3>📱 Desktop Applications</h3>
+                    <ul>
+                        <li><strong>Visual Paradigm</strong> - Full-featured (free community edition)</li>
+                        <li><strong>StarUML</strong> - Professional UML tool</li>
+                        <li><strong>Microsoft Visio</strong> - Industry standard (paid)</li>
+                    </ul>
+                </div>
+
+                <div class="course-component">
+                    <h3>📚 Learning Resources</h3>
+                    <ul>
+                        <li>UML 2.5 Specification (official reference)</li>
+                        <li>OMG UML Resource Page</li>
+                        <li>Martin Fowler's "UML Distilled"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 29: UML Best Practices -->
+        <div class="slide">
+            <h1>UML Best Practices ⭐</h1>
+
+            <div class="diagram-parts">
+                <div class="diagram-part">
+                    <h3>✅ Do</h3>
+                    <ul style="font-size: 0.95em;">
+                        <li>Keep diagrams simple and focused</li>
+                        <li>Use consistent naming conventions</li>
+                        <li>Update diagrams when code changes</li>
+                        <li>Choose the right diagram for the task</li>
+                    </ul>
+                </div>
+
+                <div class="diagram-part">
+                    <h3>❌ Don't</h3>
+                    <ul style="font-size: 0.95em;">
+                        <li>Try to show everything in one diagram</li>
+                        <li>Over-document simple systems</li>
+                        <li>Treat diagrams as final implementation</li>
+                        <li>Use UML for its own sake</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 30px;">
+                <h3>The Golden Rule</h3>
+                <p style="font-size: 1.2em; line-height: 1.8;">
+                    <strong>UML is a communication tool, not a straightjacket.</strong><br>
+                    Use it to clarify thinking and share ideas, not to document every detail.
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 1.1em;">
+                <p><em>"The code is the truth, but it's not the whole truth."</em> - Grady Booch</p>
+            </div>
+        </div>
+
+        <!-- Slide 30: UML Summary -->
+        <div class="slide">
+            <h1>UML Summary 📝</h1>
+
+            <table class="schedule-table">
+                <tr>
+                    <th>Diagram Type</th>
+                    <th>Purpose</th>
+                    <th>When to Use</th>
+                </tr>
+                <tr>
+                    <td><strong>Use Case</strong></td>
+                    <td>Show system functionality from user perspective</td>
+                    <td>Requirements gathering, stakeholder communication</td>
+                </tr>
+                <tr>
+                    <td><strong>Class</strong></td>
+                    <td>Model system structure and relationships</td>
+                    <td>Detailed design, database design, OOP planning</td>
+                </tr>
+                <tr>
+                    <td><strong>Sequence</strong></td>
+                    <td>Show object interactions over time</td>
+                    <td>Complex workflows, API design, debugging</td>
+                </tr>
+                <tr>
+                    <td><strong>Activity</strong></td>
+                    <td>Model business processes and workflows</td>
+                    <td>Process automation, algorithm visualization</td>
+                </tr>
+            </table>
+
+            <div class="demo-box" style="margin-top: 30px;">
+                <h3>For Your Projects</h3>
+                <p style="font-size: 1.1em;">
+                    You'll create UML diagrams throughout this course. Start thinking in terms of:
+                    <strong>actors, classes, interactions, and workflows</strong> when designing software.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 31: Final Wrap-up -->
+        <div class="slide">
+            <h1>Next Steps 🎯</h1>
+
+            <div class="demo-box">
+                <h2>Homework for Next Class:</h2>
+                <ol style="text-align: left; font-size: 1.1em; line-height: 1.8; margin-top: 15px;">
+                    <li>✅ Complete Homework 0 (Syllabus Quiz) on D2L</li>
+                    <li>✅ Read the Scrum Guide</li>
+                    <li>✅ Practice UML: Create diagrams for a simple system of your choice
+                        <ul style="margin-top: 10px;">
+                            <li>Pick any system: ATM, vending machine, library, etc.</li>
+                            <li>Create at least 2 different diagram types</li>
+                            <li>Bring them to next class for discussion</li>
+                        </ul>
+                    </li>
+                    <li>✅ Install a UML tool (recommend draw.io - free and easy)</li>
+                </ol>
+            </div>
+
+            <div style="margin-top: 40px; text-align: center; font-size: 1.3em;">
+                <p style="color: var(--blueprint-sky-dark); font-weight: bold;">
+                    You now speak UML! 🎉
+                </p>
+                <p style="margin-top: 20px; font-style: italic;">
+                    See you next class for Agile & Scrum!
+                </p>
+            </div>
+        </div>
+
         <!-- Navigation Controls -->
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">13</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">31</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>

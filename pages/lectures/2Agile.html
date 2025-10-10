@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture 2: Agile Software Engineering - CSCI 5403</title>
     
-    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <!-- Blueprint Theme Presentation Styles with Theme Support -->
     <link rel="stylesheet" href="../../styles/presentation.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    
+
     <!-- Lecture-Specific Styles -->
     <style>
         .scrum-grid {
@@ -17,37 +17,60 @@
             gap: 20px;
             margin: 20px 0;
         }
-        
+
         .scrum-card {
-            background: rgba(0, 119, 181, 0.1);
-            border: 2px solid var(--ocu-true-blue);
+            background: rgba(14, 165, 233, 0.1);
+            border: 2px solid var(--blueprint-sky);
             border-radius: 10px;
             padding: 20px;
             text-align: center;
         }
-        
+
+        .scrum-card h2,
         .scrum-card h3 {
-            color: var(--ocu-true-blue);
+            color: var(--blueprint-sky-dark);
             margin-bottom: 10px;
         }
-        
+
+        .scrum-card p,
+        .scrum-card li {
+            color: var(--text-primary);
+        }
+
         .architecture-diagram {
-            background: white;
-            border: 2px solid var(--ocu-cyan);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--blueprint-purple);
             border-radius: 10px;
             padding: 30px;
             margin: 20px 0;
             text-align: center;
         }
-        
+
+        .architecture-diagram h2,
+        .architecture-diagram h3,
+        .architecture-diagram h4 {
+            color: var(--text-primary);
+        }
+
+        .architecture-diagram p,
+        .architecture-diagram strong {
+            color: var(--text-primary);
+        }
+
         .user-story {
-            background: #f9f9f9;
-            border-left: 4px solid var(--ocu-gold);
+            background: var(--bg-accent);
+            color: var(--text-primary);
+            border-left: 4px solid var(--blueprint-purple);
             padding: 15px;
             margin: 15px 0;
             font-style: italic;
         }
-        
+
+        .user-story strong {
+            color: var(--text-primary);
+        }
+
         .manifesto-table {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
@@ -56,44 +79,53 @@
             margin: 30px 0;
             font-size: 1.2em;
         }
-        
+
         .manifesto-left {
             text-align: right;
-            color: var(--ocu-true-blue);
+            color: var(--blueprint-sky-dark);
             font-weight: bold;
         }
-        
+
         .manifesto-right {
             text-align: left;
-            color: #666;
+            color: var(--text-muted);
         }
-        
+
         .manifesto-over {
-            color: var(--ocu-gold);
+            color: var(--blueprint-purple);
             font-weight: bold;
         }
-        
+
         .principle-card {
-            background: linear-gradient(135deg, rgba(0,119,181,0.1) 0%, rgba(0,190,233,0.1) 100%);
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
             border-radius: 10px;
             padding: 20px;
             margin: 15px 0;
-            border-left: 4px solid var(--ocu-cyan);
+            border-left: 4px solid var(--blueprint-sky);
         }
-        
+
         .principle-card h3 {
-            color: var(--ocu-true-blue);
+            color: var(--blueprint-sky-dark);
             margin-bottom: 10px;
         }
-        
+
+        .principle-card p {
+            color: var(--text-primary);
+        }
+
         .xp-practice {
-            background: rgba(253, 185, 19, 0.1);
-            border: 2px solid var(--ocu-gold);
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid var(--blueprint-purple);
             border-radius: 8px;
             padding: 15px;
             margin: 10px 0;
         }
-        
+
+        .xp-practice h3,
+        .xp-practice p {
+            color: var(--text-primary);
+        }
+
         .increment-flow {
             display: flex;
             align-items: center;
@@ -102,17 +134,17 @@
             margin: 30px 0;
             flex-wrap: wrap;
         }
-        
+
         .flow-item {
-            background: var(--ocu-true-blue);
+            background: var(--blueprint-sky);
             color: white;
             padding: 10px 20px;
             border-radius: 20px;
             font-weight: bold;
         }
-        
+
         .flow-arrow {
-            color: var(--ocu-cyan);
+            color: var(--blueprint-purple);
             font-size: 2em;
         }
     </style>
@@ -302,11 +334,11 @@
             <h1>Incremental Development Activities</h1>
             
             <table style="width: 100%; font-size: 1.1em; border-collapse: collapse;">
-                <tr style="background: var(--ocu-true-blue); color: white;">
+                <tr style="background: var(--blueprint-sky); color: white;">
                     <th style="padding: 15px; text-align: left;">Activity</th>
                     <th style="padding: 15px; text-align: left;">Description</th>
                 </tr>
-                <tr style="background: rgba(0,119,181,0.1);">
+                <tr style="background: rgba(14, 165, 233, 0.1);">
                     <td style="padding: 15px;"><strong>Choose features</strong></td>
                     <td style="padding: 15px;">Select features for next increment</td>
                 </tr>
@@ -314,7 +346,7 @@
                     <td style="padding: 15px;"><strong>Refine descriptions</strong></td>
                     <td style="padding: 15px;">Add detail for common understanding</td>
                 </tr>
-                <tr style="background: rgba(0,119,181,0.1);">
+                <tr style="background: rgba(14, 165, 233, 0.1);">
                     <td style="padding: 15px;"><strong>Implement and test</strong></td>
                     <td style="padding: 15px;">Build feature with automated tests</td>
                 </tr>
@@ -322,7 +354,7 @@
                     <td style="padding: 15px;"><strong>Integrate</strong></td>
                     <td style="padding: 15px;">Combine with existing system</td>
                 </tr>
-                <tr style="background: rgba(0,119,181,0.1);">
+                <tr style="background: rgba(14, 165, 233, 0.1);">
                     <td style="padding: 15px;"><strong>Deliver</strong></td>
                     <td style="padding: 15px;">Ship to customer for feedback</td>
                 </tr>
@@ -333,16 +365,16 @@
         <div class="slide">
             <h1>From Personas to Features</h1>
             <div style="text-align: center; margin: 30px 0;">
-                <h2 style="color: var(--ocu-true-blue);">Personas</h2>
+                <h2 style="color: var(--blueprint-sky-dark);">Personas</h2>
                 <p>A way of representing users</p>
                 <p style="font-size: 2em; margin: 20px;">⬇️</p>
-                <h2 style="color: var(--ocu-true-blue);">Scenarios</h2>
+                <h2 style="color: var(--blueprint-sky-dark);">Scenarios</h2>
                 <p>Natural language descriptions of users interacting with software</p>
                 <p style="font-size: 2em; margin: 20px;">⬇️</p>
-                <h2 style="color: var(--ocu-true-blue);">Stories</h2>
+                <h2 style="color: var(--blueprint-purple);">Stories</h2>
                 <p>Descriptions of something needed or wanted by users</p>
                 <p style="font-size: 2em; margin: 20px;">⬇️</p>
-                <h2 style="color: var(--ocu-true-blue);">Features</h2>
+                <h2 style="color: var(--blueprint-purple);">Features</h2>
                 <p>Fragments of product functionality</p>
             </div>
         </div>
@@ -569,7 +601,7 @@
             
             <div class="architecture-diagram">
                 <p style="font-size: 1.2em; margin-bottom: 20px;">Multiple Clients → Load Balancer → Server Farm</p>
-                <div style="background: #f0f0f0; padding: 20px; border-radius: 8px;">
+                <div style="background: var(--bg-accent); padding: 20px; border-radius: 8px;">
                     <p><strong>Client Side:</strong> User Interface (browser/mobile app)</p>
                     <p><strong>Server Side:</strong> Business Logic + Database</p>
                     <p><strong>Protocol:</strong> HTTP/HTTPS</p>
@@ -781,7 +813,7 @@
             <h1>Group 4: Scrum Artifacts</h1>
             
             <div class="comparison-table">
-                <div class="comparison-card" style="background: rgba(0, 119, 181, 0.1);">
+                <div class="comparison-card" style="background: rgba(14, 165, 233, 0.1);">
                     <h3>📋 Product Backlog</h3>
                     <ul style="text-align: left;">
                         <li>All desired features</li>
@@ -791,7 +823,7 @@
                         <li>Contains user stories/epics</li>
                     </ul>
                 </div>
-                <div class="comparison-card" style="background: rgba(253, 185, 19, 0.1);">
+                <div class="comparison-card" style="background: rgba(139, 92, 246, 0.1);">
                     <h3>📝 Sprint Backlog</h3>
                     <ul style="text-align: left;">
                         <li>Selected for sprint</li>

@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud-based Software - CSCI 5403</title>
     
-    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <!-- Blueprint Theme Presentation Styles with Theme Support -->
     <link rel="stylesheet" href="../../styles/presentation.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    
+
     <!-- Lecture-Specific Styles -->
     <style>
         .cloud-diagram {
@@ -17,7 +17,7 @@
             align-items: center;
             margin: 30px 0;
         }
-        
+
         .service-stack {
             display: flex;
             flex-direction: column;
@@ -26,7 +26,7 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
         .stack-layer {
             padding: 20px;
             border-radius: 10px;
@@ -34,27 +34,32 @@
             font-weight: bold;
             color: white;
         }
-        
-        .iaas { background: #3498db; }
-        .paas { background: #9b59b6; }
+
+        .iaas { background: var(--blueprint-sky); }
+        .paas { background: var(--blueprint-purple); }
         .saas { background: #e74c3c; }
-        
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             margin: 20px 0;
         }
-        
+
         .feature-card {
-            background: #f0f0f0;
+            background: var(--bg-accent);
+            color: var(--text-primary);
             padding: 20px;
             border-radius: 10px;
-            border-left: 4px solid var(--ocu-cyan);
+            border-left: 4px solid var(--blueprint-purple);
         }
-        
-        [data-theme="dark"] .feature-card {
-            background: #2a2a2a;
+
+        .feature-card h3 {
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
         }
     </style>
 </head>
@@ -287,7 +292,33 @@ CMD ["npm", "start"]
             </div>
         </div>
 
-        <!-- Slide 14: Everything as a Service -->
+        <!-- Slide 14: Docker Hands-On Exercise -->
+        <div class="slide">
+            <h1>Hands-On: Docker Container Setup <span class="emoji">🐳</span></h1>
+            <div class="activity-box">
+                <h3>20-Minute Exercise: Deploy Your First Container</h3>
+                <p><strong>Task:</strong> Set up a Docker container on your Windows system</p>
+                <ol style="font-size: 1.1em; line-height: 1.8;">
+                    <li>Visit <strong>Docker Hub</strong> (hub.docker.com)</li>
+                    <li>Browse and select an image that interests you
+                        <ul style="font-size: 0.9em;">
+                            <li>Examples: nginx, postgres, redis, python, node, mysql</li>
+                        </ul>
+                    </li>
+                    <li>Pull and run the image on your machine (or lab computer)</li>
+                    <li>Verify the container is running</li>
+                </ol>
+                <p style="margin-top: 15px;"><strong>Then:</strong> Prepare to share with the class:</p>
+                <ul style="font-size: 1em;">
+                    <li>What image did you choose and why?</li>
+                    <li>What challenges did you encounter?</li>
+                    <li>What did you learn about Docker?</li>
+                </ul>
+            </div>
+            <button data-timer="20">Start 20-Minute Timer</button>
+        </div>
+
+        <!-- Slide 15: Everything as a Service -->
         <div class="slide">
             <h1>Everything as a Service (XaaS)</h1>
             <div class="service-stack">
@@ -877,7 +908,7 @@ resource "aws_instance" "web" {
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">43</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">44</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>

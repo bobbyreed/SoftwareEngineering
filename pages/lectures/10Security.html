@@ -5,54 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security and Privacy - CSCI 5403</title>
     
-    <!-- OCU Branded Presentation Styles with Theme Support -->
+    <!-- Blueprint Theme Presentation Styles with Theme Support -->
     <link rel="stylesheet" href="../../styles/presentation.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    
+
     <!-- Lecture-Specific Styles -->
     <style>
         .security-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--blueprint-sky) 0%, var(--blueprint-purple) 100%);
             color: white;
             padding: 20px;
             border-radius: 10px;
             margin: 15px 0;
         }
-        
+
         .threat-box {
             border: 2px solid #e74c3c;
             background: rgba(231, 76, 60, 0.1);
+            color: var(--text-primary);
             padding: 20px;
             border-radius: 10px;
             margin: 15px 0;
         }
-        
+
+        .threat-box h3 {
+            color: var(--text-primary);
+        }
+
         .defense-box {
             border: 2px solid #27ae60;
             background: rgba(39, 174, 96, 0.1);
+            color: var(--text-primary);
             padding: 20px;
             border-radius: 10px;
             margin: 15px 0;
         }
-        
+
+        .defense-box h3 {
+            color: var(--text-primary);
+        }
+
         .attack-diagram {
             display: flex;
             justify-content: space-around;
             align-items: center;
             margin: 30px 0;
         }
-        
+
         .attack-step {
             text-align: center;
             padding: 20px;
-            background: #f8f9fa;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             flex: 1;
             margin: 0 10px;
         }
-        
+
+        .attack-step h3,
+        .attack-step h4 {
+            color: var(--text-primary);
+        }
+
+        .attack-step p {
+            color: var(--text-primary);
+        }
+
+        .attack-step em {
+            color: var(--text-secondary);
+        }
+
         .privacy-principle {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--blueprint-sky) 0%, var(--blueprint-purple) 100%);
             color: white;
             padding: 15px;
             border-radius: 5px;
