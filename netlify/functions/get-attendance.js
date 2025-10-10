@@ -28,6 +28,7 @@ exports.handler = async (event, context) => {
                 s.last_name,
                 s.full_name,
                 a.timestamp,
+                a.is_late,
                 CASE WHEN a.id IS NOT NULL THEN true ELSE false END as present
             FROM students s
             LEFT JOIN attendance a ON s.id = a.student_id AND a.attendance_date = ${date}

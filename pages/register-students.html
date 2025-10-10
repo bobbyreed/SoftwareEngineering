@@ -6,6 +6,7 @@
     <title>Student Registration - CSCI 5403</title>
     <link rel="stylesheet" href="../styles/presentation.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="../js/classroom-auth.js"></script>
 
     <style>
         body {
@@ -249,8 +250,9 @@
                 <div class="action-buttons">
                     <button class="btn btn-primary" onclick="exportToCSV()">📥 Export to CSV</button>
                     <button class="btn btn-secondary" onclick="clearAllStudents()">🗑️ Clear All Students</button>
-                    <a href="../index.html" class="btn btn-secondary">🏠 Back to Home</a>
                     <a href="./attendance.html" class="btn btn-primary">✓ Take Attendance</a>
+                    <a href="./attendance-overview.html" class="btn btn-primary">📊 View Overview</a>
+                    <a href="../index.html" class="btn btn-secondary">🏠 Back to Home</a>
                 </div>
             </div>
         </div>
@@ -262,6 +264,73 @@
 
         // Global state
         let students = [];
+
+        // Mock data generator - callable from console
+        window.addMockStudents = async function() {
+            const mockNames = [
+                { firstName: 'Emma', lastName: 'Johnson' },
+                { firstName: 'Liam', lastName: 'Williams' },
+                { firstName: 'Olivia', lastName: 'Brown' },
+                { firstName: 'Noah', lastName: 'Jones' },
+                { firstName: 'Ava', lastName: 'Garcia' },
+                { firstName: 'Ethan', lastName: 'Miller' },
+                { firstName: 'Sophia', lastName: 'Davis' },
+                { firstName: 'Mason', lastName: 'Rodriguez' },
+                { firstName: 'Isabella', lastName: 'Martinez' },
+                { firstName: 'Logan', lastName: 'Hernandez' },
+                { firstName: 'Mia', lastName: 'Lopez' },
+                { firstName: 'Lucas', lastName: 'Gonzalez' },
+                { firstName: 'Charlotte', lastName: 'Wilson' },
+                { firstName: 'Oliver', lastName: 'Anderson' },
+                { firstName: 'Amelia', lastName: 'Thomas' },
+                { firstName: 'Elijah', lastName: 'Taylor' },
+                { firstName: 'Harper', lastName: 'Moore' },
+                { firstName: 'James', lastName: 'Jackson' },
+                { firstName: 'Evelyn', lastName: 'Martin' },
+                { firstName: 'Benjamin', lastName: 'Lee' },
+                { firstName: 'Abigail', lastName: 'Perez' },
+                { firstName: 'William', lastName: 'Thompson' }
+            ];
+
+            console.log('🎭 Adding 22 mock students...');
+            let successCount = 0;
+            let failCount = 0;
+
+            for (const student of mockNames) {
+                try {
+                    const response = await fetch(`${API_BASE}/register-student`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            firstName: student.firstName,
+                            lastName: student.lastName,
+                            fullName: `${student.firstName} ${student.lastName}`,
+                            rawCardData: null
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        console.log(`✓ Registered: ${student.firstName} ${student.lastName}`);
+                        successCount++;
+                    } else {
+                        console.log(`✗ Failed: ${student.firstName} ${student.lastName} - ${data.error}`);
+                        failCount++;
+                    }
+                } catch (error) {
+                    console.error(`✗ Error registering ${student.firstName} ${student.lastName}:`, error);
+                    failCount++;
+                }
+
+                // Small delay to avoid overwhelming the API
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            console.log(`\n📊 Results: ${successCount} successful, ${failCount} failed`);
+            await updateUI();
+            console.log('✅ Done! Check the page for updated student list.');
+        };
 
         // Get registered students from database
         async function getStudents() {
@@ -510,9 +579,14 @@
             }
         });
 
-        // Initialize
-        updateUI();
-        cardInput.focus();
+        // Initialize with authentication
+        ClassroomAuth.initAuthUI({
+            pageName: 'Student Registration',
+            onSuccess: function() {
+                updateUI();
+                cardInput.focus();
+            }
+        });
 
         // Keep focus on input, but not when interacting with UI elements
         setInterval(() => {

@@ -6,6 +6,7 @@
     <title>Take Attendance - CSCI 5403</title>
     <link rel="stylesheet" href="../styles/presentation.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="../js/classroom-auth.js"></script>
 
     <style>
         body {
@@ -366,6 +367,7 @@
                 <button class="btn btn-secondary" onclick="markAllPresent()">✓ Mark All Present</button>
                 <button class="btn btn-secondary" onclick="clearTodayAttendance()">🔄 Reset Today</button>
                 <a href="./register-students.html" class="btn btn-primary">📝 Register Students</a>
+                <a href="./attendance-overview.html" class="btn btn-primary">📊 View Overview</a>
                 <a href="../index.html" class="btn btn-secondary">🏠 Back to Home</a>
             </div>
 
@@ -764,9 +766,14 @@
         // Date change handler
         document.getElementById('attendanceDate').addEventListener('change', updateUI);
 
-        // Initialize
-        updateUI();
-        cardInput.focus();
+        // Initialize with authentication
+        ClassroomAuth.initAuthUI({
+            pageName: 'Attendance Tracking',
+            onSuccess: function() {
+                updateUI();
+                cardInput.focus();
+            }
+        });
 
         // Keep focus on input, but not when interacting with UI elements
         setInterval(() => {

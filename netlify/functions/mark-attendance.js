@@ -12,7 +12,7 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        const { firstName, lastName, date } = JSON.parse(event.body);
+        const { firstName, lastName, date, isLate } = JSON.parse(event.body);
 
         if (!firstName || !lastName || !date) {
             return errorResponse(new Error('Missing required fields'), 400);
@@ -32,23 +32,22 @@ exports.handler = async (event, context) => {
         }
 
         const studentId = student[0].id;
+        const late = isLate === true || isLate === 'true';
 
         if (event.httpMethod === 'POST') {
-            // Mark present (insert attendance record)
-            // Use ON CONFLICT to handle duplicate entries gracefully
+            // Mark present (insert or update attendance record)
+            // Use ON CONFLICT to update if already exists
             const result = await sql`
-                INSERT INTO attendance (student_id, attendance_date)
-                VALUES (${studentId}, ${date})
-                ON CONFLICT (student_id, attendance_date) DO NOTHING
-                RETURNING id, timestamp
+                INSERT INTO attendance (student_id, attendance_date, is_late)
+                VALUES (${studentId}, ${date}, ${late})
+                ON CONFLICT (student_id, attendance_date)
+                DO UPDATE SET is_late = ${late}, timestamp = CURRENT_TIMESTAMP
+                RETURNING id, timestamp, is_late
             `;
 
-            if (result.length === 0) {
-                return errorResponse(new Error('Student already marked present'), 409);
-            }
-
+            const status = late ? 'late' : 'present';
             return successResponse({
-                message: `${student[0].full_name} marked present`,
+                message: `${student[0].full_name} marked ${status}`,
                 attendance: result[0]
             });
 

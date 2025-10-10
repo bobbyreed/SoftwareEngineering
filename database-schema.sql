@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS attendance (
     student_id INTEGER NOT NULL REFERENCES students(id) ON DELETE CASCADE,
     attendance_date DATE NOT NULL,
     timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    is_late BOOLEAN DEFAULT false,
     UNIQUE(student_id, attendance_date)
 );
 
