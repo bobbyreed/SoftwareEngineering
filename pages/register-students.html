@@ -257,19 +257,29 @@
     </div>
 
     <script>
-        // Storage key
-        const STORAGE_KEY = 'csci5403_students';
+        // API base URL
+        const API_BASE = '/.netlify/functions';
 
-        // Get registered students from localStorage
-        function getStudents() {
-            const data = localStorage.getItem(STORAGE_KEY);
-            return data ? JSON.parse(data) : [];
-        }
+        // Global state
+        let students = [];
 
-        // Save students to localStorage
-        function saveStudents(students) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
-            updateUI();
+        // Get registered students from database
+        async function getStudents() {
+            try {
+                const response = await fetch(`${API_BASE}/get-students`);
+                const data = await response.json();
+
+                if (data.success) {
+                    students = data.students;
+                    return data;
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                console.error('Error fetching students:', error);
+                showStatus('Error loading students: ' + error.message, false);
+                return { students: [], total: 0, registeredToday: 0 };
+            }
         }
 
         // Parse card swipe data
@@ -303,79 +313,96 @@
         }
 
         // Register a student
-        function registerStudent(studentData) {
-            const students = getStudents();
+        async function registerStudent(studentData) {
+            try {
+                const response = await fetch(`${API_BASE}/register-student`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: studentData.firstName,
+                        lastName: studentData.lastName,
+                        fullName: studentData.fullName,
+                        rawCardData: studentData.rawData
+                    })
+                });
 
-            // Check if student already registered
-            const exists = students.find(s =>
-                s.lastName === studentData.lastName &&
-                s.firstName === studentData.firstName
-            );
+                const data = await response.json();
 
-            if (exists) {
-                showStatus(`${studentData.fullName} is already registered!`, false);
+                if (data.success) {
+                    showStatus(`✓ ${studentData.fullName} registered successfully!`, true);
+                    await updateUI();
+                    return true;
+                } else {
+                    if (response.status === 409) {
+                        showStatus(`${studentData.fullName} is already registered!`, false);
+                    } else {
+                        showStatus(`Error: ${data.error}`, false);
+                    }
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error registering student:', error);
+                showStatus('Error registering student: ' + error.message, false);
                 return false;
             }
-
-            // Add new student
-            const newStudent = {
-                ...studentData,
-                registeredDate: new Date().toISOString(),
-                id: Date.now()
-            };
-
-            students.push(newStudent);
-            saveStudents(students);
-            showStatus(`✓ ${studentData.fullName} registered successfully!`, true);
-            return true;
         }
 
         // Remove a student
-        function removeStudent(studentId) {
+        async function removeStudent(studentId) {
             if (!confirm('Are you sure you want to remove this student?')) {
                 return;
             }
 
-            const students = getStudents();
-            const filtered = students.filter(s => s.id !== studentId);
-            saveStudents(filtered);
-            showStatus('Student removed successfully', true);
+            try {
+                const response = await fetch(`${API_BASE}/delete-student`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: studentId })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showStatus('Student removed successfully', true);
+                    await updateUI();
+                } else {
+                    showStatus(`Error: ${data.error}`, false);
+                }
+            } catch (error) {
+                console.error('Error removing student:', error);
+                showStatus('Error removing student: ' + error.message, false);
+            }
         }
 
         // Update UI
-        function updateUI() {
-            const students = getStudents();
+        async function updateUI() {
+            const data = await getStudents();
             const studentsList = document.getElementById('studentsList');
             const totalStudents = document.getElementById('totalStudents');
             const todayCount = document.getElementById('todayCount');
 
             // Update stats
-            totalStudents.textContent = students.length;
-
-            // Count students registered today
-            const today = new Date().toDateString();
-            const registeredToday = students.filter(s =>
-                new Date(s.registeredDate).toDateString() === today
-            ).length;
-            todayCount.textContent = registeredToday;
+            totalStudents.textContent = data.total || 0;
+            todayCount.textContent = data.registeredToday || 0;
 
             // Update students list
-            if (students.length === 0) {
+            if (!students || students.length === 0) {
                 studentsList.innerHTML = `
                     <p style="text-align: center; color: var(--text-muted); padding: 20px;">
                         No students registered yet. Swipe a card to begin.
                     </p>
                 `;
             } else {
-                // Sort by last name
-                students.sort((a, b) => a.lastName.localeCompare(b.lastName));
-
                 studentsList.innerHTML = students.map(student => `
                     <div class="student-item">
                         <div>
-                            <div class="student-name">${student.fullName}</div>
+                            <div class="student-name">${student.full_name}</div>
                             <div class="student-date">
-                                Registered: ${new Date(student.registeredDate).toLocaleDateString('en-US', {
+                                Registered: ${new Date(student.registered_date).toLocaleDateString('en-US', {
                                     month: 'short',
                                     day: 'numeric',
                                     year: 'numeric',
@@ -392,8 +419,7 @@
 
         // Export to CSV
         function exportToCSV() {
-            const students = getStudents();
-            if (students.length === 0) {
+            if (!students || students.length === 0) {
                 alert('No students to export');
                 return;
             }
@@ -401,10 +427,10 @@
             // Create CSV content
             const headers = ['Last Name', 'First Name', 'Full Name', 'Registration Date'];
             const rows = students.map(s => [
-                s.lastName,
-                s.firstName,
-                s.fullName,
-                new Date(s.registeredDate).toLocaleString()
+                s.last_name,
+                s.first_name,
+                s.full_name,
+                new Date(s.registered_date).toLocaleString()
             ]);
 
             const csv = [
@@ -423,15 +449,27 @@
         }
 
         // Clear all students
-        function clearAllStudents() {
+        async function clearAllStudents() {
             if (!confirm('Are you sure you want to remove ALL students? This cannot be undone!')) {
                 return;
             }
 
             if (confirm('Really? This will delete all registration data!')) {
-                localStorage.removeItem(STORAGE_KEY);
-                updateUI();
-                showStatus('All students removed', true);
+                try {
+                    // Delete all students one by one
+                    for (const student of students) {
+                        await fetch(`${API_BASE}/delete-student`, {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: student.id })
+                        });
+                    }
+                    showStatus('All students removed', true);
+                    await updateUI();
+                } catch (error) {
+                    console.error('Error clearing students:', error);
+                    showStatus('Error clearing students: ' + error.message, false);
+                }
             }
         }
 
