@@ -385,12 +385,10 @@
 
         // Get current date in YYYY-MM-DD format
         function getCurrentDate() {
-            const date = document.getElementById('attendanceDate').value;
-            return date || new Date().toISOString().split('T')[0];
+            const dateEl = document.getElementById('attendanceDate');
+            if (!dateEl) return new Date().toISOString().split('T')[0];
+            return dateEl.value || new Date().toISOString().split('T')[0];
         }
-
-        // Set today's date
-        document.getElementById('attendanceDate').value = new Date().toISOString().split('T')[0];
 
         // Get attendance for specific date from database
         async function getAttendanceForDate(date) {
@@ -763,13 +761,18 @@
             }
         });
 
-        // Date change handler
-        document.getElementById('attendanceDate').addEventListener('change', updateUI);
-
         // Initialize with authentication
         ClassroomAuth.initAuthUI({
             pageName: 'Attendance Tracking',
             onSuccess: function() {
+                // Set today's date after auth succeeds
+                const dateEl = document.getElementById('attendanceDate');
+                if (dateEl) {
+                    dateEl.value = new Date().toISOString().split('T')[0];
+                    // Add date change handler
+                    dateEl.addEventListener('change', updateUI);
+                }
+
                 updateUI();
                 cardInput.focus();
             }
