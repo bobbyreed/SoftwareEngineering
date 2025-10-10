@@ -701,7 +701,16 @@
             cardInput.focus();
         });
 
-        cardInput.addEventListener('blur', () => {
+        // Keep input focused, but not when interacting with buttons
+        cardInput.addEventListener('blur', (e) => {
+            // Don't refocus if user clicked a button, link, or input
+            if (e.relatedTarget && (
+                e.relatedTarget.tagName === 'BUTTON' ||
+                e.relatedTarget.tagName === 'A' ||
+                e.relatedTarget.tagName === 'INPUT'
+            )) {
+                return;
+            }
             setTimeout(() => cardInput.focus(), 100);
         });
 
@@ -728,8 +737,11 @@
         updateUI();
         cardInput.focus();
 
+        // Keep focus on input, but not when interacting with UI elements
         setInterval(() => {
-            if (document.activeElement !== cardInput) {
+            const activeElement = document.activeElement;
+            // Only refocus if nothing else is focused or if body is focused
+            if (!activeElement || activeElement === document.body) {
                 cardInput.focus();
             }
         }, 1000);
