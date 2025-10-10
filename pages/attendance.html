@@ -377,9 +377,9 @@
     </div>
 
     <script>
-        const STUDENTS_KEY = 'csci5403_students';
-        const ATTENDANCE_KEY = 'csci5403_attendance';
+        const API_BASE = '/.netlify/functions';
         let currentView = 'all';
+        let attendanceData = { attendance: [], stats: {} };
 
         // Get current date in YYYY-MM-DD format
         function getCurrentDate() {
@@ -390,30 +390,40 @@
         // Set today's date
         document.getElementById('attendanceDate').value = new Date().toISOString().split('T')[0];
 
-        // Get registered students
-        function getStudents() {
-            const data = localStorage.getItem(STUDENTS_KEY);
-            return data ? JSON.parse(data) : [];
+        // Get attendance for specific date from database
+        async function getAttendanceForDate(date) {
+            try {
+                const response = await fetch(`${API_BASE}/get-attendance?date=${date}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    attendanceData = data;
+                    return data;
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                console.error('Error fetching attendance:', error);
+                showStatus('Error loading attendance: ' + error.message, false);
+                return { attendance: [], stats: { total: 0, present: 0, absent: 0 } };
+            }
         }
 
-        // Get all attendance records
-        function getAllAttendance() {
-            const data = localStorage.getItem(ATTENDANCE_KEY);
-            return data ? JSON.parse(data) : {};
-        }
+        // Get all attendance history from database
+        async function getAllAttendanceHistory() {
+            try {
+                const response = await fetch(`${API_BASE}/get-attendance-history`);
+                const data = await response.json();
 
-        // Get attendance for specific date
-        function getAttendanceForDate(date) {
-            const allAttendance = getAllAttendance();
-            return allAttendance[date] || [];
-        }
-
-        // Save attendance
-        function saveAttendance(date, attendanceList) {
-            const allAttendance = getAllAttendance();
-            allAttendance[date] = attendanceList;
-            localStorage.setItem(ATTENDANCE_KEY, JSON.stringify(allAttendance));
-            updateUI();
+                if (data.success) {
+                    return data.history;
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                console.error('Error fetching history:', error);
+                return [];
+            }
         }
 
         // Parse card data
@@ -444,71 +454,75 @@
         }
 
         // Mark student present
-        function markPresent(studentData) {
-            const students = getStudents();
+        async function markPresent(studentData) {
             const date = getCurrentDate();
 
-            // Check if student is registered
-            const registered = students.find(s =>
-                s.lastName === studentData.lastName &&
-                s.firstName === studentData.firstName
-            );
+            try {
+                const response = await fetch(`${API_BASE}/mark-attendance`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: studentData.firstName,
+                        lastName: studentData.lastName,
+                        date: date
+                    })
+                });
 
-            if (!registered) {
-                showStatus(`${studentData.fullName} is not registered! Please register first.`, false);
+                const data = await response.json();
+
+                if (data.success) {
+                    showStatus(`✓ ${studentData.fullName} marked present!`, true);
+                    await updateUI();
+                    return true;
+                } else {
+                    if (response.status === 404) {
+                        showStatus(`${studentData.fullName} is not registered! Please register first.`, false);
+                    } else if (response.status === 409) {
+                        showStatus(`${studentData.fullName} already marked present!`, false);
+                    } else {
+                        showStatus(`Error: ${data.error}`, false);
+                    }
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error marking attendance:', error);
+                showStatus('Error marking attendance: ' + error.message, false);
                 return false;
             }
-
-            // Get today's attendance
-            const attendance = getAttendanceForDate(date);
-
-            // Check if already marked present
-            const alreadyPresent = attendance.find(a =>
-                a.lastName === studentData.lastName &&
-                a.firstName === studentData.firstName
-            );
-
-            if (alreadyPresent) {
-                showStatus(`${studentData.fullName} already marked present!`, false);
-                return false;
-            }
-
-            // Add to attendance
-            attendance.push({
-                ...studentData,
-                timestamp: new Date().toISOString()
-            });
-
-            saveAttendance(date, attendance);
-            showStatus(`✓ ${studentData.fullName} marked present!`, true);
-            return true;
         }
 
         // Toggle student attendance manually
-        function toggleAttendance(lastName, firstName, fullName) {
+        async function toggleAttendance(lastName, firstName, fullName, isPresent) {
             const date = getCurrentDate();
-            const attendance = getAttendanceForDate(date);
 
-            const index = attendance.findIndex(a =>
-                a.lastName === lastName && a.firstName === firstName
-            );
-
-            if (index !== -1) {
-                // Remove from attendance (mark absent)
-                attendance.splice(index, 1);
-                showStatus(`${fullName} marked absent`, true);
-            } else {
-                // Add to attendance (mark present)
-                attendance.push({
-                    lastName,
-                    firstName,
-                    fullName,
-                    timestamp: new Date().toISOString()
+            try {
+                const method = isPresent ? 'DELETE' : 'POST';
+                const response = await fetch(`${API_BASE}/mark-attendance`, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                        date: date
+                    })
                 });
-                showStatus(`${fullName} marked present`, true);
-            }
 
-            saveAttendance(date, attendance);
+                const data = await response.json();
+
+                if (data.success) {
+                    showStatus(data.message, true);
+                    await updateUI();
+                } else {
+                    showStatus(`Error: ${data.error}`, false);
+                }
+            } catch (error) {
+                console.error('Error toggling attendance:', error);
+                showStatus('Error toggling attendance: ' + error.message, false);
+            }
         }
 
         // Toggle view
@@ -520,23 +534,18 @@
         }
 
         // Update UI
-        function updateUI() {
-            const students = getStudents();
+        async function updateUI() {
             const date = getCurrentDate();
-            const attendance = getAttendanceForDate(date);
+            const data = await getAttendanceForDate(date);
             const grid = document.getElementById('attendanceGrid');
 
             // Update stats
-            const presentCount = attendance.length;
-            const totalCount = students.length;
-            const absentCount = totalCount - presentCount;
-
-            document.getElementById('presentCount').textContent = presentCount;
-            document.getElementById('absentCount').textContent = absentCount;
-            document.getElementById('totalCount').textContent = totalCount;
+            document.getElementById('presentCount').textContent = data.stats.present || 0;
+            document.getElementById('absentCount').textContent = data.stats.absent || 0;
+            document.getElementById('totalCount').textContent = data.stats.total || 0;
 
             // Update attendance grid
-            if (students.length === 0) {
+            if (!data.attendance || data.attendance.length === 0) {
                 grid.innerHTML = `
                     <p style="text-align: center; color: var(--text-muted); padding: 20px; grid-column: 1/-1;">
                         No students registered. Please <a href="./register-students.html">register students</a> first.
@@ -545,32 +554,21 @@
                 return;
             }
 
-            // Sort students by last name
-            students.sort((a, b) => a.lastName.localeCompare(b.lastName));
-
             // Filter based on view
-            let filteredStudents = students;
+            let filteredStudents = data.attendance;
             if (currentView === 'present') {
-                filteredStudents = students.filter(s =>
-                    attendance.some(a => a.lastName === s.lastName && a.firstName === s.firstName)
-                );
+                filteredStudents = data.attendance.filter(s => s.present);
             } else if (currentView === 'absent') {
-                filteredStudents = students.filter(s =>
-                    !attendance.some(a => a.lastName === s.lastName && a.firstName === s.firstName)
-                );
+                filteredStudents = data.attendance.filter(s => !s.present);
             }
 
             grid.innerHTML = filteredStudents.map(student => {
-                const isPresent = attendance.some(a =>
-                    a.lastName === student.lastName && a.firstName === student.firstName
-                );
-
                 return `
-                    <div class="student-card ${isPresent ? 'present' : 'absent'}"
-                         onclick="toggleAttendance('${student.lastName}', '${student.firstName}', '${student.fullName}')">
-                        <div class="student-name">${student.fullName}</div>
-                        <span class="attendance-badge ${isPresent ? 'badge-present' : 'badge-absent'}">
-                            ${isPresent ? '✓ Present' : '✗ Absent'}
+                    <div class="student-card ${student.present ? 'present' : 'absent'}"
+                         onclick="toggleAttendance('${student.last_name}', '${student.first_name}', '${student.full_name}', ${student.present})">
+                        <div class="student-name">${student.full_name}</div>
+                        <span class="attendance-badge ${student.present ? 'badge-present' : 'badge-absent'}">
+                            ${student.present ? '✓ Present' : '✗ Absent'}
                         </span>
                     </div>
                 `;
@@ -578,64 +576,103 @@
         }
 
         // Mark all present
-        function markAllPresent() {
+        async function markAllPresent() {
             if (!confirm('Mark all students present for today?')) {
                 return;
             }
 
-            const students = getStudents();
             const date = getCurrentDate();
-            const attendance = students.map(s => ({
-                lastName: s.lastName,
-                firstName: s.firstName,
-                fullName: s.fullName,
-                timestamp: new Date().toISOString()
-            }));
+            const data = await getAttendanceForDate(date);
 
-            saveAttendance(date, attendance);
-            showStatus('All students marked present!', true);
+            if (!data.attendance || data.attendance.length === 0) {
+                alert('No students to mark');
+                return;
+            }
+
+            try {
+                // Mark all absent students present
+                const absentStudents = data.attendance.filter(s => !s.present);
+
+                for (const student of absentStudents) {
+                    await fetch(`${API_BASE}/mark-attendance`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            firstName: student.first_name,
+                            lastName: student.last_name,
+                            date: date
+                        })
+                    });
+                }
+
+                showStatus('All students marked present!', true);
+                await updateUI();
+            } catch (error) {
+                console.error('Error marking all present:', error);
+                showStatus('Error marking all present: ' + error.message, false);
+            }
         }
 
         // Clear today's attendance
-        function clearTodayAttendance() {
+        async function clearTodayAttendance() {
             if (!confirm('Clear all attendance for today?')) {
                 return;
             }
 
             const date = getCurrentDate();
-            saveAttendance(date, []);
-            showStatus('Attendance cleared', true);
+            const data = await getAttendanceForDate(date);
+
+            if (!data.attendance) {
+                return;
+            }
+
+            try {
+                // Mark all present students absent
+                const presentStudents = data.attendance.filter(s => s.present);
+
+                for (const student of presentStudents) {
+                    await fetch(`${API_BASE}/mark-attendance`, {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            firstName: student.first_name,
+                            lastName: student.last_name,
+                            date: date
+                        })
+                    });
+                }
+
+                showStatus('Attendance cleared', true);
+                await updateUI();
+            } catch (error) {
+                console.error('Error clearing attendance:', error);
+                showStatus('Error clearing attendance: ' + error.message, false);
+            }
         }
 
         // Export attendance
-        function exportAttendance() {
-            const students = getStudents();
+        async function exportAttendance() {
             const date = getCurrentDate();
-            const attendance = getAttendanceForDate(date);
+            const data = await getAttendanceForDate(date);
 
-            if (students.length === 0) {
+            if (!data.attendance || data.attendance.length === 0) {
                 alert('No students to export');
                 return;
             }
 
             // Create CSV content
             const headers = ['Last Name', 'First Name', 'Full Name', 'Status', 'Time'];
-            const rows = students.map(s => {
-                const record = attendance.find(a =>
-                    a.lastName === s.lastName && a.firstName === s.firstName
-                );
-                return [
-                    s.lastName,
-                    s.firstName,
-                    s.fullName,
-                    record ? 'Present' : 'Absent',
-                    record ? new Date(record.timestamp).toLocaleTimeString() : ''
-                ];
-            });
+            const rows = data.attendance.map(s => [
+                s.last_name,
+                s.first_name,
+                s.full_name,
+                s.present ? 'Present' : 'Absent',
+                s.present && s.timestamp ? new Date(s.timestamp).toLocaleTimeString() : ''
+            ]);
 
             const csv = [
                 `"Attendance for ${date}"`,
-                `"Total: ${students.length}, Present: ${attendance.length}, Absent: ${students.length - attendance.length}"`,
+                `"Total: ${data.stats.total}, Present: ${data.stats.present}, Absent: ${data.stats.absent}"`,
                 '',
                 headers.join(','),
                 ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
@@ -652,26 +689,20 @@
         }
 
         // View history
-        function viewHistory() {
+        async function viewHistory() {
             const historySection = document.getElementById('historySection');
             const historyList = document.getElementById('historyList');
-            const allAttendance = getAllAttendance();
+            const history = await getAllAttendanceHistory();
 
-            const dates = Object.keys(allAttendance).sort().reverse();
-
-            if (dates.length === 0) {
+            if (history.length === 0) {
                 alert('No attendance history yet');
                 return;
             }
 
             historySection.style.display = 'block';
 
-            historyList.innerHTML = dates.map(date => {
-                const attendance = allAttendance[date];
-                const students = getStudents();
-                const presentCount = attendance.length;
-                const totalCount = students.length;
-
+            historyList.innerHTML = history.map(record => {
+                const date = record.attendance_date;
                 return `
                     <div class="history-item" onclick="loadDate('${date}')">
                         <strong>${new Date(date).toLocaleDateString('en-US', {
@@ -680,7 +711,7 @@
                             day: 'numeric',
                             year: 'numeric'
                         })}</strong><br>
-                        Present: ${presentCount} / ${totalCount} students
+                        Present: ${record.present_count} / ${record.total_students} students
                     </div>
                 `;
             }).join('');
