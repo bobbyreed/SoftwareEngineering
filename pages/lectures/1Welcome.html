@@ -565,7 +565,37 @@
             </div>
         </div>
 
-        <!-- Slide 17: Use Case Diagram - Instructor Example -->
+        <!-- Slide 17: UML Tools -->
+        <div class="slide">
+            <h1>UML Tools & Resources 🛠️</h1>
+
+            <div style="font-size: 1.1em;">
+                <div class="course-component">
+                    <h3>💻 draw.io (Recommended for Class)</h3>
+                    <p style="font-size: 1.1em; line-height: 1.7;">
+                        <strong>Free, web-based, no account required</strong><br>
+                        Visit: <strong>diagrams.net</strong> or <strong>app.diagrams.net</strong><br>
+                        Built-in UML shape libraries for all diagram types
+                    </p>
+                </div>
+
+                <div class="course-component">
+                    <h3>🔧 Other Free Tools</h3>
+                    <ul>
+                        <li><strong>Lucidchart</strong> - Professional, free tier available</li>
+                        <li><strong>PlantUML</strong> - Text-based diagrams (code to diagram)</li>
+                        <li><strong>Visual Paradigm</strong> - Full-featured (free community edition)</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box">
+                    <strong>For this class:</strong> I'll demonstrate using draw.io. You're welcome to use any tool,
+                    but draw.io is free, easy to learn, and requires no installation!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Use Case Diagram - Instructor Example -->
         <div class="slide">
             <h1>Use Case Example: Library System 📚</h1>
 
@@ -629,7 +659,73 @@
             </div>
         </div>
 
-        <!-- Slide 18: Use Case Diagram - Student Exercise -->
+        <!-- Slide 19: draw.io Tutorial - Use Case Diagrams -->
+        <div class="slide">
+            <h1>How to Create This in draw.io 💻</h1>
+
+            <div style="font-size: 1.05em; line-height: 1.7;">
+                <div class="demo-box" style="margin-bottom: 20px;">
+                    <h3>Step-by-Step: Use Case Diagrams in draw.io</h3>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="color: var(--blueprint-sky-dark);">1️⃣ Setup</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Go to <strong>app.diagrams.net</strong></li>
+                            <li>Choose where to save (Device, Google Drive, etc.)</li>
+                            <li>Click "Create New Diagram"</li>
+                            <li>Select "Blank Diagram"</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">2️⃣ Find UML Shapes</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Left sidebar: Click <strong>"More Shapes..."</strong></li>
+                            <li>Enable <strong>"UML"</strong> library</li>
+                            <li>Click "Apply"</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">3️⃣ Draw System Boundary</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Use <strong>Rectangle</strong> from General shapes</li>
+                            <li>Right-click → <strong>Edit Style</strong></li>
+                            <li>Set <strong>fillColor=none</strong></li>
+                            <li>Add text label for system name</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: var(--blueprint-sky-dark);">4️⃣ Add Actors</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>From UML library: Drag <strong>"Actor"</strong></li>
+                            <li>Place outside system boundary</li>
+                            <li>Double-click to rename (e.g., "Member")</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">5️⃣ Add Use Cases</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>From UML library: Drag <strong>"Use Case"</strong> (oval)</li>
+                            <li>Place inside system boundary</li>
+                            <li>Double-click to add text (e.g., "Borrow Book")</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">6️⃣ Connect with Lines</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Click actor, then click use case</li>
+                            <li>Or use <strong>Connector</strong> tool</li>
+                            <li>draw.io auto-connects shapes!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tip-box" style="margin-top: 20px;">
+                    <strong>Pro Tip:</strong> Use Ctrl+D (Cmd+D on Mac) to duplicate shapes quickly.
+                    Hold Shift while resizing to maintain proportions!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Use Case Diagram - Student Exercise -->
         <div class="slide">
             <h1>Your Turn: Food Delivery App 🍕</h1>
 
@@ -776,7 +872,76 @@
             </div>
         </div>
 
-        <!-- Slide 21: Class Diagram - Student Exercise -->
+        <!-- Slide 21: draw.io Tutorial - Class Diagrams -->
+        <div class="slide">
+            <h1>How to Create This in draw.io 💻</h1>
+
+            <div style="font-size: 1.05em; line-height: 1.7;">
+                <div class="demo-box" style="margin-bottom: 20px;">
+                    <h3>Step-by-Step: Class Diagrams in draw.io</h3>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="color: var(--blueprint-sky-dark);">1️⃣ Enable UML Library</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>More Shapes → Check <strong>"UML"</strong></li>
+                            <li>Class diagram shapes appear in left sidebar</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">2️⃣ Add Class Box</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>From UML library: Drag <strong>"Class"</strong> shape</li>
+                            <li>Or use 3 stacked rectangles from General</li>
+                            <li>The class box has 3 sections built-in</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">3️⃣ Fill in Class Details</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li><strong>Top:</strong> Class name (bold)</li>
+                            <li><strong>Middle:</strong> Attributes with - or + prefix
+                                <ul><li>Example: <code>- title: String</code></li></ul>
+                            </li>
+                            <li><strong>Bottom:</strong> Methods with - or +
+                                <ul><li>Example: <code>+ getTitle(): String</code></li></ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: var(--blueprint-sky-dark);">4️⃣ Show Relationships</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li><strong>Association:</strong> Regular connector line</li>
+                            <li><strong>Inheritance:</strong> Line with hollow triangle
+                                <ul><li>UML library: "Generalization" connector</li></ul>
+                            </li>
+                            <li><strong>Composition:</strong> Line with filled diamond</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">5️⃣ Add Multiplicity</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Double-click the <strong>connector line</strong></li>
+                            <li>Add text labels near endpoints</li>
+                            <li>Common: 1, 0..1, 0..*, 1..*</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">6️⃣ Format & Align</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Select multiple classes: Ctrl/Cmd + Click</li>
+                            <li>Top menu: <strong>Arrange → Align</strong></li>
+                            <li>Use <strong>Distribute</strong> for even spacing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tip-box" style="margin-top: 20px;">
+                    <strong>Visibility Symbols:</strong> Use <code>+</code> for public, <code>-</code> for private,
+                    <code>#</code> for protected. Format text as code (Courier font) for cleaner look!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Class Diagram - Student Exercise -->
         <div class="slide">
             <h1>Your Turn: Food Delivery App 🍕</h1>
 
@@ -944,7 +1109,75 @@
             </div>
         </div>
 
-        <!-- Slide 24: Sequence Diagram - Student Exercise -->
+        <!-- Slide 24: draw.io Tutorial - Sequence Diagrams -->
+        <div class="slide">
+            <h1>How to Create This in draw.io 💻</h1>
+
+            <div style="font-size: 1.05em; line-height: 1.7;">
+                <div class="demo-box" style="margin-bottom: 20px;">
+                    <h3>Step-by-Step: Sequence Diagrams in draw.io</h3>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="color: var(--blueprint-sky-dark);">1️⃣ Add Objects/Actors</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>From UML library: Drag <strong>"Object"</strong> boxes</li>
+                            <li>Or use <strong>"Actor"</strong> for users</li>
+                            <li>Arrange horizontally across the top</li>
+                            <li>Double-click to add names</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">2️⃣ Add Lifelines</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>From UML library: Drag <strong>"Lifeline"</strong></li>
+                            <li>Or use dashed line from General shapes</li>
+                            <li>Connect from bottom of each object, going down</li>
+                            <li>Set line style to <strong>dashed</strong></li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">3️⃣ Add Messages</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Use <strong>Arrow</strong> connector</li>
+                            <li>Draw from left lifeline to right</li>
+                            <li>Solid arrow = synchronous call</li>
+                            <li>Double-click arrow to add message text</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: var(--blueprint-sky-dark);">4️⃣ Add Return Messages</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Draw arrow from right back to left</li>
+                            <li>Change line style to <strong>dashed</strong></li>
+                            <li>Returns usually have shorter labels</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">5️⃣ Add Activation Boxes</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Thin rectangles on the lifeline</li>
+                            <li>Show when object is "active" or processing</li>
+                            <li>Overlay on the dashed lifeline</li>
+                            <li>Start where message arrives, end when done</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">6️⃣ Number the Messages</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Add numbers: <code>1:</code>, <code>2:</code>, etc.</li>
+                            <li>Helps show execution order</li>
+                            <li>Place before the message name</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tip-box" style="margin-top: 20px;">
+                    <strong>Pro Tip:</strong> Use <strong>Arrange → Insert → Horizontal Space</strong> to add room between messages.
+                    Keep objects evenly spaced for clarity!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Sequence Diagram - Student Exercise -->
         <div class="slide">
             <h1>Your Turn: Place Order 🍕</h1>
 
@@ -1093,7 +1326,72 @@
             </div>
         </div>
 
-        <!-- Slide 27: Activity Diagram - Student Exercise -->
+        <!-- Slide 27: draw.io Tutorial - Activity Diagrams -->
+        <div class="slide">
+            <h1>How to Create This in draw.io 💻</h1>
+
+            <div style="font-size: 1.05em; line-height: 1.7;">
+                <div class="demo-box" style="margin-bottom: 20px;">
+                    <h3>Step-by-Step: Activity Diagrams in draw.io</h3>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="color: var(--blueprint-sky-dark);">1️⃣ Add Start Node</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>From General shapes: <strong>Circle</strong></li>
+                            <li>Make it small and filled (solid black)</li>
+                            <li>Place at the top of your diagram</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">2️⃣ Add Activities</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Use <strong>Rounded Rectangle</strong></li>
+                            <li>From UML library: <strong>"Action"</strong> shape</li>
+                            <li>Double-click to add activity name</li>
+                            <li>Example: "Scan book barcode"</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">3️⃣ Add Decision Nodes</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>From General shapes: <strong>Diamond</strong></li>
+                            <li>Add question text inside (e.g., "Overdue?")</li>
+                            <li>Decision nodes have 2+ outgoing arrows</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: var(--blueprint-sky-dark);">4️⃣ Connect with Arrows</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Use solid <strong>Arrow</strong> connectors</li>
+                            <li>Connect in sequence: Start → Activity → Decision</li>
+                            <li>Label decision branches: "Yes", "No"</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">5️⃣ Merge Paths</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Multiple arrows can converge to one point</li>
+                            <li>Use small circle or directly to next activity</li>
+                            <li>All paths should eventually reach the end</li>
+                        </ul>
+
+                        <h4 style="color: var(--blueprint-sky-dark); margin-top: 20px;">6️⃣ Add End Node</h4>
+                        <ul style="font-size: 0.95em;">
+                            <li>Bull's eye symbol: Circle inside circle</li>
+                            <li>Outer circle = hollow, inner = filled</li>
+                            <li>Place at bottom where workflow ends</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tip-box" style="margin-top: 20px;">
+                    <strong>Swimlanes Tip:</strong> Want to show different actors? Use <strong>Table</strong> from General shapes
+                    with vertical columns. Place activities in appropriate columns!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 28: Activity Diagram - Student Exercise -->
         <div class="slide">
             <h1>Your Turn: Process Delivery 🍕</h1>
 
@@ -1126,41 +1424,6 @@
         </div>
 
         <!-- UML TOOLS & WRAP-UP -->
-
-        <!-- Slide 28: UML Tools -->
-        <div class="slide">
-            <h1>UML Tools & Resources 🛠️</h1>
-
-            <div style="font-size: 1.1em;">
-                <div class="course-component">
-                    <h3>💻 Free Online Tools</h3>
-                    <ul>
-                        <li><strong>draw.io (diagrams.net)</strong> - Versatile, free, web-based</li>
-                        <li><strong>Lucidchart</strong> - Professional, free tier available</li>
-                        <li><strong>PlantUML</strong> - Text-based diagrams (code to diagram)</li>
-                        <li><strong>Mermaid</strong> - Markdown-like diagram syntax</li>
-                    </ul>
-                </div>
-
-                <div class="course-component">
-                    <h3>📱 Desktop Applications</h3>
-                    <ul>
-                        <li><strong>Visual Paradigm</strong> - Full-featured (free community edition)</li>
-                        <li><strong>StarUML</strong> - Professional UML tool</li>
-                        <li><strong>Microsoft Visio</strong> - Industry standard (paid)</li>
-                    </ul>
-                </div>
-
-                <div class="course-component">
-                    <h3>📚 Learning Resources</h3>
-                    <ul>
-                        <li>UML 2.5 Specification (official reference)</li>
-                        <li>OMG UML Resource Page</li>
-                        <li>Martin Fowler's "UML Distilled"</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
         <!-- Slide 29: UML Best Practices -->
         <div class="slide">
@@ -1276,7 +1539,7 @@
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">31</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">34</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
