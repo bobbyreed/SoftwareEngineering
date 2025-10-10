@@ -3,52 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Links</title>
+    <title>Quick Links - CSCI 5403</title>
     <link rel="stylesheet" href="../styles/presentation.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <style>
-        body{
+        body {
             overflow: auto;
+            background: var(--bg-secondary);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        ol {
+            list-style-position: inside;
+            padding: 0;
+        }
+
+        ol li {
+            margin-bottom: 10px;
+        }
+
+        .home {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .home a {
+            display: block;
+            text-align: left;
+        }
+
+        .nav-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color, #e0e0e0);
+        }
+
+        .nav-section h2 {
+            color: var(--text-primary);
+            font-size: 1.2em;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
-    <ol>
-        
-        <li><button class="home"><a href="./lectures/1CourseIntroduction.html">Class Introduction</a></button></li>
-        <li><button class="home"><a href="./lectures/2HowTheWebWorks.html">How the Web Works</a></button></li>
-        <li><button class="home"><a href="./lectures/3HTMLElementsAndTags.html">HTML - Elements and Tags</a></button></li>
-        <li><button class="home"><a href="./lectures/4HTMLBoilerplate.html">HTML Boilerplate</a></button></li>
-        <li><button class="home"><a href="./lectures/5HTMLWorkingWithText.html">HTML - Working with Text</a></button></li>
-        <li><button class="home"><a href="./lectures/6HTMLListsLinksImages.html">HTML - Lists, Links, and Images</a></button></li>
-        <li><button class="home"><a href="./lectures/7WritingGoodCommits.html">Writing Good Commits</a></button></li>
-        <li><button class="home"><a href="./lectures/8IntrotoCSS.html">Intro to CSS</a></button></li>
-        <li><button class="home"><a href="./lectures/9CSSTheCascade.html">CSS - The Cascade</a></button></li>
-        <li><button class="home"><a href="./lectures/10BrowserDeveloperTools.html">Browser Developer Tools</a></button></li>
-        <li><button class="home"><a href="./lectures/11CSSTheBoxModel.html">CSS - The Box Model</a></button></li>
-        <li><button class="home"><a href="./lectures/12CSSBlockandInline.html">CSS - Block and Inline</a></button></li>
-        <li><button class="home"><a href="./lectures/13CSSFlexbox.html">CSS - Intro to Flexbox</a></button></li>
-        <li><button class="home"><a href="./lectures/14CSSFlexbox2.html">CSS - Flexbox</a></button></li>
-        <li><button class="home"><a href="./lectures/15MidtermReview.html">Midterm Review</a></button></li>
-        <li><button class="home"><a href="./lectures/16LandingPage.html">Landing Page</a></button></li>
-        <li><button class="home"><a href="./lectures/17Javascript.html">JavaScript Introduction</a></button></li>
-        <li><button class="home"><a href="./lectures/18JSEnvironmentSetup.html">JavaScript - Environment Setup</a></button></li>
-        <li><button class="home"><a href="./lectures/19JSDataTypesandConditionals.html">JavaScript - Data types and Conditionals</a></button></li>
-        <li><button class="home"><a href="./lectures/20JSDeveloperTools.html">JavaScript - Developer Tools</a></button></li>
-        <li><button class="home"><a href="./lectures/21JSFunctions.html">JavaScript - Functions</a></button></li>
-        <li><button class="home"><a href="./lectures/22JSLetVarConst.html">JavaScript - Let, Var, and Const</a></button></li>
-        <li><button class="home"><a href="./lectures/23JSErrors.html">JavaScript - Errors</a></button></li>
-        <li><button class="home"><a href="./lectures/24JSCleanCode.html">JavaScript - Clean Code</a></button></li>
-        <li><button class="home"><a href="./lectures/25JSLoopsandArrays.html">JavaScript - Loops and Arrays</a></button></li>
-        <li><button class="home"><a href="./lectures/27JSExcercises.html">JavaScript - Exercises</a></button></li>
-        <li><button class="home"><a href="./lectures/28JSEtchASketch.html">JavaScript - Etch-a-Sketch</a></button></li>
-        <li><button class="home"><a href="./lectures/29JSObjects.html">JavaScript - Objects</a></button></li>
-        <li><button class="home"><a href="./lectures/30FinalExamReview.html">Final Exam Review</a></button></li>
-        <li><button class="home"><a href="./lectures/31FinalBoss.html">Final Exam</a></button></li>
-        
-    </ol>
-    <button class="home"><a href="./adminPanel.html">Admin Panel</button></a><br>
-    <button class="home"><a href="../index.html">Back to Home</a></button><br>
-    <button class="home"><a href="./leaderboard.html">Leaderboard</a></button><br>
-    <button class="home"><a href="./achievementBadges.html">Achievements</a></button><br>
+    <div class="container">
+        <h1>📚 Quick Links</h1>
+        <p class="subtitle">Software Engineering - CSCI 5403</p>
+
+        <h2>Course Lectures</h2>
+        <ol>
+            <li><button class="home"><a href="./lectures/1Welcome.html">Class 1: Welcome & Syllabus Overview</a></button></li>
+            <li><button class="home"><a href="./lectures/2Agile.html">Class 2: Agile Software Engineering</a></button></li>
+            <li><button class="home"><a href="./lectures/3ProjectMangement.html">Class 3: Project Management</a></button></li>
+            <li><button class="home"><a href="./lectures/4CICD.html">Class 4: CI/CD Pipelines</a></button></li>
+            <li><button class="home"><a href="./lectures/5SoftwareArchitecture.html">Class 5: Software Architecture</a></button></li>
+            <li><button class="home"><a href="./lectures/6VibeCoding.html">Class 6: Vibe Coding</a></button></li>
+            <li><button class="home"><a href="./lectures/7CloudbasedSoftware.html">Class 7: Cloud-Based Software</a></button></li>
+            <li><button class="home"><a href="./lectures/8VibeCodingPresentations.html">Class 8: Vibe Coding Presentations</a></button></li>
+            <li><button class="home"><a href="./lectures/9Microservices.html">Class 9: Microservices Architecture</a></button></li>
+            <li><button class="home"><a href="./lectures/10Security.html">Class 10: Security & Privacy</a></button></li>
+            <li><button class="home"><a href="./lectures/11ReliableProgramming.html">Class 11: Reliable Programming</a></button></li>
+            <li><button class="home"><a href="./lectures/12Testing.html">Class 12: Testing</a></button></li>
+            <li><button class="home"><a href="./lectures/13DevOps.html">Class 13: DevOps & Code Management</a></button></li>
+            <li><button class="home"><a href="./lectures/14FinalReview.html">Class 14: Final Exam Review</a></button></li>
+            <li><button class="home"><a href="./lectures/15Final.html">Class 15: Final Exam</a></button></li>
+        </ol>
+
+        <div class="nav-section">
+            <h2>Navigation</h2>
+            <button class="home"><a href="../index.html">🏠 Back to Home</a></button>
+            <button class="home"><a href="./adminPanel.html">⚙️ Admin Panel</a></button>
+            <button class="home"><a href="./attendance.html">✓ Attendance</a></button>
+            <button class="home"><a href="./register-students.html">📝 Register Students</a></button>
+            <button class="home"><a href="./attendance-overview.html">📊 Attendance Overview</a></button>
+        </div>
+    </div>
 </body>
 </html>
