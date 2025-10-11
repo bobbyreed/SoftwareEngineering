@@ -165,11 +165,23 @@
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .student-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
         }
 
         .student-card.present {
             background: rgba(40, 167, 69, 0.2);
             border-left: 4px solid #28a745;
+        }
+
+        .student-card.late {
+            background: rgba(255, 193, 7, 0.2);
+            border-left: 4px solid #ffc107;
         }
 
         .student-card.absent {
@@ -178,9 +190,58 @@
             opacity: 0.6;
         }
 
+        .student-info {
+            flex: 1;
+        }
+
         .student-name {
             font-size: 1.1em;
             font-weight: 500;
+        }
+
+        .student-time {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .student-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-late {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .btn-late:hover {
+            background: #ffb300;
+        }
+
+        .info-note {
+            background: rgba(14, 165, 233, 0.1);
+            border: 2px solid var(--blueprint-sky);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            color: var(--text-primary);
         }
 
         .attendance-badge {
@@ -193,6 +254,12 @@
         .badge-present {
             background: #28a745;
             color: white;
+        }
+
+        .badge-late {
+            background: #ffc107;
+            color: #000;
+            font-weight: 600;
         }
 
         .badge-absent {
@@ -356,6 +423,10 @@
                 </div>
             </div>
 
+            <div class="info-note">
+                💡 <strong>Manual Entry:</strong> Click on a student card to toggle present/absent. Use "Late" button to mark as late arrival.
+            </div>
+
             <div class="attendance-grid" id="attendanceGrid">
                 <p style="text-align: center; color: var(--text-muted); padding: 20px; grid-column: 1/-1;">
                     No students registered. Please register students first.
@@ -494,7 +565,12 @@
         }
 
         // Toggle student attendance manually
-        async function toggleAttendance(lastName, firstName, fullName, isPresent) {
+        async function toggleAttendance(lastName, firstName, fullName, isPresent, event) {
+            // Prevent card click when clicking buttons
+            if (event && event.target.closest('.action-btn')) {
+                return;
+            }
+
             const date = getCurrentDate();
 
             try {
@@ -507,7 +583,8 @@
                     body: JSON.stringify({
                         firstName: firstName,
                         lastName: lastName,
-                        date: date
+                        date: date,
+                        isLate: false
                     })
                 });
 
@@ -522,6 +599,39 @@
             } catch (error) {
                 console.error('Error toggling attendance:', error);
                 showStatus('Error toggling attendance: ' + error.message, false);
+            }
+        }
+
+        // Mark student as late
+        async function markLate(lastName, firstName, fullName, event) {
+            event.stopPropagation(); // Prevent card click event
+            const date = getCurrentDate();
+
+            try {
+                const response = await fetch(`${API_BASE}/mark-attendance`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                        date: date,
+                        isLate: true
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showStatus(`⏱️ ${fullName} marked late`, true);
+                    await updateUI();
+                } else {
+                    showStatus(`Error: ${data.error}`, false);
+                }
+            } catch (error) {
+                console.error('Error marking late:', error);
+                showStatus('Error marking late: ' + error.message, false);
             }
         }
 
@@ -563,13 +673,28 @@
             }
 
             grid.innerHTML = filteredStudents.map(student => {
+                const statusClass = student.present ? (student.is_late ? 'late' : 'present') : 'absent';
+                const statusText = student.present ? (student.is_late ? '⏱️ Late' : '✓ Present') : '✗ Absent';
+                const badgeClass = student.present ? (student.is_late ? 'badge-late' : 'badge-present') : 'badge-absent';
+                const timeText = student.present && student.timestamp ?
+                    new Date(student.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
+
                 return `
-                    <div class="student-card ${student.present ? 'present' : 'absent'}"
-                         onclick="toggleAttendance('${student.last_name}', '${student.first_name}', '${student.full_name}', ${student.present})">
-                        <div class="student-name">${student.full_name}</div>
-                        <span class="attendance-badge ${student.present ? 'badge-present' : 'badge-absent'}">
-                            ${student.present ? '✓ Present' : '✗ Absent'}
-                        </span>
+                    <div class="student-card ${statusClass}"
+                         onclick="toggleAttendance('${student.last_name}', '${student.first_name}', '${student.full_name}', ${student.present}, event)">
+                        <div class="student-info">
+                            <div class="student-name">${student.full_name}</div>
+                            ${timeText ? `<div class="student-time">Marked at ${timeText}</div>` : ''}
+                        </div>
+                        <div class="student-actions">
+                            ${!student.present ?
+                                `<button class="action-btn btn-late" onclick="markLate('${student.last_name}', '${student.first_name}', '${student.full_name}', event)">Late</button>`
+                                : ''
+                            }
+                            <span class="attendance-badge ${badgeClass}">
+                                ${statusText}
+                            </span>
+                        </div>
                     </div>
                 `;
             }).join('');
