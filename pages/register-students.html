@@ -640,10 +640,15 @@
             cardInput.focus();
         });
 
-        // Keep input focused, but not when interacting with buttons
+        // Keep input focused, but not when interacting with buttons or manual entry fields
         cardInput.addEventListener('blur', (e) => {
-            // Don't refocus if user clicked a button or link
-            if (e.relatedTarget && (e.relatedTarget.tagName === 'BUTTON' || e.relatedTarget.tagName === 'A')) {
+            // Don't refocus if user clicked a button, link, or manual entry field
+            if (e.relatedTarget && (
+                e.relatedTarget.tagName === 'BUTTON' ||
+                e.relatedTarget.tagName === 'A' ||
+                e.relatedTarget.id === 'manualFirstName' ||
+                e.relatedTarget.id === 'manualLastName'
+            )) {
                 return;
             }
             setTimeout(() => cardInput.focus(), 100);
@@ -692,6 +697,13 @@
         // Keep focus on input, but not when interacting with UI elements
         setInterval(() => {
             const activeElement = document.activeElement;
+            // Don't refocus if user is typing in manual entry fields
+            if (activeElement && (
+                activeElement.id === 'manualFirstName' ||
+                activeElement.id === 'manualLastName'
+            )) {
+                return;
+            }
             // Only refocus if nothing else is focused or if body is focused
             if (!activeElement || activeElement === document.body) {
                 cardInput.focus();
