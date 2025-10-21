@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security and Privacy - Group Exercises - CSCI 5403</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+
+    <style>
+        /* OCU Brand Color Variables */
+        :root {
+            --ocu-black: #000000;
+            --ocu-true-blue: #00669b;
+            --ocu-white: #ffffff;
+            --ocu-dark-blue: #043d5d;
+            --ocu-cyan: #009edb;
+            --ocu-light-blue: #9ddcf9;
+            --ocu-green: #70bf54;
+            --ocu-light-green: #afd46c;
+            --ocu-yellow: #ffc222;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: #000000;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            border-bottom: 4px solid var(--ocu-true-blue);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--ocu-true-blue);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header h2 {
+            color: var(--ocu-dark-blue);
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        /* Student Info Section */
+        .student-info {
+            background: #f8f9fa;
+            border: 2px solid var(--ocu-true-blue);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .student-info-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .student-info-field label {
+            font-weight: bold;
+            color: var(--ocu-dark-blue);
+            min-width: 100px;
+        }
+
+        .student-info-field .fill-line {
+            flex: 1;
+            border-bottom: 2px solid #ccc;
+            height: 30px;
+        }
+
+        /* Exercise Container */
+        .exercise {
+            background: #ffffff;
+            border: 3px solid var(--ocu-true-blue);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+
+        .exercise-header {
+            background: linear-gradient(135deg, var(--ocu-true-blue) 0%, var(--ocu-cyan) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: -30px -30px 20px -30px;
+        }
+
+        .exercise-header h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .exercise-header .time {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .exercise-content {
+            margin: 20px 0;
+        }
+
+        .exercise-content p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .exercise-content ul, .exercise-content ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .exercise-content li {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .scenario-box {
+            background: #e8f4f9;
+            border-left: 5px solid var(--ocu-cyan);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .scenario-box strong {
+            color: var(--ocu-dark-blue);
+            font-size: 1.2em;
+        }
+
+        /* Answer Space */
+        .answer-space {
+            background: #f8f9fa;
+            border: 2px dashed var(--ocu-true-blue);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 200px;
+        }
+
+        .answer-space h4 {
+            color: var(--ocu-dark-blue);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .answer-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .answer-line {
+            border-bottom: 1px solid #ccc;
+            min-height: 30px;
+        }
+
+        /* Matching Exercise Styles */
+        .matching-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .matching-table td {
+            padding: 15px;
+            border: 1px solid #ccc;
+            font-size: 1.1em;
+        }
+
+        .matching-table td:first-child {
+            background: #f8f9fa;
+            font-weight: bold;
+            width: 70%;
+        }
+
+        .matching-table td:last-child {
+            width: 30%;
+            text-align: center;
+        }
+
+        /* Instructions Box */
+        .instructions {
+            background: #fff8e5;
+            border-left: 5px solid var(--ocu-yellow);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .instructions strong {
+            color: var(--ocu-dark-blue);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                padding: 20px;
+            }
+
+            .exercise {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+
+            .header {
+                page-break-after: avoid;
+            }
+
+            .student-info {
+                page-break-after: avoid;
+            }
+
+            @page {
+                margin: 1cm;
+            }
+        }
+
+        /* Screen-only elements */
+        .print-button-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .print-button {
+            background: var(--ocu-true-blue);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: var(--ocu-dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 155, 0.3);
+        }
+
+        @media print {
+            .print-button-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Security and Privacy</h1>
+        <h2>Group Exercises</h2>
+        <p>Fall '24</p>
+        <p>CSCI 5403 - Software Engineering | Week 8 - Lecture 8</p>
+    </div>
+
+    <!-- Print Button (hidden when printing) -->
+    <div class="print-button-container">
+        <button class="print-button" onclick="window.print()">🖨️ Print This Page</button>
+    </div>
+
+    <!-- Student Information -->
+    <div class="student-info">
+        <div class="student-info-field">
+            <label>Name:</label>
+            <div class="fill-line"></div>
+        </div>
+        <div class="student-info-field">
+            <label>Date:</label>
+            <div class="fill-line"></div>
+        </div>
+        <div class="student-info-field">
+            <label>Group Members:</label>
+            <div class="fill-line"></div>
+        </div>
+        <div class="student-info-field">
+            <label>Section:</label>
+            <div class="fill-line"></div>
+        </div>
+    </div>
+
+    <!-- Exercise 1: Group Discussion (Slide 43) -->
+    <div class="exercise">
+        <div class="exercise-header">
+            <h3>Exercise 1: Group Discussion - Health Tracking App</h3>
+            <div class="time">⏱️ Time: 15 minutes</div>
+        </div>
+
+        <div class="exercise-content">
+            <div class="scenario-box">
+                <strong>Scenario:</strong> You're building a health tracking app that collects:
+                <ul style="margin-top: 10px;">
+                    <li>User location (for running routes)</li>
+                    <li>Heart rate and fitness data</li>
+                    <li>Diet and medication information</li>
+                    <li>Social connections (workout buddies)</li>
+                </ul>
+            </div>
+
+            <p><strong>Discuss the following questions with your group:</strong></p>
+            <ol>
+                <li>What security threats should you consider?</li>
+                <li>What privacy regulations apply?</li>
+                <li>How would you implement authentication?</li>
+                <li>What data should be encrypted?</li>
+            </ol>
+
+            <div class="answer-space">
+                <h4>Question 1: Security Threats</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+
+            <div class="answer-space">
+                <h4>Question 2: Privacy Regulations</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+
+            <div class="answer-space">
+                <h4>Question 3: Authentication Implementation</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+
+            <div class="answer-space">
+                <h4>Question 4: Data Encryption</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercise 2: Privacy Audit (Slide 35) -->
+    <div class="exercise">
+        <div class="exercise-header">
+            <h3>Exercise 2: Privacy Audit</h3>
+            <div class="time">⏱️ Time: 10 minutes</div>
+        </div>
+
+        <div class="exercise-content">
+            <div class="instructions">
+                <strong>Instructions:</strong>
+                Review a website or app (your favorite social media, shopping site, or news site) and identify the following:
+            </div>
+
+            <ol>
+                <li>What personal data is collected?</li>
+                <li>Is there a privacy policy link?</li>
+                <li>Are cookies explained?</li>
+                <li>Is consent obtained properly?</li>
+                <li>Can users delete their data?</li>
+            </ol>
+
+            <div class="answer-space">
+                <h4>Website/App Audited:</h4>
+                <div class="answer-line"></div>
+            </div>
+
+            <div class="answer-space">
+                <h4>1. Personal Data Collected:</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+
+            <div class="answer-space">
+                <h4>2. Privacy Policy Link Present?</h4>
+                <div class="answer-line"></div>
+            </div>
+
+            <div class="answer-space">
+                <h4>3. Cookies Explained?</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+
+            <div class="answer-space">
+                <h4>4. Consent Obtained Properly?</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+
+            <div class="answer-space">
+                <h4>5. Can Users Delete Their Data?</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercise 3: Identify the Attack (Slide 14) -->
+    <div class="exercise">
+        <div class="exercise-header">
+            <h3>Exercise 3: Identify the Attack</h3>
+            <div class="time">⏱️ Time: 5 minutes</div>
+        </div>
+
+        <div class="exercise-content">
+            <div class="instructions">
+                <strong>Instructions:</strong>
+                Match each scenario to the correct attack type. Write the attack type in the blank space.
+            </div>
+
+            <p><strong>Attack Types:</strong> Phishing, DDoS, SQL Injection, XSS (Cross-Site Scripting), Brute Force</p>
+
+            <table class="matching-table">
+                <tr>
+                    <td>1. User receives email asking to verify bank account</td>
+                    <td><div class="answer-line"></div></td>
+                </tr>
+                <tr>
+                    <td>2. Website becomes unresponsive after 10,000 requests/second</td>
+                    <td><div class="answer-line"></div></td>
+                </tr>
+                <tr>
+                    <td>3. Login form accepts: ' OR 1=1 --</td>
+                    <td><div class="answer-line"></div></td>
+                </tr>
+                <tr>
+                    <td>4. Comment section displays: &lt;script&gt;alert('hacked')&lt;/script&gt;</td>
+                    <td><div class="answer-line"></div></td>
+                </tr>
+                <tr>
+                    <td>5. Automated script tries 1000 passwords on admin account</td>
+                    <td><div class="answer-line"></div></td>
+                </tr>
+            </table>
+
+            <div class="answer-space" style="min-height: 100px;">
+                <h4>Additional Notes / Explanations:</h4>
+                <div class="answer-lines">
+                    <div class="answer-line"></div>
+                    <div class="answer-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
