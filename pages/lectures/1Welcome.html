@@ -68,8 +68,31 @@
             overflow: auto;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .uml-diagram-box svg {
+            flex-shrink: 0;
+        }
+
+        .uml-diagram-box::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        .uml-diagram-box::-webkit-scrollbar-track {
+            background: var(--bg-accent);
+            border-radius: 10px;
+        }
+
+        .uml-diagram-box::-webkit-scrollbar-thumb {
+            background: var(--blueprint-sky);
+            border-radius: 10px;
+        }
+
+        .uml-diagram-box::-webkit-scrollbar-thumb:hover {
+            background: var(--blueprint-sky-dark);
         }
 
         .exercise-box {
