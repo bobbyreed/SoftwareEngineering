@@ -1,22 +1,23 @@
 const { getDB, successResponse, errorResponse, handleOptions } = require('./db-config');
 
 // Class dates from the course schedule (15 total lectures)
+// Course meets Tuesdays and Thursdays
 const CLASS_DATES = [
-    '2025-10-24', // Class 1: Welcome
-    '2025-10-29', // Class 2: Agile
-    '2025-10-31', // Class 3: Project Management
-    '2025-11-05', // Class 4: CI/CD
-    '2025-11-07', // Class 5: Software Architecture
-    '2025-11-12', // Class 6: Vibe Coding
-    '2025-11-14', // Class 7: Cloud-Based Software
-    '2025-11-19', // Class 8: Vibe Coding Presentations
-    '2025-11-21', // Class 9: Microservices
-    '2025-11-26', // Class 10: Security & Privacy
-    '2025-12-03', // Class 11: Reliable Programming
-    '2025-12-05', // Class 12: Testing
-    '2025-12-10', // Class 13: DevOps
-    '2025-12-12', // Class 14: Final Review
-    '2025-12-17'  // Class 15: Final Exam
+    '2025-10-23', // Class 1: Welcome (Thursday)
+    '2025-10-28', // Class 2: Agile (Tuesday)
+    '2025-10-30', // Class 3: Project Management (Thursday)
+    '2025-11-04', // Class 4: CI/CD (Tuesday)
+    '2025-11-06', // Class 5: Software Architecture (Thursday)
+    '2025-11-11', // Class 6: Vibe Coding (Tuesday)
+    '2025-11-13', // Class 7: Cloud-Based Software (Thursday)
+    '2025-11-18', // Class 8: Vibe Coding Presentations (Tuesday)
+    '2025-11-20', // Class 9: Microservices (Thursday)
+    '2025-11-25', // Class 10: Security & Privacy (Tuesday)
+    '2025-12-02', // Class 11: Reliable Programming (Tuesday)
+    '2025-12-04', // Class 12: Testing (Thursday)
+    '2025-12-09', // Class 13: DevOps (Tuesday)
+    '2025-12-11', // Class 14: Final Review (Thursday)
+    '2025-12-16'  // Class 15: Final Exam (Tuesday)
 ];
 
 exports.handler = async (event, context) => {
