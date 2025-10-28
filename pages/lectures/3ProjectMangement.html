@@ -95,6 +95,30 @@
             margin: 0 10px;
         }
 
+        /* Link styling for better visibility */
+        .slide a {
+            color: var(--blueprint-sky-light);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .slide a:hover {
+            color: var(--blueprint-sky);
+            text-decoration: none;
+        }
+
+        .slide a:visited {
+            color: var(--blueprint-purple-light);
+        }
+
+        [data-theme="dark"] .slide a {
+            color: var(--blueprint-sky-light);
+        }
+
+        [data-theme="dark"] .slide a:visited {
+            color: var(--blueprint-purple-light);
+        }
+
         .kanban-board {
             display: flex;
             gap: 20px;
