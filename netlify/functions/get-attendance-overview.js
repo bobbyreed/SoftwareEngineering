@@ -56,10 +56,14 @@ exports.handler = async (event, context) => {
         const overview = students.map(student => {
             // Create array of 15 class periods
             const attendance = CLASS_DATES.map((date, index) => {
-                const record = allAttendance.find(a =>
-                    a.student_id === student.id &&
-                    a.attendance_date === date
-                );
+                const record = allAttendance.find(a => {
+                    // Convert database date to YYYY-MM-DD string for comparison
+                    const dbDate = a.attendance_date instanceof Date
+                        ? a.attendance_date.toISOString().split('T')[0]
+                        : a.attendance_date;
+
+                    return a.student_id === student.id && dbDate === date;
+                });
 
                 return {
                     classNumber: index + 1,
