@@ -62,21 +62,29 @@
             border-radius: 8px;
             border-left: 4px solid var(--blueprint-sky);
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 85px;
+            display: flex;
+            flex-direction: column;
         }
 
         .persona-detail strong {
             color: var(--blueprint-sky);
             display: block;
-            font-size: 0.95em;
+            font-size: 0.9em;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 700;
+            flex-shrink: 0;
         }
 
         .persona-detail-content {
             color: #333;
-            line-height: 1.5;
+            line-height: 1.4;
+            font-size: 0.95em;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            flex: 1;
         }
 
         .persona-quote {
