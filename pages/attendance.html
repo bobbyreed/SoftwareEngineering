@@ -92,6 +92,40 @@
             height: 1px;
         }
 
+        .swipe-status-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .swipe-status-indicator.ready {
+            background-color: #28a745;
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+
+        .swipe-status-indicator.processing {
+            background-color: #ffc107;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+
+        .swipe-status-indicator.not-ready {
+            background-color: #dc3545;
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+        }
+
+        .swipe-status-text {
+            font-size: 1.2em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
         .status-message {
             padding: 15px;
             border-radius: 8px;
@@ -386,10 +420,13 @@
             <h2>Swipe Student Card</h2>
 
             <div class="swipe-area active" id="swipeArea">
-                <h3>✓ Ready to Scan</h3>
+                <div class="swipe-status-text">
+                    <span class="swipe-status-indicator ready" id="swipeIndicator"></span>
+                    <span id="swipeStatusText">Ready for swipe</span>
+                </div>
                 <p>Swipe student cards to mark attendance</p>
                 <p style="font-size: 0.9em; color: var(--text-muted); margin-top: 10px;">
-                    Click here first, then swipe cards
+                    Click here if indicator is red
                 </p>
             </div>
 
@@ -849,12 +886,55 @@
             updateUI();
         }
 
+        // Status indicator management
+        const swipeIndicator = document.getElementById('swipeIndicator');
+        const swipeStatusText = document.getElementById('swipeStatusText');
+        let isProcessing = false;
+
+        function updateSwipeStatus(status) {
+            swipeIndicator.className = 'swipe-status-indicator ' + status;
+
+            switch(status) {
+                case 'ready':
+                    swipeStatusText.textContent = 'Ready for swipe';
+                    break;
+                case 'processing':
+                    swipeStatusText.textContent = 'Processing...';
+                    break;
+                case 'not-ready':
+                    swipeStatusText.textContent = 'Click here to focus';
+                    break;
+            }
+        }
+
+        function ensureFocus() {
+            const cardInput = document.getElementById('cardInput');
+            if (document.activeElement !== cardInput) {
+                cardInput.focus();
+                setTimeout(() => {
+                    if (document.activeElement === cardInput && !isProcessing) {
+                        updateSwipeStatus('ready');
+                    }
+                }, 100);
+            }
+        }
+
         // Handle card input
         const cardInput = document.getElementById('cardInput');
         const swipeArea = document.getElementById('swipeArea');
 
         swipeArea.addEventListener('click', () => {
             cardInput.focus();
+            if (!isProcessing) {
+                updateSwipeStatus('ready');
+            }
+        });
+
+        // Track focus state for status indicator
+        cardInput.addEventListener('focus', () => {
+            if (!isProcessing) {
+                updateSwipeStatus('ready');
+            }
         });
 
         // Keep input focused, but not when interacting with buttons
@@ -865,24 +945,40 @@
                 e.relatedTarget.tagName === 'A' ||
                 e.relatedTarget.tagName === 'INPUT'
             )) {
+                updateSwipeStatus('not-ready');
                 return;
             }
-            setTimeout(() => cardInput.focus(), 100);
+            setTimeout(() => {
+                cardInput.focus();
+                if (!isProcessing) {
+                    updateSwipeStatus('ready');
+                }
+            }, 100);
         });
 
-        cardInput.addEventListener('input', (e) => {
+        cardInput.addEventListener('input', async (e) => {
             const value = e.target.value;
 
             if (value.includes('?')) {
+                isProcessing = true;
+                updateSwipeStatus('processing');
+
                 const studentData = parseCardData(value);
+                cardInput.value = '';
 
                 if (studentData) {
-                    markPresent(studentData);
+                    await markPresent(studentData);
                 } else {
                     showStatus('Could not read card data. Please try again.', false);
                 }
 
-                cardInput.value = '';
+                isProcessing = false;
+
+                // Refocus and update status
+                setTimeout(() => {
+                    cardInput.focus();
+                    updateSwipeStatus('ready');
+                }, 100);
             }
         });
 
@@ -906,11 +1002,25 @@
         // Keep focus on input, but not when interacting with UI elements
         setInterval(() => {
             const activeElement = document.activeElement;
-            // Only refocus if nothing else is focused or if body is focused
-            if (!activeElement || activeElement === document.body) {
+
+            // Update status indicator based on focus state
+            if (activeElement === cardInput) {
+                if (!isProcessing) {
+                    updateSwipeStatus('ready');
+                }
+            } else if (!activeElement || activeElement === document.body) {
+                // Only refocus if nothing else is focused or if body is focused
                 cardInput.focus();
+                if (!isProcessing) {
+                    updateSwipeStatus('ready');
+                }
+            } else {
+                // Something else has focus (button, input, etc.)
+                if (!isProcessing) {
+                    updateSwipeStatus('not-ready');
+                }
             }
-        }, 1000);
+        }, 500);
     </script>
 </body>
 </html>
