@@ -966,19 +966,24 @@
                 const studentData = parseCardData(value);
                 cardInput.value = '';
 
-                if (studentData) {
-                    await markPresent(studentData);
-                } else {
-                    showStatus('Could not read card data. Please try again.', false);
+                try {
+                    if (studentData) {
+                        await markPresent(studentData);
+                    } else {
+                        showStatus('Could not read card data. Please try again.', false);
+                    }
+                } catch (error) {
+                    console.error('Error processing card swipe:', error);
+                    showStatus('Error processing card swipe. Please try again.', false);
+                } finally {
+                    isProcessing = false;
+
+                    // Refocus and update status
+                    setTimeout(() => {
+                        cardInput.focus();
+                        updateSwipeStatus('ready');
+                    }, 100);
                 }
-
-                isProcessing = false;
-
-                // Refocus and update status
-                setTimeout(() => {
-                    cardInput.focus();
-                    updateSwipeStatus('ready');
-                }, 100);
             }
         });
 
