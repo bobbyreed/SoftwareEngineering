@@ -12,35 +12,87 @@
     <!-- Lecture-Specific Styles -->
     <style>
         .persona-card {
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+            color: #1a1a1a;
+            border-radius: 12px;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 650px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .persona-card-header {
             background: linear-gradient(135deg, var(--blueprint-sky) 0%, var(--blueprint-purple) 100%);
             color: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px auto;
-            max-width: 600px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 25px 30px;
+            border-bottom: 3px solid rgba(255,255,255,0.3);
         }
 
         .persona-card h3 {
-            margin-top: 0;
-            font-size: 1.8em;
+            margin: 0 0 8px 0;
+            font-size: 2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .persona-card .role-tagline {
+            font-style: italic;
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .persona-card-body {
+            padding: 30px;
         }
 
         .persona-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 18px;
+            margin-top: 20px;
         }
 
         .persona-detail {
-            background: rgba(0,0,0,0.3);
-            padding: 10px;
+            background: #ffffff;
+            padding: 16px;
             border-radius: 8px;
+            border-left: 4px solid var(--blueprint-sky);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .persona-detail strong {
-            color: white;
+            color: var(--blueprint-sky);
+            display: block;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .persona-detail-content {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .persona-quote {
+            background: rgba(14, 165, 233, 0.08);
+            border-left: 4px solid var(--blueprint-purple);
+            padding: 18px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-style: italic;
+            color: #1a1a1a;
+        }
+
+        .persona-quote strong {
+            color: var(--blueprint-purple);
+            font-style: normal;
+            font-weight: 700;
         }
 
         .scenario-box {
@@ -257,27 +309,33 @@
         <div class="slide">
             <h1>Example Persona</h1>
             <div class="persona-card">
-                <h3>Sarah Chen - Busy Professional</h3>
-                <p style="font-style: italic;">Age: 32 | Location: Oklahoma City | Role: Marketing Manager</p>
-                <div class="persona-details">
-                    <div class="persona-detail">
-                        <strong>Background:</strong><br>
-                        MBA from OCU, 8 years experience
+                <div class="persona-card-header">
+                    <h3>Sarah Chen</h3>
+                    <p class="role-tagline">Marketing Manager | Age 32 | Oklahoma City</p>
+                </div>
+                <div class="persona-card-body">
+                    <div class="persona-details">
+                        <div class="persona-detail">
+                            <strong>Background</strong>
+                            <div class="persona-detail-content">MBA from OCU, 8 years experience in marketing leadership</div>
+                        </div>
+                        <div class="persona-detail">
+                            <strong>Tech Skills</strong>
+                            <div class="persona-detail-content">Intermediate proficiency, comfortable with SaaS tools</div>
+                        </div>
+                        <div class="persona-detail">
+                            <strong>Goals</strong>
+                            <div class="persona-detail-content">Streamline team collaboration and increase productivity</div>
+                        </div>
+                        <div class="persona-detail">
+                            <strong>Pain Points</strong>
+                            <div class="persona-detail-content">Managing too many disconnected tools and platforms</div>
+                        </div>
                     </div>
-                    <div class="persona-detail">
-                        <strong>Tech Skills:</strong><br>
-                        Intermediate, uses many SaaS tools
-                    </div>
-                    <div class="persona-detail">
-                        <strong>Goals:</strong><br>
-                        Streamline team collaboration
-                    </div>
-                    <div class="persona-detail">
-                        <strong>Pain Points:</strong><br>
-                        Too many disconnected tools
+                    <div class="persona-quote">
+                        <strong>Quote:</strong> "I need one place to manage all our projects without switching between five different apps."
                     </div>
                 </div>
-                <p style="margin-top: 15px;"><strong>Quote:</strong> "I need one place to manage all our projects without switching between five different apps."</p>
             </div>
         </div>
 
