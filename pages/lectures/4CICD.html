@@ -117,7 +117,56 @@
             </ul>
         </div>
 
-        <!-- Slide 4: The Reality Gap -->
+        <!-- Slide 4: What is a CI/CD Pipeline? (Introduction) -->
+        <div class="slide">
+            <h1>What is a CI/CD Pipeline? <span class="emoji">🤔</span></h1>
+            <div class="demo-box" style="margin: 20px 0;">
+                <h2>Think of it like an assembly line for software</h2>
+                <p style="font-size: 1.3em; margin-top: 1em;">
+                    Just like a car factory has automated steps to build a car,
+                    a CI/CD pipeline has automated steps to build and deliver software.
+                </p>
+            </div>
+
+            <div class="activity-box">
+                <h3>The Manual Way (Before CI/CD) 😓</h3>
+                <ol style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Developer writes code on their computer</li>
+                    <li>Manually copy files to a server</li>
+                    <li>Hope it works in production</li>
+                    <li>If it breaks, scramble to fix it manually</li>
+                </ol>
+            </div>
+
+            <div class="tip-box" style="margin-top: 1em;">
+                <strong>The Problem:</strong> Slow, error-prone, doesn't scale
+            </div>
+        </div>
+
+        <!-- Slide 5: CI/CD Pipeline Benefits -->
+        <div class="slide">
+            <h1>The Automated Way (With CI/CD) <span class="emoji">✨</span></h1>
+
+            <div class="pipeline-diagram">
+                <h2>Every code change triggers an automatic process:</h2>
+                <div style="font-size: 1.3em; line-height: 2; margin-top: 1em;">
+                    <p>1️⃣ <strong>Code</strong> → You write code and push to GitHub</p>
+                    <p>2️⃣ <strong>Build</strong> → Automatically compile/package your code</p>
+                    <p>3️⃣ <strong>Test</strong> → Automatically run all tests</p>
+                    <p>4️⃣ <strong>Deploy</strong> → Automatically deploy to production</p>
+                </div>
+            </div>
+
+            <div class="demo-box" style="margin-top: 1em;">
+                <h3>Simple Example:</h3>
+                <p style="font-size: 1.2em;">
+                    You fix a typo on your website → push to GitHub →
+                    Within minutes, the fixed website is live automatically!
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 6: The Reality Gap -->
         <div class="slide">
             <h1>The Harsh Reality <span class="emoji">😰</span></h1>
             <div class="metric-box">
@@ -244,19 +293,15 @@
             </div>
         </div>
 
-        <!-- Slide 11: Netflix Case Study Title -->
+        <!-- Slide 11: Netflix Case Study -->
         <div class="slide">
             <h1>Elite Performer: Netflix <span class="emoji">🎬</span></h1>
             <div class="case-study">
                 <h2>From Catastrophe to Excellence</h2>
-                <p style="font-size: 1.3em;">Journey from database failures to thousands of daily deployments</p>
+                <p style="font-size: 1.2em;">Journey from database failures to thousands of daily deployments</p>
             </div>
-        </div>
 
-        <!-- Slide 12: Netflix Metrics -->
-        <div class="slide">
-            <h1>Netflix: The Numbers</h1>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; margin: 1.5em 0;">
                 <div class="success-metric">
                     <h3>1000+ deploys/day</h3>
                 </div>
@@ -270,37 +315,34 @@
                     <h3>Zero downtime</h3>
                 </div>
             </div>
-            <div class="tip-box" style="margin-top: 2em;">
+
+            <div class="tip-box" style="margin-top: 1em;">
                 <strong>Key Tools:</strong> Spinnaker for deployments, Chaos Monkey for resilience testing
             </div>
         </div>
 
-        <!-- Slide 13: Meta Case Study -->
+        <!-- Slide 12: Meta Case Study -->
         <div class="slide">
             <h1>Elite Performer: Meta <span class="emoji">👥</span></h1>
             <div class="case-study">
                 <h2>Conveyor System at Scale</h2>
-                <ul style="font-size: 1.2em; line-height: 1.8;">
+                <ul style="font-size: 1.1em; line-height: 1.7;">
                     <li>30,000+ deployment pipelines</li>
                     <li>97% fully automated deployments</li>
                     <li>1,000+ code changes daily</li>
                     <li>50,000-60,000 daily Android builds</li>
                 </ul>
             </div>
-        </div>
 
-        <!-- Slide 14: Meta's Approach -->
-        <div class="slide">
-            <h1>Meta's Quasi-Continuous Deployment</h1>
-            <div class="pipeline-diagram">
+            <div class="pipeline-diagram" style="margin-top: 1.5em;">
                 <h3>Tiered Rollout Strategy</h3>
-                <ol style="font-size: 1.3em; line-height: 2;">
+                <ol style="font-size: 1.2em; line-height: 1.8;">
                     <li>Internal employees (dogfooding)</li>
                     <li>2% production canaries</li>
                     <li>Gradual rollout to regions</li>
                     <li>Full production deployment</li>
                 </ol>
-                <p style="margin-top: 1em;">Batches hundreds of commits every few hours</p>
+                <p style="margin-top: 0.8em; font-size: 1.1em;">Batches hundreds of commits every few hours</p>
             </div>
         </div>
 
@@ -445,11 +487,40 @@
             </div>
         </div>
 
-        <!-- Slide 24: NIST Framework -->
+        <!-- Slide 24: What is NIST? -->
         <div class="slide">
-            <h1>NIST Security Framework</h1>
+            <h1>What is NIST? <span class="emoji">🏛️</span></h1>
+            <div class="demo-box">
+                <h2>National Institute of Standards and Technology</h2>
+                <p style="font-size: 1.2em; margin-top: 1em;">
+                    A U.S. government agency that develops technology, metrics, and standards
+                    to enhance economic security and improve quality of life.
+                </p>
+            </div>
+
+            <div class="activity-box" style="margin-top: 1.5em;">
+                <h3>Why Software Engineers Care About NIST</h3>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li><strong>Industry Standards:</strong> NIST guidelines are widely adopted across government and private sectors</li>
+                    <li><strong>Security Requirements:</strong> Many organizations require NIST compliance for contracts</li>
+                    <li><strong>Best Practices:</strong> NIST frameworks provide proven security patterns</li>
+                    <li><strong>Risk Management:</strong> Helps organizations systematically manage cybersecurity risks</li>
+                </ul>
+            </div>
+
+            <div class="tip-box" style="margin-top: 1em;">
+                <strong>For CI/CD:</strong> NIST provides specific guidelines for securing software supply chains and deployment pipelines
+            </div>
+        </div>
+
+        <!-- Slide 25: NIST Framework for CI/CD -->
+        <div class="slide">
+            <h1>NIST Framework for CI/CD Security</h1>
             <div class="metric-box">
                 <h2>SP 800-204D Guidelines</h2>
+                <p style="font-size: 1.1em; margin-bottom: 1em;">
+                    <strong>Special Publication 800-204D:</strong> Strategies for the Integration of Software Supply Chain Security in DevSecOps CI/CD pipelines
+                </p>
                 <ul style="font-size: 1.2em; line-height: 1.8;">
                     <li>🔒 Secure build processes with attestation</li>
                     <li>🔑 Multi-factor authentication for operations</li>
@@ -527,7 +598,24 @@
             </div>
         </div>
 
-        <!-- Slide 29: Microservices Challenges -->
+        <!-- Slide 29: MLOps Video -->
+        <div class="slide">
+            <h1>MLOps in Action <span class="emoji">🎥</span></h1>
+            <div style="display: flex; justify-content: center; align-items: center; height: 70vh;">
+                <iframe
+                    width="560"
+                    height="315"
+                    src="https://www.youtube.com/embed/EwZcKZ_k6d0"
+                    title="MLOps Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Slide 30: Microservices Challenges -->
         <div class="slide">
             <h1>Microservices CI/CD</h1>
             <div class="metric-box">
@@ -1111,7 +1199,7 @@ git push origin main</pre>
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">57</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">59</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
