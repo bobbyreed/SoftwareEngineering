@@ -890,7 +890,7 @@ jobs:
         echo "window.BUILD_TIME='$(date)';" > build-info.js
         cat script.js >> build-info.js
         mv build-info.js script.js
-    
+
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
@@ -902,7 +902,38 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 43: Step 7 - Push and Configure GitHub Pages -->
+        <!-- Slide 43: IMPORTANT - Enable Workflow Permissions -->
+        <div class="slide">
+            <h1>⚠️ IMPORTANT: Enable Workflow Permissions</h1>
+            <div class="security-alert" style="background: #ff9800;">
+                <h2>Do this BEFORE pushing your code!</h2>
+                <p style="font-size: 1.2em;">Without this step, your Action will fail with a 403 error.</p>
+            </div>
+
+            <div class="activity-box" style="margin-top: 1.5em;">
+                <h3>Enable Write Permissions for GitHub Actions:</h3>
+                <ol style="font-size: 1.15em; line-height: 1.8;">
+                    <li>Go to your repository on GitHub</li>
+                    <li>Click <strong>Settings</strong> (top menu bar)</li>
+                    <li>In the left sidebar, click <strong>Actions</strong> → <strong>General</strong></li>
+                    <li>Scroll down to <strong>"Workflow permissions"</strong> section</li>
+                    <li>Select <strong>"Read and write permissions"</strong>
+                        <p style="margin-left: 2em; font-size: 0.9em; color: var(--text-secondary); margin-top: 0.5em;">
+                            (Not "Read repository contents and packages permissions")
+                        </p>
+                    </li>
+                    <li>✅ Check <strong>"Allow GitHub Actions to create and approve pull requests"</strong></li>
+                    <li>Click <strong>Save</strong> at the bottom</li>
+                </ol>
+            </div>
+
+            <div class="tip-box" style="margin-top: 1em;">
+                <strong>Why?</strong> The deployment action needs permission to push to the gh-pages branch.
+                By default, GitHub Actions only has read access for security reasons.
+            </div>
+        </div>
+
+        <!-- Slide 44: Step 7 - Push and Configure GitHub Pages -->
         <div class="slide">
             <h1>Step 7: Push Code & Configure GitHub Pages</h1>
             <div class="activity-box" style="font-size: 1.05em;">
@@ -930,7 +961,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 44: Step 7 Continued - Configure GitHub Pages -->
+        <!-- Slide 45: Step 7 Continued - Configure GitHub Pages -->
         <div class="slide">
             <h1>Step 7 (Continued): Configure GitHub Pages</h1>
             <div class="activity-box">
@@ -958,7 +989,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 45: Step 8 - Monitor Pipeline -->
+        <!-- Slide 46: Step 8 - Monitor Pipeline -->
         <div class="slide">
             <h1>Step 8: Monitor Your Pipeline <span class="emoji">📊</span></h1>
             <div class="activity-box">
@@ -983,7 +1014,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 46: Understanding deploy.yml (ELI5) -->
+        <!-- Slide 47: Understanding deploy.yml (ELI5) -->
         <div class="slide">
             <h1>Understanding deploy.yml - Explained Simply <span class="emoji">📖</span></h1>
             <div class="demo-box">
@@ -1033,7 +1064,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 47: deploy.yml Step-by-Step Breakdown -->
+        <!-- Slide 48: deploy.yml Step-by-Step Breakdown -->
         <div class="slide">
             <h1>deploy.yml Breakdown - Line by Line <span class="emoji">🔍</span></h1>
 
@@ -1063,7 +1094,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 48: More deploy.yml Explanations -->
+        <!-- Slide 49: More deploy.yml Explanations -->
         <div class="slide">
             <h1>deploy.yml Breakdown - Continued <span class="emoji">🔍</span></h1>
 
@@ -1094,7 +1125,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 49: Key Concepts Summary -->
+        <!-- Slide 50: Key Concepts Summary -->
         <div class="slide">
             <h1>Key Concepts You Just Learned <span class="emoji">🎓</span></h1>
 
@@ -1122,7 +1153,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 50: Understanding YAML -->
+        <!-- Slide 51: Understanding YAML -->
         <div class="slide">
             <h1>Understanding the YAML</h1>
             <div class="metric-box">
@@ -1140,7 +1171,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 51: Advanced Features -->
+        <!-- Slide 52: Advanced Features -->
         <div class="slide">
             <h1>Exercise Extensions</h1>
             <div class="activity-box">
@@ -1159,28 +1190,38 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 52: Troubleshooting Guide -->
+        <!-- Slide 53: Troubleshooting Guide -->
         <div class="slide">
             <h1>Troubleshooting Common Issues</h1>
             <div class="comparison-table">
-                <div class="comparison-card bad">
+                <div class="comparison-card bad" style="font-size: 0.95em;">
                     <h3>❌ Common Errors</h3>
-                    <p><strong>Permission denied:</strong> Check GITHUB_TOKEN</p>
-                    <p><strong>Branch not found:</strong> Verify branch names</p>
-                    <p><strong>Build fails:</strong> Check syntax errors</p>
-                    <p><strong>Page 404:</strong> Verify Pages settings</p>
+                    <p><strong>403 Error / Permission denied to github-actions[bot]:</strong></p>
+                    <p style="font-size: 0.9em; margin-left: 1em;">Missing workflow permissions</p>
+
+                    <p style="margin-top: 1em;"><strong>Branch not found (gh-pages):</strong></p>
+                    <p style="font-size: 0.9em; margin-left: 1em;">Wait for first workflow to complete</p>
+
+                    <p style="margin-top: 1em;"><strong>Build fails:</strong></p>
+                    <p style="font-size: 0.9em; margin-left: 1em;">Check YAML syntax errors</p>
+
+                    <p style="margin-top: 1em;"><strong>Page shows 404:</strong></p>
+                    <p style="font-size: 0.9em; margin-left: 1em;">Pages not configured or DNS propagating</p>
                 </div>
-                <div class="comparison-card good">
+                <div class="comparison-card good" style="font-size: 0.95em;">
                     <h3>✅ Solutions</h3>
-                    <p>Enable workflow permissions in Settings</p>
-                    <p>Use correct default branch (main/master)</p>
-                    <p>Validate YAML at yamllint.com</p>
-                    <p>Wait 10 minutes for DNS propagation</p>
+                    <p><strong>For 403:</strong> Settings → Actions → General → Enable "Read and write permissions"</p>
+
+                    <p style="margin-top: 1em;"><strong>For branch:</strong> Check Actions tab for green checkmark</p>
+
+                    <p style="margin-top: 1em;"><strong>For build:</strong> Use yamllint.com to validate YAML</p>
+
+                    <p style="margin-top: 1em;"><strong>For 404:</strong> Wait 5-10 minutes for deployment</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 53: Best Practices Review -->
+        <!-- Slide 54: Best Practices Review -->
         <div class="slide">
             <h1>CI/CD Best Practices Applied</h1>
             <div class="metric-box">
@@ -1196,7 +1237,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 54: Implementation Strategy (renumbered from 34) -->
+        <!-- Slide 55: Implementation Strategy (renumbered from 34) -->
         <div class="slide">
             <h1>Progressive Implementation</h1>
             <div class="activity-box">
@@ -1213,7 +1254,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 55: Additional Practice Activity -->
+        <!-- Slide 56: Additional Practice Activity -->
         <div class="slide">
             <h1>Design Exercise <span class="emoji">📐</span></h1>
             <div class="activity-box">
@@ -1231,7 +1272,7 @@ jobs:
             <button data-timer="10">Start 10-Minute Timer</button>
         </div>
 
-        <!-- Slide 56: Future Directions -->
+        <!-- Slide 57: Future Directions -->
         <div class="slide">
             <h1>Future of CI/CD</h1>
             <div class="pipeline-diagram">
@@ -1246,7 +1287,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 57: Key Takeaways -->
+        <!-- Slide 58: Key Takeaways -->
         <div class="slide">
             <h1>Key Takeaways</h1>
             <div class="metric-box">
@@ -1261,7 +1302,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 58: Academic Research -->
+        <!-- Slide 59: Academic Research -->
         <div class="slide">
             <h1>Research Foundation</h1>
             <div class="metric-box">
@@ -1274,7 +1315,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 59: Failure Statistics -->
+        <!-- Slide 60: Failure Statistics -->
         <div class="slide">
             <h1>Why Organizations Fail</h1>
             <div class="comparison-card bad">
@@ -1289,7 +1330,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 60: Call to Action -->
+        <!-- Slide 61: Call to Action -->
         <div class="slide">
             <h1>Your CI/CD Journey</h1>
             <div class="pipeline-diagram">
@@ -1306,7 +1347,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 61: References -->
+        <!-- Slide 62: References -->
         <div class="slide">
             <h1>References & Further Reading</h1>
             <div style="font-size: 0.9em; line-height: 1.6;">
@@ -1330,7 +1371,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 62: Additional Resources -->
+        <!-- Slide 63: Additional Resources -->
         <div class="slide">
             <h1>Tools & Frameworks</h1>
             <div class="metric-box">
@@ -1360,7 +1401,7 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 63: Summary -->
+        <!-- Slide 64: Summary -->
         <div class="slide">
             <h1>Today's Learning Complete! <span class="emoji">🎓</span></h1>
             <h2>You Can Now:</h2>
@@ -1381,7 +1422,7 @@ jobs:
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">64</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">65</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
