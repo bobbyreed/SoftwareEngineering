@@ -902,45 +902,88 @@ jobs:
             </div>
         </div>
 
-        <!-- Slide 43: Step 7 - Enable GitHub Pages -->
+        <!-- Slide 43: Step 7 - Push and Configure GitHub Pages -->
         <div class="slide">
-            <h1>Step 7: Configure GitHub Pages</h1>
+            <h1>Step 7: Push Code & Configure GitHub Pages</h1>
+            <div class="activity-box" style="font-size: 1.05em;">
+                <h3>First, push your code to trigger the pipeline:</h3>
+                <ol style="line-height: 1.8;">
+                    <li><strong>Stage all files:</strong> <code>git add .</code>
+                        <p style="margin-left: 2em; font-size: 0.95em; color: var(--text-secondary);">
+                            Tells Git "I want to include ALL my changes in the next commit"<br>
+                            The dot (.) means "everything in this folder"
+                        </p>
+                    </li>
+                    <li><strong>Create a commit:</strong> <code>git commit -m "feat: Add CI/CD pipeline with GitHub Actions"</code>
+                        <p style="margin-left: 2em; font-size: 0.95em; color: var(--text-secondary);">
+                            Creates a snapshot of your changes with a descriptive message<br>
+                            The <code>-m</code> flag lets you write the message in quotes
+                        </p>
+                    </li>
+                    <li><strong>Push to GitHub:</strong> <code>git push origin main</code>
+                        <p style="margin-left: 2em; font-size: 0.95em; color: var(--text-secondary);">
+                            Uploads your commit to GitHub on the "main" branch<br>
+                            This automatically triggers your CI/CD pipeline! 🚀
+                        </p>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 44: Step 7 Continued - Configure GitHub Pages -->
+        <div class="slide">
+            <h1>Step 7 (Continued): Configure GitHub Pages</h1>
             <div class="activity-box">
-                <h3>Repository Settings</h3>
-                <ol style="font-size: 1.2em; line-height: 1.8;">
-                    <li>Go to repository Settings → Pages</li>
-                    <li>Source: Deploy from a branch</li>
-                    <li>Branch: <code>gh-pages</code> (created by action)</li>
+                <h3>Wait for the Action to complete, then configure Pages:</h3>
+                <ol start="4" style="font-size: 1.2em; line-height: 1.8;">
+                    <li>Go to GitHub repository → <strong>Actions tab</strong>
+                        <p style="margin-left: 2em; font-size: 0.9em; color: var(--text-secondary);">
+                            Watch the workflow run (takes 1-2 minutes)<br>
+                            Green checkmark ✅ = Ready to continue!
+                        </p>
+                    </li>
+                    <li>Go to repository <strong>Settings → Pages</strong></li>
+                    <li>Source: <strong>Deploy from a branch</strong></li>
+                    <li>Branch: <code>gh-pages</code> (now available!)
+                        <p style="margin-left: 2em; font-size: 0.9em; color: var(--text-secondary);">
+                            This branch was created by the Action
+                        </p>
+                    </li>
                     <li>Folder: <code>/ (root)</code></li>
-                    <li>Save settings</li>
+                    <li><strong>Save</strong> settings</li>
                 </ol>
                 <div class="tip-box" style="margin-top: 1em;">
-                    <strong>URL Format:</strong> https://[username].github.io/my-cicd-website/
+                    <strong>Your Site URL:</strong> https://[username].github.io/my-cicd-website/
                 </div>
             </div>
         </div>
 
-        <!-- Slide 44: Step 8 - Commit and Push -->
+        <!-- Slide 45: Step 8 - Monitor Pipeline -->
         <div class="slide">
-            <h1>Step 8: Trigger the Pipeline</h1>
+            <h1>Step 8: Monitor Your Pipeline <span class="emoji">📊</span></h1>
             <div class="activity-box">
-                <h3>Git Commands</h3>
-                <div class="code-example" style="font-size: 1.1em;">
-                    <pre>git add .
-git commit -m "feat: Add CI/CD pipeline with GitHub Actions"
-git push origin main</pre>
-                </div>
-                <h3 style="margin-top: 1em;">Monitor Progress</h3>
-                <ul style="font-size: 1.1em;">
-                    <li>Go to GitHub repository → Actions tab</li>
-                    <li>Watch workflow execution in real-time</li>
-                    <li>Green checkmark = Success! ✅</li>
-                    <li>Red X = Check logs for errors ❌</li>
+                <h3>Watch It Work!</h3>
+                <ul style="font-size: 1.2em; line-height: 2;">
+                    <li><strong>Actions Tab:</strong> See your workflow running in real-time</li>
+                    <li><strong>Green Checkmark ✅:</strong> Everything worked perfectly!</li>
+                    <li><strong>Red X ❌:</strong> Something failed - click to see error logs</li>
+                    <li><strong>Yellow Dot 🟡:</strong> Still running - be patient!</li>
                 </ul>
+
+                <div class="demo-box" style="margin-top: 1.5em;">
+                    <h3>After 2-3 minutes, visit your live site:</h3>
+                    <p style="font-size: 1.3em; margin-top: 0.5em;">
+                        <code>https://[username].github.io/my-cicd-website/</code>
+                    </p>
+                </div>
+
+                <div class="tip-box" style="margin-top: 1em;">
+                    <strong>Pro Tip:</strong> Every time you push to main, the pipeline runs automatically and updates your live site!
+                </div>
             </div>
         </div>
 
-        <!-- Slide 45: Understanding deploy.yml (ELI5) -->
+        <!-- Slide 46: Understanding deploy.yml (ELI5) -->
         <div class="slide">
             <h1>Understanding deploy.yml - Explained Simply <span class="emoji">📖</span></h1>
             <div class="demo-box">
@@ -990,7 +1033,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 46: deploy.yml Step-by-Step Breakdown -->
+        <!-- Slide 47: deploy.yml Step-by-Step Breakdown -->
         <div class="slide">
             <h1>deploy.yml Breakdown - Line by Line <span class="emoji">🔍</span></h1>
 
@@ -1020,7 +1063,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 47: More deploy.yml Explanations -->
+        <!-- Slide 48: More deploy.yml Explanations -->
         <div class="slide">
             <h1>deploy.yml Breakdown - Continued <span class="emoji">🔍</span></h1>
 
@@ -1051,7 +1094,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 48: Key Concepts Summary -->
+        <!-- Slide 49: Key Concepts Summary -->
         <div class="slide">
             <h1>Key Concepts You Just Learned <span class="emoji">🎓</span></h1>
 
@@ -1079,7 +1122,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 49: Understanding YAML -->
+        <!-- Slide 50: Understanding YAML -->
         <div class="slide">
             <h1>Understanding the YAML</h1>
             <div class="metric-box">
@@ -1097,7 +1140,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 46: Advanced Features -->
+        <!-- Slide 51: Advanced Features -->
         <div class="slide">
             <h1>Exercise Extensions</h1>
             <div class="activity-box">
@@ -1116,7 +1159,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 47: Troubleshooting Guide -->
+        <!-- Slide 52: Troubleshooting Guide -->
         <div class="slide">
             <h1>Troubleshooting Common Issues</h1>
             <div class="comparison-table">
@@ -1137,7 +1180,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 48: Best Practices Review -->
+        <!-- Slide 53: Best Practices Review -->
         <div class="slide">
             <h1>CI/CD Best Practices Applied</h1>
             <div class="metric-box">
@@ -1153,7 +1196,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 49: Implementation Strategy (renumbered from 34) -->
+        <!-- Slide 54: Implementation Strategy (renumbered from 34) -->
         <div class="slide">
             <h1>Progressive Implementation</h1>
             <div class="activity-box">
@@ -1170,7 +1213,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 50: Additional Practice Activity -->
+        <!-- Slide 55: Additional Practice Activity -->
         <div class="slide">
             <h1>Design Exercise <span class="emoji">📐</span></h1>
             <div class="activity-box">
@@ -1188,7 +1231,7 @@ git push origin main</pre>
             <button data-timer="10">Start 10-Minute Timer</button>
         </div>
 
-        <!-- Slide 51: Future Directions -->
+        <!-- Slide 56: Future Directions -->
         <div class="slide">
             <h1>Future of CI/CD</h1>
             <div class="pipeline-diagram">
@@ -1203,7 +1246,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 37: Key Takeaways -->
+        <!-- Slide 57: Key Takeaways -->
         <div class="slide">
             <h1>Key Takeaways</h1>
             <div class="metric-box">
@@ -1218,7 +1261,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 38: Academic Research -->
+        <!-- Slide 58: Academic Research -->
         <div class="slide">
             <h1>Research Foundation</h1>
             <div class="metric-box">
@@ -1231,7 +1274,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 39: Failure Statistics -->
+        <!-- Slide 59: Failure Statistics -->
         <div class="slide">
             <h1>Why Organizations Fail</h1>
             <div class="comparison-card bad">
@@ -1246,7 +1289,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 40: Call to Action -->
+        <!-- Slide 60: Call to Action -->
         <div class="slide">
             <h1>Your CI/CD Journey</h1>
             <div class="pipeline-diagram">
@@ -1263,7 +1306,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 41: References -->
+        <!-- Slide 61: References -->
         <div class="slide">
             <h1>References & Further Reading</h1>
             <div style="font-size: 0.9em; line-height: 1.6;">
@@ -1287,7 +1330,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 42: Additional Resources -->
+        <!-- Slide 62: Additional Resources -->
         <div class="slide">
             <h1>Tools & Frameworks</h1>
             <div class="metric-box">
@@ -1317,7 +1360,7 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 57: Summary -->
+        <!-- Slide 63: Summary -->
         <div class="slide">
             <h1>Today's Learning Complete! <span class="emoji">🎓</span></h1>
             <h2>You Can Now:</h2>
@@ -1338,7 +1381,7 @@ git push origin main</pre>
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">63</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">64</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
