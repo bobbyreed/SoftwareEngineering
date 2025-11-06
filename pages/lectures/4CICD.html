@@ -940,7 +940,146 @@ git push origin main</pre>
             </div>
         </div>
 
-        <!-- Slide 45: Understanding YAML -->
+        <!-- Slide 45: Understanding deploy.yml (ELI5) -->
+        <div class="slide">
+            <h1>Understanding deploy.yml - Explained Simply <span class="emoji">📖</span></h1>
+            <div class="demo-box">
+                <h3>Think of deploy.yml as a Recipe Card 🍰</h3>
+                <p style="font-size: 1.2em;">
+                    Just like a recipe tells you when to bake, what ingredients to use, and what steps to follow,
+                    this file tells GitHub when to run your pipeline and what to do.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin-top: 1em; font-size: 1em;">
+                <div class="activity-box">
+                    <h4>📝 <code>name:</code></h4>
+                    <p>The title of your recipe</p>
+                    <p style="font-style: italic;">"Deploy to GitHub Pages"</p>
+                </div>
+
+                <div class="activity-box">
+                    <h4>⏰ <code>on:</code></h4>
+                    <p>When to start cooking</p>
+                    <p style="font-style: italic;">"When someone pushes code to main"</p>
+                </div>
+
+                <div class="activity-box">
+                    <h4>👨‍🍳 <code>jobs:</code></h4>
+                    <p>The main task to complete</p>
+                    <p style="font-style: italic;">"build-and-deploy"</p>
+                </div>
+
+                <div class="activity-box">
+                    <h4>🏠 <code>runs-on:</code></h4>
+                    <p>What kitchen to use</p>
+                    <p style="font-style: italic;">"ubuntu-latest" (a Linux computer)</p>
+                </div>
+
+                <div class="activity-box">
+                    <h4>📋 <code>steps:</code></h4>
+                    <p>The recipe steps in order</p>
+                    <p style="font-style: italic;">1. Get ingredients, 2. Mix, 3. Bake</p>
+                </div>
+
+                <div class="activity-box">
+                    <h4>🧰 <code>uses:</code></h4>
+                    <p>Pre-made tools you can use</p>
+                    <p style="font-style: italic;">Like using a KitchenAid mixer instead of hand-mixing</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 46: deploy.yml Step-by-Step Breakdown -->
+        <div class="slide">
+            <h1>deploy.yml Breakdown - Line by Line <span class="emoji">🔍</span></h1>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>name: Deploy to GitHub Pages</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 This just gives your workflow a friendly name</p>
+            </div>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>on: push: branches: [ main ]</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 "Run this whenever someone pushes code to the main branch"</p>
+            </div>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>jobs: build-and-deploy:</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 Start a job called "build-and-deploy" (you can name it anything)</p>
+            </div>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>runs-on: ubuntu-latest</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 "Use a computer running Ubuntu Linux" (GitHub provides this for free!)</p>
+            </div>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>steps: - uses: actions/checkout@v3</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 "Download my code from GitHub to this computer"</p>
+            </div>
+        </div>
+
+        <!-- Slide 47: More deploy.yml Explanations -->
+        <div class="slide">
+            <h1>deploy.yml Breakdown - Continued <span class="emoji">🔍</span></h1>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>- name: Setup Node.js</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 The name of this step (helps you understand what's happening)</p>
+            </div>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>uses: actions/setup-node@v3</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 "Install Node.js on this computer" (someone already wrote this code for us!)</p>
+            </div>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>with: node-version: '18'</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 "Use Node.js version 18 specifically"</p>
+            </div>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>- name: Install dependencies</code><br>
+                   <code>run: npm install</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 "Run this command to install the tools my project needs"</p>
+            </div>
+
+            <div class="metric-box" style="font-size: 0.95em;">
+                <p><code>if: github.ref == 'refs/heads/main'</code></p>
+                <p style="margin-left: 2em; color: var(--text-secondary);">👉 "Only do this step if we're on the main branch" (safety check!)</p>
+            </div>
+        </div>
+
+        <!-- Slide 48: Key Concepts Summary -->
+        <div class="slide">
+            <h1>Key Concepts You Just Learned <span class="emoji">🎓</span></h1>
+
+            <div class="demo-box">
+                <h3>YAML = Yet Another Markup Language</h3>
+                <p style="font-size: 1.2em;">
+                    A simple way to write configuration files. Indentation matters! (Like Python)
+                </p>
+            </div>
+
+            <div class="activity-box" style="margin-top: 1em;">
+                <h3>The Workflow Lifecycle</h3>
+                <ol style="font-size: 1.2em; line-height: 1.8;">
+                    <li><strong>Trigger:</strong> Something happens (you push code)</li>
+                    <li><strong>Spin Up:</strong> GitHub creates a fresh computer for you</li>
+                    <li><strong>Execute:</strong> Runs all your steps in order</li>
+                    <li><strong>Report:</strong> Tells you if it worked or failed</li>
+                    <li><strong>Clean Up:</strong> Destroys the computer (you don't pay for it!)</li>
+                </ol>
+            </div>
+
+            <div class="tip-box" style="margin-top: 1em;">
+                <strong>Pro Tip:</strong> Every time your workflow runs, it starts with a completely fresh computer.
+                Nothing from previous runs carries over!
+            </div>
+        </div>
+
+        <!-- Slide 49: Understanding YAML -->
         <div class="slide">
             <h1>Understanding the YAML</h1>
             <div class="metric-box">
@@ -1199,7 +1338,7 @@ git push origin main</pre>
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">59</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">63</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
