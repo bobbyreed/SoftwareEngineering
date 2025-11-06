@@ -853,21 +853,96 @@
         <!-- Slide 38: Evolution and Refactoring -->
         <div class="slide">
             <h1>Architecture Evolution</h1>
-            <p style="font-size: 1.3em;">Your architecture will change over time!</p>
-            <div class="architecture-diagram">
-                <h3>Typical Evolution Path:</h3>
-                <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
-                    <div class="component-box">Monolith</div>
-                    <span>→</span>
-                    <div class="component-box">Modular</div>
-                    <span>→</span>
-                    <div class="component-box">Services</div>
-                    <span>→</span>
-                    <div class="component-box">Microservices</div>
+            <p style="font-size: 1.2em;">Your architecture will change over time!</p>
+
+            <div style="margin: 20px auto; max-width: 95%;">
+                <!-- Row 1: Pattern Names -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px;">
+                    <div class="component-box" style="font-size: 1em;">Monolith</div>
+                    <div class="component-box" style="font-size: 1em;">Modular</div>
+                    <div class="component-box" style="font-size: 1em;">Services</div>
+                    <div class="component-box" style="font-size: 1em;">Microservices</div>
+                </div>
+
+                <!-- Row 2: Colloquial Names -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px;">
+                    <div class="demo-box" style="padding: 10px; font-size: 0.9em;">
+                        <strong>Prototype / PoC</strong>
+                    </div>
+                    <div class="demo-box" style="padding: 10px; font-size: 0.9em;">
+                        <strong>v1 Launch</strong>
+                    </div>
+                    <div class="demo-box" style="padding: 10px; font-size: 0.9em;">
+                        <strong>Production Scale</strong>
+                    </div>
+                    <div class="demo-box" style="padding: 10px; font-size: 0.9em;">
+                        <strong>Enterprise</strong>
+                    </div>
+                </div>
+
+                <!-- Row 3: Microsoft -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px;">
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🖥️ MS-DOS</strong><br>
+                        <span style="font-size: 0.9em;">Single program</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🖥️ Windows 3.1/95</strong><br>
+                        <span style="font-size: 0.9em;">Modular GUI</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🖥️ Windows Server</strong><br>
+                        <span style="font-size: 0.9em;">IIS, SQL Server</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🖥️ Azure</strong><br>
+                        <span style="font-size: 0.9em;">Cloud platform</span>
+                    </div>
+                </div>
+
+                <!-- Row 4: Nintendo -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px;">
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🎮 NES</strong><br>
+                        <span style="font-size: 0.9em;">One cartridge</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🎮 N64</strong><br>
+                        <span style="font-size: 0.9em;">Expansion packs</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🎮 Wii</strong><br>
+                        <span style="font-size: 0.9em;">Channels, Store</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🎮 Switch</strong><br>
+                        <span style="font-size: 0.9em;">eShop, NSO Cloud</span>
+                    </div>
+                </div>
+
+                <!-- Row 5: Apple -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🍎 Apple II</strong><br>
+                        <span style="font-size: 0.9em;">Single OS</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🍎 Mac OS Classic</strong><br>
+                        <span style="font-size: 0.9em;">System folders</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🍎 Mac OS X</strong><br>
+                        <span style="font-size: 0.9em;">Unix + Services</span>
+                    </div>
+                    <div class="tip-box" style="padding: 10px; font-size: 0.85em;">
+                        <strong>🍎 iCloud/Apple+</strong><br>
+                        <span style="font-size: 0.9em;">Ecosystem services</span>
+                    </div>
                 </div>
             </div>
-            <div class="tip-box" style="margin-top: 30px;">
-                <strong>Key:</strong> Don't start with microservices for a simple app!
+
+            <div class="demo-box" style="margin-top: 15px; padding: 15px;">
+                <strong>Key Insight:</strong> All successful platforms evolved gradually. Don't start with microservices for a simple app!
             </div>
         </div>
 
