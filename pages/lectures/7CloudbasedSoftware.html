@@ -61,6 +61,47 @@
         .feature-card p {
             color: var(--text-secondary);
         }
+
+        .code-explanation-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .code-box {
+            background: var(--bg-accent);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .explanation-box {
+            background: var(--bg-accent);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .code-line {
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(14, 165, 233, 0.1);
+            border-left: 3px solid var(--blueprint-sky);
+            border-radius: 4px;
+        }
+
+        .explain-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 3px solid var(--blueprint-purple);
+            border-radius: 4px;
+            line-height: 1.6;
+        }
+
+        .explain-item strong {
+            color: var(--blueprint-purple);
+        }
     </style>
 </head>
 <body>
@@ -274,21 +315,28 @@ Docker Client → Docker Host → Registries
 
         <!-- Slide 13: Docker Code Example -->
         <div class="slide">
-            <h1>Docker in Practice</h1>
-            <h3>Sample Dockerfile:</h3>
-            <div class="code-example">
-                <pre>
-FROM node:14-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
-                </pre>
-            </div>
-            <div class="tip-box">
-                <strong>Pro Tip:</strong> Each line creates a new layer - optimize for caching!
+            <h1>Docker in Practice: Dockerfile Explained</h1>
+            <div class="code-explanation-container">
+                <div class="code-box">
+                    <h3 style="margin-bottom: 15px;">Dockerfile Code</h3>
+                    <div class="code-line">FROM node:14-alpine</div>
+                    <div class="code-line">WORKDIR /app</div>
+                    <div class="code-line">COPY package*.json ./</div>
+                    <div class="code-line">RUN npm install</div>
+                    <div class="code-line">COPY . .</div>
+                    <div class="code-line">EXPOSE 3000</div>
+                    <div class="code-line">CMD ["npm", "start"]</div>
+                </div>
+                <div class="explanation-box">
+                    <h3 style="margin-bottom: 15px;">ELI5 Explanations</h3>
+                    <div class="explain-item"><strong>FROM:</strong> Start with a pre-made Node.js environment (Alpine Linux version for small size)</div>
+                    <div class="explain-item"><strong>WORKDIR:</strong> Create and move into the /app folder (like opening a folder on your computer)</div>
+                    <div class="explain-item"><strong>COPY package*.json:</strong> Copy just the dependency files first (optimization for caching)</div>
+                    <div class="explain-item"><strong>RUN npm install:</strong> Download and install all the libraries your app needs</div>
+                    <div class="explain-item"><strong>COPY . .:</strong> Copy all your application code into the container</div>
+                    <div class="explain-item"><strong>EXPOSE:</strong> Tell Docker your app uses port 3000 (like opening a door)</div>
+                    <div class="explain-item"><strong>CMD:</strong> The command to run when the container starts (launches your app)</div>
+                </div>
             </div>
         </div>
 
@@ -786,21 +834,29 @@ Database 1 ← Mirroring → Database 2
 
         <!-- Slide 37: DevOps and Cloud -->
         <div class="slide">
-            <h1>DevOps in the Cloud <span class="emoji">♾️</span></h1>
-            <div class="demo-box">
+            <h1>DevOps in the Cloud: Terraform Explained <span class="emoji">♾️</span></h1>
+            <div class="demo-box" style="margin-bottom: 20px;">
                 <p><strong>Infrastructure as Code:</strong> Define your entire infrastructure in version-controlled files</p>
             </div>
-            <div class="code-example">
-                <pre>
-# Terraform Example
-resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t2.micro"
-  tags = {
-    Name = "WebServer"
-  }
-}
-                </pre>
+            <div class="code-explanation-container">
+                <div class="code-box">
+                    <h3 style="margin-bottom: 15px;">Terraform Code</h3>
+                    <div class="code-line">resource "aws_instance" "web" {</div>
+                    <div class="code-line">  ami = "ami-0c55b159cbfafe1f0"</div>
+                    <div class="code-line">  instance_type = "t2.micro"</div>
+                    <div class="code-line">  tags = {</div>
+                    <div class="code-line">    Name = "WebServer"</div>
+                    <div class="code-line">  }</div>
+                    <div class="code-line">}</div>
+                </div>
+                <div class="explanation-box">
+                    <h3 style="margin-bottom: 15px;">ELI5 Explanations</h3>
+                    <div class="explain-item"><strong>resource:</strong> Tell Terraform to create something (in this case, an AWS server)</div>
+                    <div class="explain-item"><strong>ami:</strong> The template/image for your server (like choosing Windows vs Mac)</div>
+                    <div class="explain-item"><strong>instance_type:</strong> Size of the server (t2.micro is small and cheap)</div>
+                    <div class="explain-item"><strong>tags:</strong> Labels to organize and identify your resources</div>
+                    <div class="explain-item"><strong>Name:</strong> Give your server a friendly name ("WebServer")</div>
+                </div>
             </div>
         </div>
 
