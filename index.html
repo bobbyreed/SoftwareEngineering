@@ -33,6 +33,11 @@
             --card-bg: #2a2a2a;
             --link-color: #00bfdf;
             --link-hover: #fdb913;
+            --theme-toggle-bg-rgb: 42, 42, 42;
+        }
+
+        :root {
+            --theme-toggle-bg-rgb: 255, 255, 255;
         }
 
         * {
@@ -336,12 +341,144 @@
             .lectures-grid {
                 grid-template-columns: 1fr;
             }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+
+            .theme-tab {
+                width: 30px;
+                height: 50px;
+                font-size: 1em;
+            }
+        }
+
+        /* Theme Toggle - Top Right with Auto-Hide */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(var(--theme-toggle-bg-rgb), 0.65);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle.controls-hidden {
+            opacity: 0;
+            transform: translateX(calc(100% - 50px));
+            pointer-events: none;
+        }
+
+        .theme-toggle.controls-hidden .theme-tab {
+            pointer-events: all;
+            opacity: 1;
+        }
+
+        .theme-tab {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 60px;
+            background: rgba(var(--theme-toggle-bg-rgb), 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-right: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, background 0.2s ease;
+        }
+
+        [data-theme="dark"] .theme-tab {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle.controls-hidden .theme-tab {
+            opacity: 0.7;
+        }
+
+        .theme-tab:hover {
+            background: rgba(var(--theme-toggle-bg-rgb), 0.95);
+            opacity: 1 !important;
+        }
+
+        .theme-toggle-label {
+            font-size: 0.9em;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .theme-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            display: inline-block;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .theme-slider {
+            background-color: var(--ocu-cyan);
+        }
+
+        input:checked + .theme-slider:before {
+            transform: translateX(24px);
         }
     </style>
 </head>
 <body>
     <!-- Theme Toggle -->
     <div class="theme-toggle">
+        <div class="theme-tab">⚙️</div>
         <span class="theme-toggle-label">Light</span>
         <label class="theme-switch">
             <input type="checkbox" id="theme-checkbox">
@@ -534,6 +671,52 @@
                 localStorage.setItem('theme', 'light');
             }
         });
+
+        // Auto-hide theme toggle functionality
+        const themeToggleEl = document.querySelector('.theme-toggle');
+        const themeTab = document.querySelector('.theme-tab');
+        let hideTimer = null;
+        const hideDelay = 2000; // 2 seconds
+
+        // Show theme toggle
+        const showThemeToggle = () => {
+            themeToggleEl.classList.remove('controls-hidden');
+            resetHideTimer();
+        };
+
+        // Reset the hide timer
+        const resetHideTimer = () => {
+            if (hideTimer) {
+                clearTimeout(hideTimer);
+            }
+            hideTimer = setTimeout(() => {
+                themeToggleEl.classList.add('controls-hidden');
+            }, hideDelay);
+        };
+
+        // Show on mouse movement
+        document.addEventListener('mousemove', showThemeToggle);
+
+        // Show when hovering over tab
+        if (themeTab) {
+            themeTab.addEventListener('mouseenter', () => {
+                themeToggleEl.classList.remove('controls-hidden');
+            });
+        }
+
+        // Keep visible when hovering over control
+        themeToggleEl.addEventListener('mouseenter', () => {
+            if (hideTimer) {
+                clearTimeout(hideTimer);
+            }
+        });
+
+        themeToggleEl.addEventListener('mouseleave', () => {
+            resetHideTimer();
+        });
+
+        // Start initial hide timer
+        resetHideTimer();
     });
     </script>
 </body>
