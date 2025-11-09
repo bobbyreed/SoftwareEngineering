@@ -48,10 +48,45 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-secondary);
+            background: #7BA5CC;
+            background-attachment: fixed;
             color: var(--text-primary);
             line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background 0.3s ease;
+            position: relative;
+        }
+
+        /* Blueprint grid overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(230, 240, 250, 0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(230, 240, 250, 0.6) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Dark mode background */
+        [data-theme="dark"] body {
+            background: #0F172A;
+        }
+
+        [data-theme="dark"] body::before {
+            background-image:
+                linear-gradient(rgba(51, 65, 85, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(51, 65, 85, 0.3) 1px, transparent 1px);
         }
 
         .container {
