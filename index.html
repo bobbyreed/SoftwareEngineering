@@ -204,21 +204,34 @@
         }
 
         .quick-link-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
+            background: #C0C0C0;
+            border: none;
+            padding: 0;
             text-align: center;
-            box-shadow: 0 5px 20px var(--shadow);
             transition: all 0.3s;
             text-decoration: none;
-            color: var(--text-primary);
-            border: 2px solid transparent;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            box-shadow:
+                inset -1px -1px 0px #000000,
+                inset 1px 1px 0px #FFFFFF,
+                inset -2px -2px 0px #808080,
+                inset 2px 2px 0px #DFDFDF;
+        }
+
+        .quick-link-card::before {
+            content: '';
+            display: block;
+            height: 24px;
+            background: linear-gradient(to right, #000080, #1084D0);
+            box-shadow:
+                inset -1px -1px 0px #000000,
+                inset 1px 1px 0px #FFFFFF;
         }
 
         .quick-link-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--ocu-cyan);
-            box-shadow: 0 10px 30px var(--shadow);
+            transform: translateY(-2px);
         }
 
         .quick-link-icon {
@@ -229,16 +242,16 @@
         .quick-link-title {
             font-size: 1.3em;
             font-weight: bold;
-            color: var(--ocu-true-blue);
+            color: #000;
             margin-bottom: 10px;
         }
 
         [data-theme="dark"] .quick-link-title {
-            color: var(--ocu-cyan);
+            color: #000;
         }
 
         .quick-link-description {
-            color: var(--text-secondary);
+            color: #000;
             font-size: 0.95em;
         }
 
@@ -270,57 +283,71 @@
         }
 
         .lecture-card {
-            background: var(--bg-primary);
-            border-radius: 8px;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
+            background: #C0C0C0;
+            border: none;
+            padding: 0;
             transition: all 0.3s;
             cursor: pointer;
             text-decoration: none;
-            color: var(--text-primary);
-            display: block;
+            color: #000;
+            display: flex;
+            flex-direction: column;
             min-height: 140px;
-            box-shadow: 0 2px 5px var(--shadow);
+            box-shadow:
+                inset -1px -1px 0px #000000,
+                inset 1px 1px 0px #FFFFFF,
+                inset -2px -2px 0px #808080,
+                inset 2px 2px 0px #DFDFDF;
         }
 
         [data-theme="dark"] .lecture-card {
-            border-color: #444;
+            background: #C0C0C0;
+            color: #000;
         }
 
         .lecture-card:hover {
-            border-color: var(--ocu-cyan);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--shadow);
+            transform: translateY(-2px);
         }
 
-        .lecture-card.completed {
-            border-color: #28a745;
-            background: rgba(40, 167, 69, 0.05);
+        .lecture-card::before {
+            content: '';
+            display: block;
+            height: 24px;
+            background: linear-gradient(to right, #000080, #1084D0);
+            padding: 2px 4px;
+            box-shadow:
+                inset -1px -1px 0px #000000,
+                inset 1px 1px 0px #FFFFFF;
         }
 
-        .lecture-card.current {
-            border-color: var(--ocu-gold);
-            background: rgba(253, 185, 19, 0.05);
-            animation: pulse 2s infinite;
+        .lecture-card.completed::before {
+            background: linear-gradient(to right, #008000, #00C000);
         }
 
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 2px 5px var(--shadow); }
-            50% { box-shadow: 0 2px 15px rgba(253, 185, 19, 0.3); }
+        .lecture-card.current::before {
+            background: linear-gradient(to right, #C08000, #FFB000);
         }
 
         .lecture-number {
-            background: var(--ocu-true-blue);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
+            background: #C0C0C0;
+            color: #000;
+            padding: 2px 8px;
+            border: none;
             font-size: 0.9em;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            margin-top: 8px;
+            box-shadow:
+                inset -1px -1px 0px #000000,
+                inset 1px 1px 0px #FFFFFF,
+                inset -2px -2px 0px #808080,
+                inset 2px 2px 0px #DFDFDF;
+            font-weight: bold;
         }
 
         [data-theme="dark"] .lecture-number {
-            background: var(--ocu-dark-blue);
+            background: #C0C0C0;
+            color: #000;
         }
 
         .lecture-title {
@@ -330,24 +357,22 @@
         }
 
         .lecture-date {
-            color: var(--text-secondary);
+            color: #000;
             font-size: 0.9em;
         }
 
         .lecture-unavailable {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
             position: relative;
         }
 
         .lecture-unavailable:hover {
             transform: none !important;
-            border-color: #e0e0e0 !important;
-            box-shadow: 0 2px 5px var(--shadow) !important;
         }
 
         [data-theme="dark"] .lecture-unavailable:hover {
-            border-color: #444 !important;
+            /* No change needed for Windows 95 style */
         }
 
         footer {
@@ -558,27 +583,35 @@
 
         <div class="quick-links">
             <a href="https://ocuonline.okcu.edu" target="_blank" class="quick-link-card">
-                <div class="quick-link-icon">📚</div>
-                <div class="quick-link-title">D2L</div>
-                <div class="quick-link-description">Access course materials & submit assignments</div>
+                <div style="flex: 1; padding: 20px; background: white;">
+                    <div class="quick-link-icon">📚</div>
+                    <div class="quick-link-title">D2L</div>
+                    <div class="quick-link-description">Access course materials & submit assignments</div>
+                </div>
             </a>
 
             <a href="https://www.scrumguides.org/" target="_blank" class="quick-link-card">
-                <div class="quick-link-icon">📖</div>
-                <div class="quick-link-title">Scrum Guide</div>
-                <div class="quick-link-description">Official Scrum framework documentation</div>
+                <div style="flex: 1; padding: 20px; background: white;">
+                    <div class="quick-link-icon">📖</div>
+                    <div class="quick-link-title">Scrum Guide</div>
+                    <div class="quick-link-description">Official Scrum framework documentation</div>
+                </div>
             </a>
 
             <a href="https://app.diagrams.net/" target="_blank" class="quick-link-card">
-                <div class="quick-link-icon">📐</div>
-                <div class="quick-link-title">draw.io</div>
-                <div class="quick-link-description">Create UML diagrams online</div>
+                <div style="flex: 1; padding: 20px; background: white;">
+                    <div class="quick-link-icon">📐</div>
+                    <div class="quick-link-title">draw.io</div>
+                    <div class="quick-link-description">Create UML diagrams online</div>
+                </div>
             </a>
 
             <a href="https://github.com" target="_blank" class="quick-link-card">
-                <div class="quick-link-icon">💻</div>
-                <div class="quick-link-title">GitHub</div>
-                <div class="quick-link-description">Version control & collaboration</div>
+                <div style="flex: 1; padding: 20px; background: white;">
+                    <div class="quick-link-icon">💻</div>
+                    <div class="quick-link-title">GitHub</div>
+                    <div class="quick-link-description">Version control & collaboration</div>
+                </div>
             </a>
         </div>
 
@@ -661,22 +694,24 @@
             // Format the status message
             let statusMessage = '';
             if (lecture.available === false) {
-                statusMessage = '<div style="color: var(--ocu-gold); font-size: 0.9em; margin-top: 5px;">Coming Soon</div>';
+                statusMessage = '<div style="color: #808080; font-size: 0.9em; margin-top: 5px;">Coming Soon</div>';
             } else if (daysUntilLecture > 1) {
-                statusMessage = `<div style="color: var(--text-secondary); font-size: 0.9em; margin-top: 5px;">Available in ${daysUntilLecture} days</div>`;
+                statusMessage = `<div style="color: #808080; font-size: 0.9em; margin-top: 5px;">Available in ${daysUntilLecture} days</div>`;
             } else if (daysUntilLecture === 1) {
-                statusMessage = '<div style="color: var(--ocu-cyan); font-size: 0.9em; margin-top: 5px;">Available tomorrow</div>';
+                statusMessage = '<div style="color: #008080; font-size: 0.9em; margin-top: 5px;">Available tomorrow</div>';
             }
 
             card.innerHTML = `
-                <span class="lecture-number">Class ${lecture.number}</span>
-                <div class="lecture-title">${lecture.title}</div>
-                <div class="lecture-date">${lectureDate.toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                })}</div>
-                ${statusMessage}
+                <div style="flex: 1; padding: 12px; background: white;">
+                    <span class="lecture-number">Class ${lecture.number}</span>
+                    <div class="lecture-title">${lecture.title}</div>
+                    <div class="lecture-date">${lectureDate.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    })}</div>
+                    ${statusMessage}
+                </div>
             `;
 
             grid.appendChild(card);
