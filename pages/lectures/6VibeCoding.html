@@ -529,10 +529,166 @@
                     <li>🚀 GitHub Pages for deployment</li>
                 </ul>
             </div>
+            <div class="tip-box" style="margin-top: 20px;">
+                <strong>Good News!</strong> You already built a CI/CD pipeline in Lecture 4 - let's reuse it!
+            </div>
+        </div>
+
+        <!-- Slide 28: Reuse Your CI/CD Pipeline -->
+        <div class="slide">
+            <h1>💡 Smart Move: Reuse Your CI/CD Setup</h1>
+            <div class="activity-box">
+                <h3>Why Start from Scratch?</h3>
+                <p style="font-size: 1.2em;">In Lecture 4, you already built:</p>
+                <ul style="font-size: 1.2em; line-height: 2;">
+                    <li>✅ A working GitHub Actions workflow</li>
+                    <li>✅ Automated deployment to GitHub Pages</li>
+                    <li>✅ HTML validation and testing</li>
+                    <li>✅ All the configuration you need!</li>
+                </ul>
+            </div>
+            <div class="demo-box" style="margin-top: 20px;">
+                <p style="font-size: 1.3em;"><strong>Let's clone it and adapt it for your Vibe Coding project!</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 29: Step 1 - Create New Repo from Template -->
+        <div class="slide">
+            <h1>Step 1: Create Your New Vibe Coding Repo</h1>
+            <div class="activity-box">
+                <h3>Option A: Use GitHub's Template Feature</h3>
+                <ol style="font-size: 1.15em; line-height: 1.8;">
+                    <li>Go to your <code>my-cicd-website</code> repo from Lecture 4</li>
+                    <li>Click the green <strong>"Use this template"</strong> button</li>
+                    <li>Select <strong>"Create a new repository"</strong></li>
+                    <li>Name it: <code>vibe-coding-project</code></li>
+                    <li>Set to <strong>Public</strong></li>
+                    <li>Click <strong>"Create repository"</strong></li>
+                </ol>
+            </div>
+            <div class="tip-box" style="margin-top: 15px;">
+                <strong>Result:</strong> You now have a fresh copy with all the CI/CD pipeline intact!
+            </div>
+        </div>
+
+        <!-- Slide 30: Step 2 - Alternative Manual Clone -->
+        <div class="slide">
+            <h1>Step 1 (Alternative): Manual Clone Method</h1>
+            <div class="activity-box">
+                <h3>Option B: Clone and Push to New Repo</h3>
+                <div class="code-example" style="font-size: 0.95em; margin-top: 15px;">
+                    <pre># 1. Clone your original repo
+git clone https://github.com/[username]/my-cicd-website.git vibe-coding-project
+
+# 2. Navigate into it
+cd vibe-coding-project
+
+# 3. Create new repo on GitHub (via website)
+# Then update the remote URL:
+git remote set-url origin https://github.com/[username]/vibe-coding-project.git
+
+# 4. Push to new repo
+git push -u origin main</pre>
+                </div>
+            </div>
+            <div class="tip-box" style="margin-top: 15px;">
+                <strong>Why this works:</strong> You're duplicating the entire project structure, including the <code>.github/workflows</code> folder!
+            </div>
+        </div>
+
+        <!-- Slide 31: Step 2 - Verify Permissions -->
+        <div class="slide">
+            <h1>Step 2: Enable Workflow Permissions</h1>
+            <div class="demo-box" style="background: #ff9800; color: white;">
+                <h3>⚠️ IMPORTANT: Don't Forget This!</h3>
+                <p style="font-size: 1.2em;">Your new repo needs the same permissions as before</p>
+            </div>
+            <div class="activity-box" style="margin-top: 20px;">
+                <h3>Quick Permission Setup:</h3>
+                <ol style="font-size: 1.15em; line-height: 1.8;">
+                    <li>Go to new repo → <strong>Settings</strong></li>
+                    <li>Click <strong>Actions</strong> → <strong>General</strong></li>
+                    <li>Under "Workflow permissions":</li>
+                    <li>Select <strong>"Read and write permissions"</strong></li>
+                    <li>✅ Check <strong>"Allow GitHub Actions to create and approve pull requests"</strong></li>
+                    <li>Click <strong>Save</strong></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 32: Step 3 - Configure GitHub Pages -->
+        <div class="slide">
+            <h1>Step 3: Set Up GitHub Pages</h1>
+            <div class="activity-box">
+                <h3>Enable Pages for Your New Repo:</h3>
+                <ol style="font-size: 1.15em; line-height: 1.8;">
+                    <li>Push your first change to trigger the workflow
+                        <div class="code-example" style="margin: 10px 0; font-size: 0.9em;">
+                            <pre>git add .
+git commit -m "Initial vibe coding project setup"
+git push origin main</pre>
+                        </div>
+                    </li>
+                    <li>Wait for the Action to complete (1-2 minutes)</li>
+                    <li>Go to <strong>Settings</strong> → <strong>Pages</strong></li>
+                    <li>Source: <strong>Deploy from a branch</strong></li>
+                    <li>Branch: <strong>gh-pages</strong> / <strong>root</strong></li>
+                    <li>Click <strong>Save</strong></li>
+                </ol>
+            </div>
+            <div class="tip-box" style="margin-top: 15px;">
+                <strong>Your site will be live at:</strong> <code>https://[username].github.io/vibe-coding-project/</code>
+            </div>
+        </div>
+
+        <!-- Slide 33: What You Already Have -->
+        <div class="slide">
+            <h1>What's Already Working? 🎉</h1>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="demo-box">
+                    <h3>✅ CI/CD Pipeline</h3>
+                    <ul style="font-size: 1.1em; line-height: 1.8;">
+                        <li>Auto-deploy on push</li>
+                        <li>HTML validation</li>
+                        <li>GitHub Pages deployment</li>
+                        <li>Build timestamp</li>
+                    </ul>
+                </div>
+                <div class="demo-box">
+                    <h3>✅ Repository Structure</h3>
+                    <ul style="font-size: 1.1em; line-height: 1.8;">
+                        <li><code>index.html</code></li>
+                        <li><code>style.css</code></li>
+                        <li><code>script.js</code></li>
+                        <li><code>.github/workflows/</code></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="activity-box" style="margin-top: 20px;">
+                <h3>What You Need to Change:</h3>
+                <p style="font-size: 1.2em;">Just the content! Replace the demo website with your Vibe Coding project using AI prompts.</p>
+            </div>
+        </div>
+
+        <!-- Slide 34: Ready to Vibe Code -->
+        <div class="slide">
+            <h1>You're Ready to Vibe Code! 🚀</h1>
+            <div class="demo-box">
+                <h3>Your Workflow Now:</h3>
+                <ol style="font-size: 1.2em; line-height: 2;">
+                    <li>🤖 <strong>Ask AI</strong> to generate/modify your HTML/CSS/JS</li>
+                    <li>📝 <strong>Copy code</strong> into your files locally</li>
+                    <li>🧪 <strong>Test locally</strong> by opening <code>index.html</code></li>
+                    <li>💾 <strong>Commit changes:</strong> <code>git add . && git commit -m "Add feature"</code></li>
+                    <li>🚀 <strong>Push:</strong> <code>git push origin main</code></li>
+                    <li>⏱️ <strong>Wait 2 minutes</strong> for auto-deployment</li>
+                    <li>🌐 <strong>View live</strong> at your GitHub Pages URL!</li>
+                </ol>
+            </div>
             <button data-timer="45">Start 45-Minute Challenge</button>
         </div>
 
-        <!-- Slide 28: Exercise Steps -->
+        <!-- Slide 35: Exercise Steps -->
         <div class="slide">
             <h1>Step-by-Step Process</h1>
             <ol style="font-size: 1.3em; line-height: 2;">
@@ -545,7 +701,7 @@
             </ol>
         </div>
 
-        <!-- Slide 29: Chaining Chatbots Approach -->
+        <!-- Slide 36: Chaining Chatbots Approach -->
         <div class="slide">
             <h1>Chaining Chatbots: A Smarter Approach</h1>
             <div class="demo-box">
@@ -559,7 +715,7 @@
             </div>
         </div>
 
-        <!-- Slide 30: Using the Steps -->
+        <!-- Slide 37: Using the Steps -->
         <div class="slide">
             <h1>Step 2: Execute Steps One by One</h1>
             <div class="code-example">
@@ -575,7 +731,7 @@
             </div>
         </div>
 
-        <!-- Slide 31: Common Pitfalls -->
+        <!-- Slide 38: Common Pitfalls -->
         <div class="slide">
             <h1>Avoiding Common Vibe Coding Pitfalls</h1>
             <div class="comparison-table">
@@ -600,7 +756,7 @@
             </div>
         </div>
 
-        <!-- Slide 32: Best Practices -->
+        <!-- Slide 39: Best Practices -->
         <div class="slide">
             <h1>Vibe Coding Best Practices</h1>
             <div class="skill-grid">
@@ -623,7 +779,7 @@
             </div>
         </div>
 
-        <!-- Slide 33: Real World Applications -->
+        <!-- Slide 40: Real World Applications -->
         <div class="slide">
             <h1>Real-World Vibe Coding Success Stories</h1>
             <div class="timeline-item">
@@ -644,7 +800,7 @@
             </div>
         </div>
 
-        <!-- Slide 34: Industry Impact -->
+        <!-- Slide 41: Industry Impact -->
         <div class="slide">
             <h1>Industry-Wide Transformation</h1>
             <div class="stat-box" style="max-width: 600px; margin: 0 auto;">
@@ -658,7 +814,7 @@
             </div>
         </div>
 
-        <!-- Slide 35: Ethical Considerations -->
+        <!-- Slide 42: Ethical Considerations -->
         <div class="slide">
             <h1>Ethical Considerations</h1>
             <div class="demo-box">
@@ -673,7 +829,7 @@
             </div>
         </div>
 
-        <!-- Slide 36: The Mindset Shift -->
+        <!-- Slide 43: The Mindset Shift -->
         <div class="slide">
             <h1>The Mindset Shift</h1>
             <blockquote style="font-size: 1.5em; line-height: 1.8; margin: 40px;">
@@ -684,7 +840,7 @@
             </p>
         </div>
 
-        <!-- Slide 37: Building Your Vibe Coding Toolkit -->
+        <!-- Slide 44: Building Your Vibe Coding Toolkit -->
         <div class="slide">
             <h1>Building Your Vibe Coding Toolkit</h1>
             <div class="skill-grid">
@@ -723,7 +879,7 @@
             </div>
         </div>
 
-        <!-- Slide 38: Action Items -->
+        <!-- Slide 45: Action Items -->
         <div class="slide">
             <h1>Your Action Items</h1>
             <div class="activity-box">
@@ -738,7 +894,7 @@
             </div>
         </div>
 
-        <!-- Slide 39: Presentation Guidelines -->
+        <!-- Slide 46: Presentation Guidelines -->
         <div class="slide">
             <h1>Presentation Guidelines</h1>
             <div class="demo-box">
@@ -756,7 +912,7 @@
             </p>
         </div>
 
-        <!-- Slide 40: Resources -->
+        <!-- Slide 47: Resources -->
         <div class="slide">
             <h1>Resources & References</h1>
             <div class="tip-box">
@@ -775,7 +931,7 @@
             </div>
         </div>
 
-        <!-- Slide 41: Key Takeaway -->
+        <!-- Slide 48: Key Takeaway -->
         <div class="slide">
             <h1>The Bottom Line</h1>
             <div class="demo-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
@@ -789,7 +945,7 @@
             </div>
         </div>
 
-        <!-- Slide 42: Summary -->
+        <!-- Slide 49: Summary -->
         <div class="slide">
             <h1>Today's Takeaways <span class="emoji">🎓</span></h1>
             <h2>You Can Now:</h2>
@@ -809,7 +965,7 @@
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">42</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">49</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
