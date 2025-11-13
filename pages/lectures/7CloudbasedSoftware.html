@@ -345,7 +345,89 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 14: Docker Hands-On Exercise -->
+        <!-- Slide 14: VMs in Action - Introduction -->
+        <div class="slide">
+            <h1>Virtual Machines in Action! <span class="emoji">🕹️</span></h1>
+            <div class="demo-box">
+                <h2>Let's See Virtualization at Work</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">Remember our discussion about Virtual Machines? Let's explore some amazing examples of VMs running entirely in your browser!</p>
+            </div>
+            <div class="tip-box" style="margin-top: 30px;">
+                <h3>What You're About to See:</h3>
+                <ul style="font-size: 1.2em; line-height: 1.8;">
+                    <li>🖥️ Complete operating systems running in your browser</li>
+                    <li>⚙️ Hardware emulation via JavaScript</li>
+                    <li>📦 Real-world example of "run anywhere" virtualization</li>
+                    <li>🎯 No installation required - just a web browser!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 15: Windows 95 VM Demo -->
+        <div class="slide">
+            <h1>Windows 95 on COMPAQ DeskPro 386 <span class="emoji">💾</span></h1>
+            <div class="activity-box" style="margin-bottom: 15px;">
+                <p><strong>This is a fully functional Windows 95 VM running in your browser!</strong></p>
+                <p>Emulated specs: 386 processor • 4MB RAM • 68MB hard drive • VGA display</p>
+            </div>
+            <div style="width: 100%; height: 600px; overflow: auto; border: 2px solid var(--blueprint-sky); border-radius: 10px;">
+                <iframe src="https://www.pcjs.org/blog/2015/09/21/"
+                        style="width: 100%; height: 100%; border: none;"
+                        title="Windows 95 Virtual Machine">
+                </iframe>
+            </div>
+            <div class="tip-box" style="margin-top: 10px; font-size: 0.9em;">
+                <strong>💡 Try it!</strong> Click inside the VM to interact. This demonstrates hardware virtualization - a complete computer system running as software!
+            </div>
+        </div>
+
+        <!-- Slide 16: More VM Examples -->
+        <div class="slide">
+            <h1>Explore More Vintage VMs <span class="emoji">🎮</span></h1>
+            <div class="demo-box" style="margin-bottom: 20px;">
+                <h2>PCjs.org: JavaScript Computer Emulation</h2>
+                <p style="font-size: 1.2em;">These VMs showcase the "run anywhere" principle we discussed!</p>
+            </div>
+            <div style="width: 100%; height: 550px; overflow: auto; border: 2px solid var(--blueprint-purple); border-radius: 10px;">
+                <iframe src="https://www.pcjs.org"
+                        style="width: 100%; height: 100%; border: none;"
+                        title="PCjs Machine Catalog">
+                </iframe>
+            </div>
+            <div class="tip-box" style="margin-top: 10px;">
+                <strong>What makes this possible?</strong> The hypervisor concept we discussed - software that emulates hardware to run complete OS instances!
+            </div>
+        </div>
+
+        <!-- Slide 17: VM Concept Reinforcement -->
+        <div class="slide">
+            <h1>Connecting the Dots: VMs Then and Now</h1>
+            <div class="comparison-table">
+                <div class="comparison-card">
+                    <h3>🕹️ What You Just Saw</h3>
+                    <ul>
+                        <li>Browser-based hypervisor</li>
+                        <li>Complete OS emulation</li>
+                        <li>Hardware virtualization in JavaScript</li>
+                        <li>Run vintage systems anywhere</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h3>☁️ Modern Cloud VMs</h3>
+                    <ul>
+                        <li>Datacenter hypervisors</li>
+                        <li>Modern OS instances</li>
+                        <li>Hardware virtualization at scale</li>
+                        <li>Run production systems anywhere</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="demo-box" style="margin-top: 20px;">
+                <p style="font-size: 1.2em;"><strong>Same Core Concept:</strong> VMs abstract hardware, enabling portability and flexibility - whether it's Windows 95 in your browser or your production app in AWS!</p>
+            </div>
+        </div>
+
+        <!-- Slide 18: Docker Hands-On Exercise -->
         <div class="slide">
             <h1>Hands-On: Docker Container Setup <span class="emoji">🐳</span></h1>
             <div class="activity-box">
@@ -371,7 +453,7 @@ Docker Client → Docker Host → Registries
             <button data-timer="20">Start 20-Minute Timer</button>
         </div>
 
-        <!-- Slide 15: Everything as a Service -->
+        <!-- Slide 19: Everything as a Service -->
         <div class="slide">
             <h1>Everything as a Service (XaaS)</h1>
             <div class="service-stack">
@@ -384,7 +466,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 15: IaaS Details -->
+        <!-- Slide 20: IaaS Details -->
         <div class="slide">
             <h1>Infrastructure as a Service (IaaS)</h1>
             <div class="activity-box">
@@ -400,7 +482,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 16: PaaS Details -->
+        <!-- Slide 21: PaaS Details -->
         <div class="slide">
             <h1>Platform as a Service (PaaS)</h1>
             <div class="activity-box">
@@ -416,7 +498,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 17: SaaS Details -->
+        <!-- Slide 22: SaaS Details -->
         <div class="slide">
             <h1>Software as a Service (SaaS)</h1>
             <div class="activity-box">
@@ -432,7 +514,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 18: Management Responsibilities -->
+        <!-- Slide 23: Management Responsibilities -->
         <div class="slide">
             <h1>Who Manages What?</h1>
             <table style="width: 100%; font-size: 1.1em;">
@@ -481,7 +563,7 @@ Docker Client → Docker Host → Registries
             </table>
         </div>
 
-        <!-- Slide 19: SaaS Benefits for Providers -->
+        <!-- Slide 24: SaaS Benefits for Providers -->
         <div class="slide">
             <h1>SaaS Benefits for Software Providers</h1>
             <div class="feature-grid">
@@ -504,7 +586,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 20: SaaS Customer Perspective -->
+        <!-- Slide 25: SaaS Customer Perspective -->
         <div class="slide">
             <h1>SaaS: Customer Advantages & Challenges</h1>
             <div class="comparison-table">
@@ -531,7 +613,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 21: Activity - Service Model Selection -->
+        <!-- Slide 26: Activity - Service Model Selection -->
         <div class="slide">
             <h1>Practice: Choose the Right Model <span class="emoji">🤔</span></h1>
             <div class="activity-box">
@@ -550,7 +632,7 @@ Docker Client → Docker Host → Registries
             <button data-timer="5">Start 5-Minute Timer</button>
         </div>
 
-        <!-- Slide 22: Database Architecture Decision -->
+        <!-- Slide 27: Database Architecture Decision -->
         <div class="slide">
             <h1>Key Architecture Decision: Database</h1>
             <div class="demo-box">
@@ -568,7 +650,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 23: Multi-tenant Databases -->
+        <!-- Slide 28: Multi-tenant Databases -->
         <div class="slide">
             <h1>Multi-tenant Database Systems</h1>
             <div class="feature-grid">
@@ -593,7 +675,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 24: Multi-instance Databases -->
+        <!-- Slide 29: Multi-instance Databases -->
         <div class="slide">
             <h1>Multi-instance Database Systems</h1>
             <div class="feature-grid">
@@ -618,7 +700,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 25: Database Decision Factors -->
+        <!-- Slide 30: Database Decision Factors -->
         <div class="slide">
             <h1>Choosing Database Architecture</h1>
             <div class="tip-box">
@@ -634,7 +716,7 @@ Docker Client → Docker Host → Registries
             </ul>
         </div>
 
-        <!-- Slide 26: Scalability Fundamentals -->
+        <!-- Slide 31: Scalability Fundamentals -->
         <div class="slide">
             <h1>Scalability in the Cloud <span class="emoji">📈</span></h1>
             <div class="demo-box">
@@ -662,7 +744,7 @@ Docker Client → Docker Host → Registries
             </div>
         </div>
 
-        <!-- Slide 27: Auto-scaling -->
+        <!-- Slide 32: Auto-scaling -->
         <div class="slide">
             <h1>Auto-scaling in Practice</h1>
             <div class="code-example">
@@ -682,7 +764,7 @@ Max Instances: 10
             </div>
         </div>
 
-        <!-- Slide 28: Resilience -->
+        <!-- Slide 33: Resilience -->
         <div class="slide">
             <h1>Building Resilient Systems <span class="emoji">🛡️</span></h1>
             <div class="demo-box">
@@ -698,7 +780,7 @@ Max Instances: 10
             </ul>
         </div>
 
-        <!-- Slide 29: Resilience Pattern -->
+        <!-- Slide 34: Resilience Pattern -->
         <div class="slide">
             <h1>Active-Standby Pattern</h1>
             <div class="code-example">
@@ -715,7 +797,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 30: Architectural Decisions -->
+        <!-- Slide 35: Architectural Decisions -->
         <div class="slide">
             <h1>Key Architectural Decisions</h1>
             <div class="feature-grid">
@@ -738,7 +820,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 31: Microservices Connection -->
+        <!-- Slide 36: Microservices Connection -->
         <div class="slide">
             <h1>Cloud & Microservices <span class="emoji">🔗</span></h1>
             <div class="tip-box">
@@ -754,7 +836,7 @@ Database 1 ← Mirroring → Database 2
             </ul>
         </div>
 
-        <!-- Slide 32: Platform Selection -->
+        <!-- Slide 37: Platform Selection -->
         <div class="slide">
             <h1>Choosing a Cloud Platform</h1>
             <div class="demo-box">
@@ -769,7 +851,7 @@ Database 1 ← Mirroring → Database 2
             </ul>
         </div>
 
-        <!-- Slide 33: Technical Considerations -->
+        <!-- Slide 38: Technical Considerations -->
         <div class="slide">
             <h1>Technical Platform Considerations</h1>
             <div class="activity-box">
@@ -785,7 +867,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 34: Business Considerations -->
+        <!-- Slide 39: Business Considerations -->
         <div class="slide">
             <h1>Business Platform Considerations</h1>
             <div class="activity-box">
@@ -801,7 +883,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 35: Vendor Lock-in -->
+        <!-- Slide 40: Vendor Lock-in -->
         <div class="slide">
             <h1>Avoiding Vendor Lock-in <span class="emoji">🔓</span></h1>
             <div class="tip-box">
@@ -817,7 +899,7 @@ Database 1 ← Mirroring → Database 2
             </ul>
         </div>
 
-        <!-- Slide 36: Cost Optimization -->
+        <!-- Slide 41: Cost Optimization -->
         <div class="slide">
             <h1>Cloud Cost Optimization <span class="emoji">💰</span></h1>
             <div class="feature-grid">
@@ -840,7 +922,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 37: DevOps and Cloud -->
+        <!-- Slide 42: DevOps and Cloud -->
         <div class="slide">
             <h1>DevOps in the Cloud: Terraform Explained <span class="emoji">♾️</span></h1>
             <div class="demo-box" style="margin-bottom: 20px;">
@@ -868,7 +950,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 38: Real-world Case Study -->
+        <!-- Slide 43: Real-world Case Study -->
         <div class="slide">
             <h1>Case Study: Netflix Architecture</h1>
             <div class="activity-box">
@@ -884,7 +966,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 39: Group Discussion -->
+        <!-- Slide 44: Group Discussion -->
         <div class="slide">
             <h1>Group Discussion <span class="emoji">💬</span></h1>
             <div class="activity-box">
@@ -900,7 +982,7 @@ Database 1 ← Mirroring → Database 2
             <button data-timer="3">Start 3-Minute Timer</button>
         </div>
 
-        <!-- Slide 40: Security Considerations -->
+        <!-- Slide 45: Security Considerations -->
         <div class="slide">
             <h1>Cloud Security Best Practices <span class="emoji">🔒</span></h1>
             <ul style="font-size: 1.1em; line-height: 1.8;">
@@ -914,7 +996,7 @@ Database 1 ← Mirroring → Database 2
             </ul>
         </div>
 
-        <!-- Slide 41: Future of Cloud Computing -->
+        <!-- Slide 46: Future of Cloud Computing -->
         <div class="slide">
             <h1>Future Trends in Cloud <span class="emoji">🔮</span></h1>
             <div class="feature-grid">
@@ -937,7 +1019,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 42: Key Takeaways -->
+        <!-- Slide 47: Key Takeaways -->
         <div class="slide">
             <h1>Key Takeaways <span class="emoji">📝</span></h1>
             <div class="tip-box">
@@ -952,7 +1034,7 @@ Database 1 ← Mirroring → Database 2
             </ul>
         </div>
 
-        <!-- Slide 43: Vibe Coding Work Session -->
+        <!-- Slide 48: Vibe Coding Work Session -->
         <div class="slide">
             <h1>After This Lecture: Work Session! 💻</h1>
             <div class="activity-box">
@@ -975,7 +1057,7 @@ Database 1 ← Mirroring → Database 2
             </div>
         </div>
 
-        <!-- Slide 44: Summary -->
+        <!-- Slide 49: Summary -->
         <div class="slide">
             <h1>Today's Achievements <span class="emoji">🎓</span></h1>
             <h2>You Can Now:</h2>
@@ -998,7 +1080,7 @@ Database 1 ← Mirroring → Database 2
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">45</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">49</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
