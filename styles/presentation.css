@@ -423,6 +423,24 @@ input:checked + .theme-slider:before {
     }
 }
 
+/* Screen shake animation for timer alarm */
+@keyframes shake {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-10px, -5px) rotate(-2deg); }
+    20% { transform: translate(10px, 5px) rotate(2deg); }
+    30% { transform: translate(-10px, 5px) rotate(-2deg); }
+    40% { transform: translate(10px, -5px) rotate(2deg); }
+    50% { transform: translate(-10px, -5px) rotate(-2deg); }
+    60% { transform: translate(10px, 5px) rotate(2deg); }
+    70% { transform: translate(-10px, 5px) rotate(-2deg); }
+    80% { transform: translate(10px, -5px) rotate(2deg); }
+    90% { transform: translate(-10px, -5px) rotate(-2deg); }
+}
+
+.presentation-container.shake {
+    animation: shake 2s ease-in-out;
+}
+
 .home a{
     color:white;
     text-decoration: none;

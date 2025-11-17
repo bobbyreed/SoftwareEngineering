@@ -301,25 +301,48 @@ class PresentationController {
     }
 
     playTimerSound() {
-        // Create a simple beep sound
+        // Create a loud alarm ringing sound with multiple beeps
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
 
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
+            // Create 6 beeps for alarm effect
+            for (let i = 0; i < 6; i++) {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
 
-            oscillator.frequency.value = 800;
-            oscillator.type = 'sine';
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
 
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                // Alternate between two frequencies for ringing effect
+                oscillator.frequency.value = i % 2 === 0 ? 880 : 1046.5; // A5 and C6
+                oscillator.type = 'square'; // Square wave for more harsh/alarm sound
 
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.5);
+                const startTime = audioContext.currentTime + (i * 0.3);
+                const duration = 0.25;
+
+                // Louder volume
+                gainNode.gain.setValueAtTime(0.6, startTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+
+                oscillator.start(startTime);
+                oscillator.stop(startTime + duration);
+            }
+
+            // Trigger screen shake
+            this.shakeScreen();
         } catch (e) {
             console.log('Could not play timer sound:', e);
+        }
+    }
+
+    shakeScreen() {
+        const container = document.querySelector('.presentation-container');
+        if (container) {
+            container.classList.add('shake');
+            // Remove shake class after animation completes
+            setTimeout(() => {
+                container.classList.remove('shake');
+            }, 2000);
         }
     }
 
