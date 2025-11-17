@@ -217,10 +217,55 @@ body > * {
     border-radius: 30px;
     box-shadow: 0 4px 10px var(--shadow-color);
     display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column;
+    gap: 10px;
     border: 1px solid var(--border-color);
     transition: opacity 0.3s ease, transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.controls-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.timer-row {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(var(--blueprint-purple), 0.15);
+    border-radius: 20px;
+    border: 1px solid var(--blueprint-purple);
+}
+
+.timer-icon {
+    font-size: 1.2em;
+}
+
+.timer-text {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 80px;
+    font-family: 'Courier New', monospace;
+}
+
+.timer-stop-btn {
+    background: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid var(--error-border);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.timer-stop-btn:hover {
+    background: var(--error-border);
+    color: white;
 }
 
 .top-controls.controls-hidden {
@@ -790,6 +835,16 @@ code {
         right: 10px;
         padding: 8px 15px;
         font-size: 0.9em;
+    }
+
+    .timer-text {
+        font-size: 1.1em;
+        min-width: 70px;
+    }
+
+    .timer-stop-btn {
+        padding: 3px 10px;
+        font-size: 0.85em;
     }
 
     .control-tab,

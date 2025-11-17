@@ -51,17 +51,24 @@ class PresentationController {
         const controlsHTML = `
             <div class="top-controls">
                 <div class="control-tab">⚙️</div>
-                <div class="lecture-info">
-                    <span>${lectureTitle}</span>
-                    ${homeButton ? `<button class="home">${homeButton}</button>` : ''}
+                <div class="controls-row">
+                    <div class="lecture-info">
+                        <span>${lectureTitle}</span>
+                        ${homeButton ? `<button class="home">${homeButton}</button>` : ''}
+                    </div>
+                    <div class="theme-toggle">
+                        <span class="theme-toggle-label">Light</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="theme-checkbox" ${this.currentTheme === 'dark' ? 'checked' : ''}>
+                            <span class="theme-slider"></span>
+                        </label>
+                        <span class="theme-toggle-label">Dark</span>
+                    </div>
                 </div>
-                <div class="theme-toggle">
-                    <span class="theme-toggle-label">Light</span>
-                    <label class="theme-switch">
-                        <input type="checkbox" id="theme-checkbox" ${this.currentTheme === 'dark' ? 'checked' : ''}>
-                        <span class="theme-slider"></span>
-                    </label>
-                    <span class="theme-toggle-label">Dark</span>
+                <div class="timer-row" id="timer-row" style="display: none;">
+                    <span class="timer-icon">⏱️</span>
+                    <span id="timer-text" class="timer-text">Timer</span>
+                    <button class="timer-stop-btn" onclick="presentation.stopTimer()">Stop</button>
                 </div>
             </div>
         `;
@@ -253,12 +260,12 @@ class PresentationController {
     }
 
     startTimer(minutes) {
-        const timerDisplay = document.getElementById('timer-display');
+        const timerRow = document.getElementById('timer-row');
         const timerText = document.getElementById('timer-text');
 
-        if (!timerDisplay || !timerText) return;
+        if (!timerRow || !timerText) return;
 
-        timerDisplay.style.display = 'block';
+        timerRow.style.display = 'flex';
         let timeLeft = minutes * 60;
 
         // Clear existing timer if any
@@ -287,9 +294,9 @@ class PresentationController {
             this.timerInterval = null;
         }
 
-        const timerDisplay = document.getElementById('timer-display');
-        if (timerDisplay) {
-            timerDisplay.style.display = 'none';
+        const timerRow = document.getElementById('timer-row');
+        if (timerRow) {
+            timerRow.style.display = 'none';
         }
     }
 
