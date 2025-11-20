@@ -890,20 +890,61 @@
         const swipeIndicator = document.getElementById('swipeIndicator');
         const swipeStatusText = document.getElementById('swipeStatusText');
         let isProcessing = false;
+        let swipeQueue = []; // Queue for handling multiple rapid swipes
 
-        function updateSwipeStatus(status) {
+        function updateSwipeStatus(status, queueLength = 0) {
             swipeIndicator.className = 'swipe-status-indicator ' + status;
 
             switch(status) {
                 case 'ready':
-                    swipeStatusText.textContent = 'Ready for swipe';
+                    swipeStatusText.textContent = queueLength > 0 ?
+                        `Processing queue (${queueLength} remaining)` :
+                        'Ready for swipe';
                     break;
                 case 'processing':
-                    swipeStatusText.textContent = 'Processing...';
+                    swipeStatusText.textContent = queueLength > 0 ?
+                        `Processing... (${queueLength} in queue)` :
+                        'Processing...';
                     break;
                 case 'not-ready':
                     swipeStatusText.textContent = 'Click here to focus';
                     break;
+            }
+        }
+
+        // Process swipe queue sequentially
+        async function processSwipeQueue() {
+            // Don't start processing if already processing or queue is empty
+            if (isProcessing || swipeQueue.length === 0) {
+                return;
+            }
+
+            isProcessing = true;
+            const cardData = swipeQueue.shift(); // Get next swipe from queue
+            updateSwipeStatus('processing', swipeQueue.length);
+
+            try {
+                const studentData = parseCardData(cardData);
+                if (studentData) {
+                    await markPresent(studentData);
+                } else {
+                    showStatus('Could not read card data. Please try again.', false);
+                }
+            } catch (error) {
+                console.error('Error processing card swipe:', error);
+                showStatus('Error processing card swipe. Please try again.', false);
+            } finally {
+                isProcessing = false;
+
+                // Process next swipe in queue if any remain
+                if (swipeQueue.length > 0) {
+                    // Small delay to allow UI to update
+                    setTimeout(() => processSwipeQueue(), 50);
+                } else {
+                    // Queue is empty, return to ready state
+                    cardInput.focus();
+                    updateSwipeStatus('ready', 0);
+                }
             }
         }
 
@@ -956,34 +997,19 @@
             }, 100);
         });
 
-        cardInput.addEventListener('input', async (e) => {
+        // Queue-based card input handler - fixes rapid swipe blocking bug
+        cardInput.addEventListener('input', (e) => {
             const value = e.target.value;
 
-            if (value.includes('?')) {
-                isProcessing = true;
-                updateSwipeStatus('processing');
+            // Detect end of card swipe (card data ends with '^')
+            // Changed from '?' to '^' to match actual card format: ^LASTNAME/FIRSTNAME^
+            if (value.includes('^') && value.endsWith('^')) {
+                // Add swipe to queue
+                swipeQueue.push(value);
+                cardInput.value = ''; // Clear input immediately for next swipe
 
-                const studentData = parseCardData(value);
-                cardInput.value = '';
-
-                try {
-                    if (studentData) {
-                        await markPresent(studentData);
-                    } else {
-                        showStatus('Could not read card data. Please try again.', false);
-                    }
-                } catch (error) {
-                    console.error('Error processing card swipe:', error);
-                    showStatus('Error processing card swipe. Please try again.', false);
-                } finally {
-                    isProcessing = false;
-
-                    // Refocus and update status
-                    setTimeout(() => {
-                        cardInput.focus();
-                        updateSwipeStatus('ready');
-                    }, 100);
-                }
+                // Start processing queue
+                processSwipeQueue();
             }
         });
 
