@@ -545,7 +545,27 @@ GET /api/v2/users  → users-service-v2
             </div>
         </div>
 
-        <!-- Slide 30: Migration Strategies -->
+        <!-- Slide 30: Strangler Fig Pattern -->
+        <div class="slide">
+            <h1>The Strangler Fig Pattern</h1>
+            <div class="tip-box">
+                <strong>Origin:</strong> Named after strangler fig trees that gradually grow around and eventually replace their host tree
+            </div>
+            <div class="architecture-diagram" style="margin-top: 20px;">
+                <h2>How It Works:</h2>
+                <ol style="font-size: 1.1em; line-height: 1.8; margin-top: 15px;">
+                    <li><strong>Route Traffic:</strong> Use a facade (API Gateway) to intercept calls to the monolith</li>
+                    <li><strong>Extract Incrementally:</strong> Migrate one feature at a time to a new microservice</li>
+                    <li><strong>Redirect Gradually:</strong> Route new requests to the microservice, old ones still to monolith</li>
+                    <li><strong>Replace Completely:</strong> Once all functionality migrated, retire the monolith</li>
+                </ol>
+            </div>
+            <div class="demo-box" style="margin-top: 20px;">
+                <p><strong>Benefits:</strong> Low risk, continuous delivery, incremental investment, easy rollback</p>
+            </div>
+        </div>
+
+        <!-- Slide 31: Migration Strategies -->
         <div class="slide">
             <h1>Migrating from Monolith to Microservices</h1>
             <ol style="font-size: 1.2em; line-height: 2;">
@@ -783,7 +803,7 @@ GET /api/v2/users  → users-service-v2
         <div class="navigation">
             <button id="prevBtn">Previous</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">42</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">43</span>
             </span>
             <button id="nextBtn">Next</button>
         </div>
