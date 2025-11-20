@@ -655,13 +655,29 @@ GET /api/v2/users  → users-service-v2
             <h1>Observability in Microservices</h1>
             <div class="demo-box">
                 <h3>Three Pillars of Observability</h3>
-                <ol style="margin-top: 15px; font-size: 1.1em; line-height: 2;">
-                    <li><strong>Metrics:</strong> Prometheus, Grafana, DataDog</li>
-                    <li><strong>Logging:</strong> ELK Stack, Splunk, CloudWatch</li>
-                    <li><strong>Tracing:</strong> Jaeger, Zipkin, AWS X-Ray</li>
-                </ol>
+                <div style="margin-top: 15px; font-size: 1.05em; line-height: 1.7;">
+                    <p><strong>1. Metrics:</strong> Numerical measurements collected over time</p>
+                    <ul style="margin-left: 20px; font-size: 0.95em;">
+                        <li><strong>What:</strong> CPU usage, memory, request latency, error rates, throughput</li>
+                        <li><strong>Why:</strong> Identify performance bottlenecks, set alerts, track SLAs</li>
+                        <li><strong>Tools:</strong> Prometheus, Grafana, DataDog</li>
+                    </ul>
+
+                    <p style="margin-top: 15px;"><strong>2. Logging:</strong> Timestamped records of discrete events</p>
+                    <ul style="margin-left: 20px; font-size: 0.95em;">
+                        <li><strong>What:</strong> Error messages, authentication attempts, transaction details, service calls</li>
+                        <li><strong>Why:</strong> Debug issues, audit trails, security monitoring, understand user behavior</li>
+                        <li><strong>Tools:</strong> ELK Stack, Splunk, CloudWatch</li>
+                    </ul>
+
+                    <p style="margin-top: 15px;"><strong>3. Tracing:</strong> Track requests as they flow through services</p>
+                    <ul style="margin-left: 20px; font-size: 0.95em;">
+                        <li><strong>What:</strong> Request path, service dependencies, execution time per service</li>
+                        <li><strong>Why:</strong> Find slow services, visualize call chains, diagnose cascading failures</li>
+                        <li><strong>Tools:</strong> Jaeger, Zipkin, AWS X-Ray</li>
+                    </ul>
+                </div>
             </div>
-            <p style="margin-top: 20px;">Essential for debugging distributed systems!</p>
         </div>
 
         <!-- Slide 38: Best Practices -->
