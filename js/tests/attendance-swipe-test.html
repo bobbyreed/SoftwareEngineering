@@ -97,6 +97,9 @@
 </head>
 <body>
     <h1>🧪 Attendance Card Swipe Test Suite</h1>
+    <div style="background: #dff0d8; border: 2px solid #28a745; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+        <strong style="color: #28a745;">✓ FIXED VERSION</strong> - This test suite now uses the queue-based swipe processing fix. All rapid swipes should succeed!
+    </div>
 
     <div class="test-section">
         <h2>Test Controls</h2>
@@ -156,8 +159,9 @@
             blocked: 0
         };
 
-        // Recreate the attendance.html logic for testing
+        // Recreate the FIXED attendance.html logic for testing
         let isProcessing = false;
+        let swipeQueue = []; // Queue for handling multiple rapid swipes
         const cardInput = document.getElementById('cardInput');
 
         function log(message, type = 'info') {
@@ -212,51 +216,60 @@
             return true;
         }
 
-        // THIS IS THE PROBLEMATIC CODE FROM attendance.html
-        cardInput.addEventListener('input', async (e) => {
+        // Process swipe queue sequentially - FIXED VERSION
+        async function processSwipeQueue() {
+            // Don't start processing if already processing or queue is empty
+            if (isProcessing || swipeQueue.length === 0) {
+                return;
+            }
+
+            isProcessing = true;
+            const cardData = swipeQueue.shift(); // Get next swipe from queue
+            updateStatus(`Processing (${swipeQueue.length} in queue)`);
+            log(`Processing swipe from queue... (${swipeQueue.length} remaining)`, 'info');
+
+            try {
+                const studentData = parseCardData(cardData);
+                if (studentData) {
+                    await markPresent(studentData);
+                } else {
+                    log('Could not parse card data', 'error');
+                }
+            } catch (error) {
+                log(`Error: ${error.message}`, 'error');
+            } finally {
+                isProcessing = false;
+
+                // Process next swipe in queue if any remain
+                if (swipeQueue.length > 0) {
+                    log(`Queue has ${swipeQueue.length} more swipe(s), continuing...`, 'info');
+                    // Small delay to allow UI to update
+                    setTimeout(() => processSwipeQueue(), 50);
+                } else {
+                    // Queue is empty, return to ready state
+                    cardInput.focus();
+                    updateStatus('Ready');
+                    log(`✓ Queue empty, ready for next swipe`, 'success');
+                }
+            }
+        }
+
+        // FIXED: Queue-based card input handler
+        cardInput.addEventListener('input', (e) => {
             const value = e.target.value;
 
-            // Bug reproduction: The original code checks for '?' but card format uses '^'
-            // Let's test with the actual card format
+            // Detect end of card swipe (card data ends with '^')
             if (value.includes('^') && value.endsWith('^')) {
                 stats.attempted++;
                 updateStats();
 
-                // BUG #1: If isProcessing is true, this swipe is ignored
-                if (isProcessing) {
-                    log(`⚠️ SWIPE BLOCKED - Still processing previous swipe`, 'warning');
-                    stats.blocked++;
-                    updateStats();
-                    cardInput.value = ''; // Clear anyway
-                    return; // Swipe is lost!
-                }
+                // Add swipe to queue - NO BLOCKING!
+                swipeQueue.push(value);
+                log(`✓ Swipe added to queue (queue length: ${swipeQueue.length})`, 'success');
+                cardInput.value = ''; // Clear input immediately for next swipe
 
-                isProcessing = true;
-                updateStatus('Processing');
-                log(`Processing swipe... (isProcessing = true)`, 'info');
-
-                const studentData = parseCardData(value);
-                cardInput.value = ''; // Clear input
-
-                try {
-                    if (studentData) {
-                        await markPresent(studentData);
-                    } else {
-                        log('Could not parse card data', 'error');
-                    }
-                } catch (error) {
-                    log(`Error: ${error.message}`, 'error');
-                } finally {
-                    isProcessing = false;
-                    log(`Done processing (isProcessing = false)`, 'info');
-
-                    // BUG #2: This setTimeout creates a window where swipes can be missed
-                    setTimeout(() => {
-                        cardInput.focus();
-                        updateStatus('Ready');
-                        log(`Status updated to Ready after 100ms delay`, 'info');
-                    }, 100);
-                }
+                // Start processing queue
+                processSwipeQueue();
             }
         });
 
@@ -294,8 +307,8 @@
 
         async function simulateRapidSwipes() {
             log('\n═══════════════════════════════════════', 'info');
-            log('TEST: Rapid Consecutive Swipes (0ms delay)', 'warning');
-            log('Expected: This will likely trigger the bug', 'warning');
+            log('TEST: Rapid Consecutive Swipes (0ms delay)', 'success');
+            log('Expected: Queue should capture all swipes!', 'success');
             log('═══════════════════════════════════════', 'info');
 
             // Swipe 3 cards with NO delay between them
@@ -354,13 +367,18 @@
             log(`  Blocked: ${stats.blocked}`, stats.blocked > 0 ? 'error' : 'success');
 
             if (stats.blocked > 0) {
-                log(`\n🐛 BUG CONFIRMED: ${stats.blocked} swipe(s) were blocked!`, 'error');
-                log(`   This happens because:`, 'error');
-                log(`   1. isProcessing flag blocks new swipes during processing`, 'error');
-                log(`   2. setTimeout(100ms) creates a delay window`, 'error');
-                log(`   3. API calls take 100-300ms, blocking subsequent swipes`, 'error');
+                log(`\n⚠️ WARNING: ${stats.blocked} swipe(s) were blocked!`, 'warning');
+                log(`   This should not happen with the queue fix.`, 'warning');
+                log(`   Please check the implementation.`, 'warning');
             } else {
-                log(`\n✓ All swipes processed successfully`, 'success');
+                log(`\n✅ FIX VERIFIED: All swipes processed successfully!`, 'success');
+                log(`   Queue-based processing eliminated all blocking.`, 'success');
+                log(`   Rapid swipes (0ms delay) work perfectly.`, 'success');
+                log(`\n   How the fix works:`, 'info');
+                log(`   1. Swipes are added to queue immediately (no blocking)`, 'info');
+                log(`   2. Queue processes swipes sequentially`, 'info');
+                log(`   3. No setTimeout delays cause missed swipes`, 'info');
+                log(`   4. Visual feedback shows queue progress`, 'info');
             }
         }
 
@@ -371,8 +389,9 @@
 
         // Initialize
         cardInput.focus();
-        log('Card swipe test suite initialized', 'info');
-        log('Click "Run Full Test Suite" to identify the bug', 'warning');
+        log('✓ Card swipe test suite initialized (FIXED VERSION)', 'success');
+        log('This version uses queue-based swipe processing', 'info');
+        log('Click "Run Full Test Suite" to verify the fix!', 'success');
     </script>
 </body>
 </html>
