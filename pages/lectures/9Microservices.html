@@ -601,19 +601,39 @@ GET /api/v2/users  → users-service-v2
             <div class="comparison-grid">
                 <div class="pattern-card">
                     <h3>Service Mesh</h3>
-                    <p>Istio, Linkerd, Consul</p>
+                    <p style="margin-bottom: 10px;">Infrastructure layer for managing service-to-service communication</p>
+                    <ul style="font-size: 0.9em; line-height: 1.6;">
+                        <li><strong>Istio:</strong> Full-featured mesh with traffic management, security, observability</li>
+                        <li><strong>Linkerd:</strong> Lightweight, fast, simple to operate</li>
+                        <li><strong>Consul:</strong> Service discovery and configuration</li>
+                    </ul>
                 </div>
                 <div class="pattern-card">
                     <h3>API Gateway</h3>
-                    <p>Kong, Zuul, AWS API Gateway</p>
+                    <p style="margin-bottom: 10px;">Single entry point for client requests, handles routing and security</p>
+                    <ul style="font-size: 0.9em; line-height: 1.6;">
+                        <li><strong>Kong:</strong> Plugin-based gateway with auth, rate limiting, logging</li>
+                        <li><strong>Zuul:</strong> Netflix's gateway for dynamic routing and filtering</li>
+                        <li><strong>AWS API Gateway:</strong> Managed service with built-in scaling</li>
+                    </ul>
                 </div>
                 <div class="pattern-card">
                     <h3>Container Orchestration</h3>
-                    <p>Kubernetes, Docker Swarm, Nomad</p>
+                    <p style="margin-bottom: 10px;">Automates deployment, scaling, and management of containerized apps</p>
+                    <ul style="font-size: 0.9em; line-height: 1.6;">
+                        <li><strong>Kubernetes:</strong> Industry standard with auto-scaling, self-healing</li>
+                        <li><strong>Docker Swarm:</strong> Simpler alternative, native Docker integration</li>
+                        <li><strong>Nomad:</strong> HashiCorp's flexible, multi-cloud orchestrator</li>
+                    </ul>
                 </div>
                 <div class="pattern-card">
                     <h3>Message Brokers</h3>
-                    <p>Kafka, RabbitMQ, AWS SQS</p>
+                    <p style="margin-bottom: 10px;">Enable asynchronous communication between services</p>
+                    <ul style="font-size: 0.9em; line-height: 1.6;">
+                        <li><strong>Kafka:</strong> High-throughput streaming platform for real-time data</li>
+                        <li><strong>RabbitMQ:</strong> Reliable message queue with flexible routing</li>
+                        <li><strong>AWS SQS:</strong> Fully managed queue service with auto-scaling</li>
+                    </ul>
                 </div>
             </div>
         </div>
